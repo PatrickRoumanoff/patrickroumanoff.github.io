@@ -201,6 +201,7 @@ footer.site-footer { background: var(--ink); color: #C8D2E0; padding: 48px 0 30p
 .prose { max-width: 720px; }
 .prose h1 { font-size: 38px; margin: 0 0 16px; }
 .prose h2 { font-size: 22px; margin: 32px 0 10px; }
+.prose h3 { font-size: 17px; margin: 22px 0 8px; font-weight: 600; color: var(--ink); }
 .prose p { color: var(--ink-soft); margin: 0 0 16px; }
 .prose a:not(.btn) { color: var(--blue); font-weight: 600; }
 .prose a:not(.btn):hover { color: var(--blue-deep); }

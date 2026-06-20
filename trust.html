@@ -1,0 +1,55 @@
+---
+layout: default
+title: "Trust Center"
+description: "How CloudScript.io apps handle data, the security model they run on, and where to find our legal documents and report a concern."
+---
+
+<div class="hero">
+  <div class="wrap hero-inner">
+    <span class="eyebrow">Transparency</span>
+    <h1>Trust Center</h1>
+    <p class="lede">CloudScript.io builds small, focused apps for Confluence Cloud.</p>
+  </div>
+</div>
+
+<div class="page wrap">
+  <div class="prose">
+    <p>This page explains, in plain terms, how those apps handle data, the security model they run on, and where to find our legal documents and report a concern.</p>
+
+    <h2>Our approach</h2>
+    <p>CloudScript.io is an independent vendor (Patrick Roumanoff trading as Cloudscript.io). We build narrow, single-purpose apps and follow a principle of least data: an app should request the smallest set of permissions it needs and, wherever possible, store nothing at all. We do not run analytics or third-party trackers on this website, and we self-host our fonts, so visiting cloudscript.io does not share your details with any third party.</p>
+
+    <h2>How our apps run</h2>
+    <p>Our flagship app, CloudScript.io Mermaid, runs on Atlassian Forge, which means it executes inside Atlassian's own hosted, sandboxed environment rather than on servers we operate. The Forge platform blocks any network request an app has not explicitly declared, and any data an app does store is held within Atlassian's infrastructure under its data-residency controls. Our two earlier apps, NikoNiko Calendar and CloudScript for Confluence, are built on Atlassian Connect, the previous-generation framework.</p>
+
+    <h2>What each app does with data</h2>
+
+    <h3>CloudScript.io Mermaid (Forge)</h3>
+    <p>Mermaid requests a single, read-only permission (read:page) so it can read the diagram source you place in a page. It declares no outbound network access and no storage, which means it is technically incapable of sending your content anywhere or retaining it. Diagrams are rendered in your browser, within Atlassian's environment, and the content is processed only transiently to draw the diagram. Because nothing is stored and nothing is sent, your content never leaves Atlassian's environment. This matches the app's Atlassian Marketplace declaration of "stores personal data: No".</p>
+
+    <h3>NikoNiko Calendar (Connect)</h3>
+    <p>NikoNiko records a single mood value (a number from 0 to 5) associated with a Confluence account identifier, so it can display the team-mood calendar. It does not collect message content, names or contact details. Because NikoNiko is an Atlassian Connect app, this data is held on the app's hosted backend (the Heroku cloud platform) rather than inside Atlassian's environment.</p>
+
+    <h3>CloudScript for Confluence (Connect)</h3>
+    <p>CloudScript for Confluence runs JavaScript written by a Confluence administrator against the Confluence REST API using a system user. It is a deliberately powerful administrative tool: the scripts an administrator writes can act with broad permissions across the instance, so it should be installed and operated only by administrators who understand that. Like NikoNiko, it is an Atlassian Connect app, so those scripts run on the app's hosted backend; CloudScript.io does not use the data they process for any purpose of its own.</p>
+
+    <h2>Legal documents</h2>
+    <p>The terms of service and privacy policy for CloudScript.io Mermaid are published on this site:</p>
+    <ul>
+      <li>Mermaid terms of service: <a href="/apps/mermaid/terms">/apps/mermaid/terms</a></li>
+      <li>Mermaid privacy policy: <a href="/apps/mermaid/privacy">/apps/mermaid/privacy</a></li>
+    </ul>
+    <p>The legal documents for our Connect apps are linked from their Atlassian Marketplace listings.</p>
+
+    <h2>Reporting a security issue</h2>
+    <p>If you believe you have found a security vulnerability in any CloudScript.io app, please email <a href="mailto:support@cloudscript.io">support@cloudscript.io</a> with the details and the steps to reproduce it. We ask that you give us a reasonable opportunity to investigate and address the issue before disclosing it publicly. We will acknowledge your report and keep you informed as we work through it. We are a small vendor and do not operate a paid bug-bounty program, but we take security reports seriously and are grateful for responsible disclosure.</p>
+
+    <h2>Sub-processors</h2>
+    <p>CloudScript.io Mermaid runs on Atlassian Forge and uses no other third-party service to process your data. Our two Atlassian Connect apps run on a hosted backend operated for CloudScript.io; NikoNiko Calendar stores its mood data on the Heroku cloud platform. Where our use of sub-processors changes for any future app, we will record it here.</p>
+
+    <h2>Contact</h2>
+    <p>Questions about privacy, security or compliance: <a href="mailto:support@cloudscript.io">support@cloudscript.io</a></p>
+
+    <p class="back-link"><a href="/">&larr; Back to home</a></p>
+  </div>
+</div>
