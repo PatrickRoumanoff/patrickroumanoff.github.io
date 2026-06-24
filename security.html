@@ -1,0 +1,53 @@
+---
+layout: default
+title: "Security Policy"
+description: "How CloudScript.io secures its Atlassian Forge apps, manages vulnerabilities, and responds to security incidents."
+---
+
+<div class="hero">
+  <div class="wrap hero-inner">
+    <span class="eyebrow">Security</span>
+    <h1>Security Policy</h1>
+    <p class="lede">How we secure our apps, manage vulnerabilities, and respond to security issues.</p>
+  </div>
+</div>
+
+<div class="page wrap">
+  <div class="prose">
+
+    <p class="meta">
+      <strong>Effective date:</strong> 24 June 2026<br>
+      <strong>Applies to:</strong> the Atlassian Marketplace apps published by Patrick Roumanoff trading as Cloudscript.io (ABN 72 287 293 373) ("CloudScript.io", "we", "us") that are built on the Atlassian Forge platform.
+    </p>
+
+    <p>This Security Policy describes how CloudScript.io secures its apps for Confluence Cloud, how it manages vulnerabilities, and how it handles security issues and incidents. It is written to be honest about the size and shape of our operation: CloudScript.io is an independent, single-operator vendor that builds narrow, single-purpose apps, and our security posture rests far more on a deliberately minimal design and on the controls of the Atlassian Forge platform than on a large security organisation.</p>
+
+    <h2>Scope</h2>
+    <p>This policy applies to all CloudScript.io apps built on Atlassian Forge, which currently means CloudScript.io Mermaid and any future Forge apps we publish. Our two earlier apps, NikoNiko Calendar and CloudScript for Confluence, are built on the previous-generation Atlassian Connect framework and are being retired; their data handling is described on their respective Atlassian Marketplace listings and summarised in our <a href="/trust">Trust Center</a>, and they are outside the scope of this policy.</p>
+
+    <h2>Our security model</h2>
+    <p>Our apps run on Atlassian Forge, which means they execute inside Atlassian's own hosted, sandboxed environment rather than on any server we operate. Because we run no servers of our own in the path of your data, a large class of security risks (server compromise, misconfigured infrastructure, exposed databases, and the like) does not apply to our Forge apps: the runtime isolation, network egress controls, and platform logging are provided and enforced by Atlassian. The Forge platform blocks any outbound network request an app has not declared in advance, and any data an app stores is held within Atlassian's infrastructure under Atlassian's data-residency and security controls.</p>
+    <p>We pair that platform with a principle of least privilege in how each app is built: an app should request the smallest set of permissions it needs, and wherever possible store nothing at all. CloudScript.io Mermaid, for example, requests a single read-only permission (<code>read:page:confluence</code>) so it can read the diagram source on the page it is placed on; it declares no outbound network access and no storage, so it is technically incapable of transmitting your content anywhere or retaining it, and diagrams are rendered in your browser within the Forge sandbox. Each app we publish is designed to the same standard, and the specific permissions and data behaviour of each app are documented in that app's privacy policy.</p>
+
+    <h2>Data protection</h2>
+    <p>For our Forge apps, customer content stays inside your own Atlassian Cloud environment. We do not copy your content to CloudScript.io systems, we do not transmit it to any third party, and we operate no database or backend of our own that holds it. Storage and protection of the Confluence pages your content lives in are governed by your agreement with Atlassian and by Atlassian's own security, encryption, and data-residency commitments. This website itself runs no analytics and no third-party trackers, and we self-host our fonts, so visiting cloudscript.io does not share your details with any third party. Where a future app needs to store or transmit data differently, we will document that in the app's privacy policy and update this page before that app is released.</p>
+
+    <h2>Access control</h2>
+    <p>The accounts used to develop and publish our apps — the Atlassian developer and Marketplace account, and the source-code repository on GitHub — are protected by multi-factor authentication. Access to those accounts is limited to the two people who operate CloudScript.io, which keeps the number of people who can change or publish app code to a practical minimum. We do not hold administrative access to your Confluence site; our Forge apps act only within the limited permissions you grant at installation.</p>
+
+    <h2>Vulnerability management</h2>
+    <p>We welcome reports of suspected security vulnerabilities in any CloudScript.io app. If you believe you have found one, please email <a href="mailto:support@cloudscript.io">support@cloudscript.io</a> with a description of the issue and the steps to reproduce it. We will acknowledge your report and keep you informed as we investigate. We do not operate a paid bug-bounty program, but we take every report seriously and are grateful for responsible disclosure; we ask that you give us a reasonable opportunity to investigate and remediate an issue before disclosing it publicly.</p>
+    <p>When a report or our own monitoring identifies a potential vulnerability, we triage it by confirming the issue and assessing its severity and the data and customers it could affect, we prioritise remediation according to that severity, and we publish a corrected version of the app through the Atlassian Marketplace. Because our apps are distributed and updated through Atlassian's platform, fixes reach installations through Atlassian's app-update mechanism. As part of keeping the apps sound, the third-party libraries our apps depend on — including the Mermaid rendering library — are refreshed when we update an app, rather than being left frozen at the version first shipped.</p>
+
+    <h2>Security incidents</h2>
+    <p>If we become aware of a security incident affecting one of our apps, we investigate promptly to understand and contain it, remediate the underlying cause, and publish any fix required through the Atlassian Marketplace. As a single-operator vendor we do not commit to a fixed response-time service level, but we treat security incidents as a priority and act on them as quickly as we reasonably can. If a confirmed incident affects customer data, we will notify the affected customers without undue delay and provide the information they need to understand what happened and what, if anything, they should do.</p>
+
+    <h2>Reporting a concern</h2>
+    <p>Security questions, vulnerability reports, and other concerns can be sent to <a href="mailto:support@cloudscript.io">support@cloudscript.io</a>. For a broader overview of how our apps handle data, see our <a href="/trust">Trust Center</a>; for the data handling of a specific app, see that app's privacy policy.</p>
+
+    <h2>Changes to this policy</h2>
+    <p>We will update this Security Policy as our apps and practices change — for example, when we publish a new Forge app, or if a future app introduces data storage or external network access that the current apps do not have. When we make a material change, we will update the effective date above.</p>
+
+    <p class="back-link"><a href="/">&larr; Back to home</a></p>
+  </div>
+</div>
