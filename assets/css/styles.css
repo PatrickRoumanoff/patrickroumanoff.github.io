@@ -238,6 +238,12 @@ footer.site-footer { background: var(--ink); color: #C8D2E0; padding: 48px 0 30p
   font-family: ui-monospace, SFMono-Regular, "SF Mono", Menlo, Consolas, monospace;
   background: none; border: 0; padding: 0; font-size: 1em; color: var(--ink);
 }
+/* Trust Center app-directory table (scoped) */
+.prose .table-wrap { overflow-x: auto; margin: 0 0 16px; }
+.prose table { width: 100%; border-collapse: collapse; font-size: 15px; min-width: 520px; }
+.prose th, .prose td { text-align: left; vertical-align: top; padding: 10px 12px; border-bottom: 1px solid var(--line); }
+.prose th { color: var(--ink); font-weight: 600; background: var(--cloud-2); }
+.prose td { color: var(--ink-soft); }
 .back-link { display: inline-block; margin-top: 40px; }
 
 /* ---- Responsive --------------------------------------------------------- */

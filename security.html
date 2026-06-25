@@ -16,7 +16,7 @@ description: "How CloudScript.io secures its Atlassian Forge apps, manages vulne
   <div class="prose">
 
     <p class="meta">
-      <strong>Effective date:</strong> 24 June 2026<br>
+      <strong>Effective date:</strong> 25 June 2026<br>
       <strong>Applies to:</strong> the Atlassian Marketplace apps published by Patrick Roumanoff trading as Cloudscript.io (ABN 72 287 293 373) ("CloudScript.io", "we", "us") that are built on the Atlassian Forge platform.
     </p>
 
@@ -30,7 +30,9 @@ description: "How CloudScript.io secures its Atlassian Forge apps, manages vulne
     <p>We pair that platform with a principle of least privilege in how each app is built: an app should request the smallest set of permissions it needs, and wherever possible store nothing at all. CloudScript.io Mermaid, for example, requests a single read-only permission (<code>read:page:confluence</code>) so it can read the diagram source on the page it is placed on; it declares no outbound network access and no storage, so it is technically incapable of transmitting your content anywhere or retaining it, and diagrams are rendered in your browser within the Forge sandbox. Each app we publish is designed to the same standard, and the specific permissions and data behaviour of each app are documented in that app's privacy policy.</p>
 
     <h2>Data protection</h2>
-    <p>For our Forge apps, customer content stays inside your own Atlassian Cloud environment. We do not copy your content to CloudScript.io systems, we do not transmit it to any third party, and we operate no database or backend of our own that holds it. Storage and protection of the Confluence pages your content lives in are governed by your agreement with Atlassian and by Atlassian's own security, encryption, and data-residency commitments. This website itself runs no analytics and no third-party trackers, and we self-host our fonts, so visiting cloudscript.io does not share your details with any third party. Where a future app needs to store or transmit data differently, we will document that in the app's privacy policy and update this page before that app is released.</p>
+    <p>One guarantee holds across all of our Forge apps: we operate no database or backend of our own, and we copy none of your content to CloudScript.io systems. Everything an app does happens within Atlassian's platform.</p>
+    <p>Beyond that, our apps differ by design. Some store nothing and transmit nothing at all &mdash; CloudScript.io Mermaid is an example: it holds no data and makes no outbound network request, so your content is read only transiently to draw a diagram in your browser. Other apps may store data, or move content between Atlassian sites, when you instruct them to. In every case that data stays within Atlassian's infrastructure, under Atlassian's own security, encryption, and data-residency controls, and never reaches a system operated by CloudScript.io. The specific data behaviour of each app &mdash; what, if anything, it stores, and whether it moves content &mdash; is described in that app's own privacy policy.</p>
+    <p>This website itself runs no analytics and no third-party trackers, and we self-host our fonts, so visiting cloudscript.io does not share your details with any third party.</p>
 
     <h2>Access control</h2>
     <p>The accounts used to develop and publish our apps — the Atlassian developer and Marketplace account, and the source-code repository on GitHub — are protected by multi-factor authentication. Access to those accounts is limited to the two people who operate CloudScript.io, which keeps the number of people who can change or publish app code to a practical minimum. We do not hold administrative access to your Confluence site; our Forge apps act only within the limited permissions you grant at installation.</p>
