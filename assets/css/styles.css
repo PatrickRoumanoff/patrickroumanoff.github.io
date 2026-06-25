@@ -146,7 +146,7 @@ section { padding: 64px 0; }
   box-shadow: 0 6px 24px -16px rgba(19, 36, 59, .4);
   transform: translateY(-2px);
 }
-.card.feature { grid-column: 1 / -1; background: linear-gradient(120deg, #fff 60%, var(--cloud) 100%); }
+.card.feature { background: linear-gradient(120deg, #fff 60%, var(--cloud) 100%); }
 .card-icon { width: 48px; height: 48px; margin-bottom: 16px; border-radius: 12px; }
 .card h3 { font-size: 19px; margin: 0 0 8px; font-weight: 600; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
 .card .tag {
@@ -163,6 +163,13 @@ section { padding: 64px 0; }
 .card-foot { display: flex; align-items: center; gap: 18px; flex-wrap: wrap; }
 .card a.link.link-secondary { color: var(--slate); }
 .card a.link.link-secondary:hover { color: var(--blue); }
+.card.coming-soon { position: relative; }
+.badge-soon {
+  position: absolute; top: 16px; right: 16px;
+  font-size: 12px; font-weight: 600; color: var(--ink);
+  background: var(--cloud-2); border: 1px solid var(--chip-border);
+  border-radius: 999px; padding: 3px 10px;
+}
 
 /* ---- Trust strip -------------------------------------------------------- */
 .trust { background: var(--cloud); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
@@ -189,6 +196,9 @@ footer.site-footer { background: var(--ink); color: #C8D2E0; padding: 48px 0 30p
   border-top: 1px solid #26384F; padding-top: 18px; font-size: 13px; color: #7C8AA0;
   display: flex; justify-content: space-between; flex-wrap: wrap; gap: 10px;
 }
+.foot-social { display: inline-flex; line-height: 0; color: var(--sky); }
+.foot-social:hover { color: #fff; }
+.foot-social svg { width: 20px; height: 20px; }
 
 /* ---- Simple content pages (placeholder shells, legal, guides) ----------- */
 .page { padding: 56px 0 72px; }
