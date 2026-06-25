@@ -170,6 +170,8 @@ section { padding: 64px 0; }
   background: var(--cloud-2); border: 1px solid var(--chip-border);
   border-radius: 999px; padding: 3px 10px;
 }
+/* Breathing room above the heading and below the grid (matches the grid row gap) */
+#apps { padding-top: 18px; padding-bottom: 18px; }
 
 /* ---- Trust strip -------------------------------------------------------- */
 .trust { background: var(--cloud); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
