@@ -5,7 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{% if page.title and page.title != "" %}{{ page.title }} — CloudScript.io{% else %}{{ site.title }}{% endif %}</title>
   {% if page.description %}<meta name="description" content="{{ page.description }}">{% else %}<meta name="description" content="{{ site.description }}">{% endif %}
+  <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" type="image/svg+xml" href="/assets/img/favicon.svg">
+  <link rel="icon" type="image/png" sizes="48x48" href="/assets/img/favicon-48.png">
+  <link rel="apple-touch-icon" href="/assets/img/apple-touch-icon.png">
   <link rel="stylesheet" href="/assets/css/styles.css">
 </head>
 <body>
@@ -17,10 +20,17 @@
     <a class="brand" href="/" aria-label="CloudScript.io home">
       <!-- Inlined so the two-tone wordmark renders with the self-hosted Inter font -->
       <svg viewBox="0 0 300 72" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
-        <g transform="translate(6,8)">
-          <rect x="12" y="28" width="40" height="14" rx="7" fill="#2E6FE0"/>
-          <circle cx="26" cy="24" r="12" fill="#2E6FE0"/>
-          <circle cx="43" cy="29" r="9" fill="#2E6FE0"/>
+        <defs>
+          <linearGradient id="hdrCloud" x1="14" y1="14" x2="54" y2="42" gradientUnits="userSpaceOnUse">
+            <stop offset="0" stop-color="#5AA0F0"/>
+            <stop offset="0.55" stop-color="#2E6FE0"/>
+            <stop offset="1" stop-color="#1B4FB0"/>
+          </linearGradient>
+        </defs>
+        <g transform="translate(6,8)" fill="url(#hdrCloud)">
+          <rect x="12" y="28" width="40" height="14" rx="7"/>
+          <circle cx="26" cy="24" r="12"/>
+          <circle cx="43" cy="29" r="9"/>
         </g>
         <text x="80" y="46" font-family="Inter, Segoe UI, Helvetica, Arial, sans-serif" font-weight="700" font-size="30" letter-spacing="-0.5">
           <tspan fill="#13243B">cloud</tspan><tspan fill="#2E6FE0">script</tspan><tspan fill="#5C6B7E" font-size="18" dx="1">.io</tspan>
@@ -55,10 +65,17 @@
     <div class="foot-top">
       <div class="foot-brand">
         <svg viewBox="0 0 300 72" xmlns="http://www.w3.org/2000/svg" aria-label="cloudscript.io">
-          <g transform="translate(6,8)">
-            <rect x="12" y="28" width="40" height="14" rx="7" fill="#5AA0F0"/>
-            <circle cx="26" cy="24" r="12" fill="#5AA0F0"/>
-            <circle cx="43" cy="29" r="9" fill="#5AA0F0"/>
+          <defs>
+            <linearGradient id="ftrCloud" x1="14" y1="14" x2="54" y2="42" gradientUnits="userSpaceOnUse">
+              <stop offset="0" stop-color="#8FC0F7"/>
+              <stop offset="0.55" stop-color="#5AA0F0"/>
+              <stop offset="1" stop-color="#2E6FE0"/>
+            </linearGradient>
+          </defs>
+          <g transform="translate(6,8)" fill="url(#ftrCloud)">
+            <rect x="12" y="28" width="40" height="14" rx="7"/>
+            <circle cx="26" cy="24" r="12"/>
+            <circle cx="43" cy="29" r="9"/>
           </g>
           <text x="80" y="46" font-family="Inter, Segoe UI, Helvetica, Arial, sans-serif" font-weight="700" font-size="30" letter-spacing="-0.5">
             <tspan fill="#FFFFFF">cloud</tspan><tspan fill="#5AA0F0">script</tspan><tspan fill="#93A1B5" font-size="18" dx="1">.io</tspan>

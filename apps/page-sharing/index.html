@@ -147,7 +147,10 @@ description: "Share a Confluence page across instances or spaces, read-only. Sub
         border: 1px solid var(--border);
         border-radius: var(--radius);
         background: var(--tint-grey);
+        cursor: zoom-in;
+        transition: box-shadow 0.15s;
       }
+      figure.shot img:hover { box-shadow: 0 4px 18px rgba(19, 36, 59, 0.16); }
       /* graceful placeholder before screenshots are captured (see RUNBOOK.md) */
       figure.shot img:not([src]),
       figure.shot img[src=""] { min-height: 180px; }
@@ -156,6 +159,28 @@ description: "Share a Confluence page across instances or spaces, read-only. Sub
         color: var(--ink-soft);
         margin-top: 0.4rem;
         text-align: center;
+      }
+
+      /* ---- Click-to-zoom lightbox (full-resolution view of a screenshot) ---- */
+      dialog.lightbox {
+        border: 0;
+        padding: 0;
+        background: transparent;
+        max-width: 96vw;
+        max-height: 96vh;
+        overflow: visible;
+      }
+      dialog.lightbox::backdrop { background: rgba(19, 36, 59, 0.86); }
+      dialog.lightbox img {
+        display: block;
+        max-width: 96vw;
+        max-height: 96vh;
+        width: auto;
+        height: auto;
+        border-radius: 8px;
+        background: #fff;
+        box-shadow: 0 12px 48px rgba(0, 0, 0, 0.45);
+        cursor: zoom-out;
       }
 
       /* ---- Glossary aside ---- */
@@ -175,15 +200,19 @@ description: "Share a Confluence page across instances or spaces, read-only. Sub
         border-bottom: 1px solid var(--border);
         padding: 1rem 0;
       }
+      .faq details:first-child { padding-top: 0; }
+      .faq details:last-child { border-bottom: none; padding-bottom: 0; }
+      /* The tag + toggle are absolutely positioned into a fixed right-hand column
+         so the LIMITATION tags line up across every row regardless of question length;
+         padding-right reserves the space so the question text never runs under them. */
       .faq details summary {
         cursor: pointer;
         font-weight: 600;
         color: var(--ink);
         font-size: 1.05rem;
         list-style: none;
-        display: flex;
-        justify-content: space-between;
-        gap: 1rem;
+        position: relative;
+        padding-right: 7.5rem;
       }
       .faq details summary::-webkit-details-marker { display: none; }
       .faq details summary::after {
@@ -191,11 +220,19 @@ description: "Share a Confluence page across instances or spaces, read-only. Sub
         color: var(--brand);
         font-weight: 700;
         font-size: 1.2rem;
+        line-height: 1;
+        position: absolute;
+        right: 0;
+        top: 50%;
+        transform: translateY(-50%);
       }
       .faq details[open] summary::after { content: "–"; }
       .faq details .answer { margin-top: 0.75rem; color: var(--ink-muted); }
       .faq .limit {
-        display: inline-block;
+        position: absolute;
+        right: 1.6rem;
+        top: 50%;
+        transform: translateY(-50%);
         font-size: 0.72rem;
         font-weight: 600;
         text-transform: uppercase;
@@ -203,9 +240,7 @@ description: "Share a Confluence page across instances or spaces, read-only. Sub
         color: var(--brand-dark);
         background: var(--tint-blue);
         border-radius: 6px;
-        padding: 1px 8px;
-        margin-left: 0.5rem;
-        vertical-align: middle;
+        padding: 2px 8px;
       }
 
       @media (max-width: 800px) {
@@ -498,5 +533,25 @@ description: "Share a Confluence page across instances or spaces, read-only. Sub
         </div>
       </div>
     </section>
+
+    <!-- Click any screenshot to view it full-resolution -->
+    <dialog class="lightbox" aria-label="Zoomed screenshot">
+      <img alt="" />
+    </dialog>
+    <script>
+      (function () {
+        var dlg = document.querySelector('.ps-docs dialog.lightbox');
+        if (!dlg || typeof dlg.showModal !== 'function') return; // no-JS / old browser: images stay inline
+        var big = dlg.querySelector('img');
+        document.querySelectorAll('.ps-docs figure.shot img').forEach(function (img) {
+          img.addEventListener('click', function () {
+            big.src = img.currentSrc || img.src;
+            big.alt = img.alt || '';
+            dlg.showModal();
+          });
+        });
+        dlg.addEventListener('click', function () { dlg.close(); }); // click anywhere (incl. image) to close
+      })();
+    </script>
 </div>
 

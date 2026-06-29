@@ -56,6 +56,15 @@ Pages.) Avoid removing the real consumer from Allowed — that can disrupt the l
 items and lozenges read e.g. "Share Page Externally **(Staging)**" / "Read-only replica **(Staging)**".
 Recapture from a production install for unsuffixed labels.
 
+**Menu-title spacing fix (2026-06-29):** the manifest content-action titles gained a non-breaking space
+after the emoji (`⬆️ Share Page Externally` / `⬇️ Subscribe to External Page`) to fix the emoji rendering
+too tight against the text in the ••• menu. **`publisher-menu.png` + `subscriber-menu.png` were
+image-patched** to add that gap as an interim (the menu text was shifted ~7px right of the emoji with
+Pillow, since the Playwright browsers were down and the manifest fix wasn't deployed yet). The real fix is
+the manifest nbsp — once it's **deployed** (`forge deploy -e staging` from the `page-sharing/` repo),
+**reshoot both menu shots cleanly** (the patch is then unnecessary; confirm the live menu actually shows
+the gap — if a single nbsp isn't enough, widen it).
+
 ## Captures
 
 Save every screenshot into `cloudscript.io/apps/page-sharing/` (colocated with `index.html`).
@@ -65,7 +74,7 @@ Save every screenshot into `cloudscript.io/apps/page-sharing/` (colocated with `
 | File | Surface | How to reach it |
 |---|---|---|
 | `publisher-menu.png` | The `•••` action menu | Open a shareable page → page header **More actions (•••)** → **Apps** submenu → snapshot full page so the portal menu is visible → screenshot the menu showing **⬆️ Share Page Externally**. |
-| `publisher-share.png` | Share dialog with the minted link | Click **⬆️ Share Page Externally** → in the Forge modal click **Approve & generate link** → wait for the link/textarea → screenshot the dialog. |
+| `publisher-share.png` | Share dialog with the minted link | Click **⬆️ Share Page Externally** → in the Forge modal click **Approve & generate link** → wait for the link/textarea → screenshot the dialog. **REDACT THE SECRET:** the textarea shows the real `https://cloudscript.io/share#PS1.<token>` link — it must NOT be published in the clear. Preferred: before the screenshot, blank/replace the textarea value (and the labelled link's `href`) with a placeholder in the DOM. Fallback: after capture, blur the textarea region — `python3 -c "from PIL import Image,ImageFilter as F; p='…/publisher-share.png'; im=Image.open(p).convert('RGB'); b=(32,312,568,372); im.paste(im.crop(b).filter(F.GaussianBlur(12)),b); im.save(p)"` (coords assume the 600×392 capture). |
 
 ### Admin — `playwright-admin` (producer)
 
