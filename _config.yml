@@ -13,6 +13,7 @@ exclude:
   - README.md
   - design-reference/
   - content-drafts/
+  - apps/page-sharing/RUNBOOK.md   # screenshot-regeneration guide (internal)
   - Gemfile
   - Gemfile.lock
   - .claude/
