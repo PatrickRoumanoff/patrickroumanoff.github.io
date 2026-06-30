@@ -319,8 +319,10 @@ description: "Share a Confluence page across instances or spaces, read-only. Sub
               <li>That's it. Every time you edit and publish the page, the change is pushed to every approved subscriber automatically.</li>
             </ol>
             <p class="note">
-              Sharing with a site that isn't approved yet? Their subscribe request lands as <strong>pending</strong> —
-              your <a href="#admin">admin</a> approves it before any content is pushed.
+              <strong>Who can share:</strong> you need to be an <strong>administrator of the page's space</strong>, and a
+              Confluence (org) admin must have <a href="#admin">enabled that space</a> for external sharing. Sharing with a
+              site that isn't approved yet? Their subscribe request lands as <strong>pending</strong> — your
+              <a href="#admin">org admin</a> approves it before any content is pushed.
             </p>
           </div>
           <div class="shots">
@@ -385,23 +387,56 @@ description: "Share a Confluence page across instances or spaces, read-only. Sub
       </div>
     </section>
 
-    <!-- ===================== ADMIN ===================== -->
+    <!-- ===================== SPACE ADMIN ===================== -->
+    <section id="space-admin">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">For the Space Admin</p>
+          <h2>Govern sharing for your own space.</h2>
+          <p>You administer a Confluence space. Once an org admin has enabled it for external sharing, you decide which of its pages go out — and you can see exactly what's shared and to whom, without needing site-admin access.</p>
+        </div>
+        <div class="role">
+          <div class="copy">
+            <h3>Your space's sharing</h3>
+            <p class="role-where">Space <strong>Settings → Page Sharing</strong> (visible to administrators of that space).</p>
+            <ol class="steps">
+              <li>A banner shows whether the space is <strong>enabled for external sharing</strong>. If it isn't, ask a Confluence (org) admin to enable it on the <a href="#admin">Spaces</a> switchboard.</li>
+              <li><strong>Shared from here</strong> — every page shared out of this space, with its live subscribers. <strong>Stop sharing</strong> a page, or <strong>Disable</strong> a single subscriber.</li>
+              <li><strong>Links</strong> — the subscription links minted for this space's pages, with their use counts and a <strong>Revoke</strong> action.</li>
+            </ol>
+            <p class="note">
+              The space panel deliberately <strong>omits</strong> instance trust (the allow-list and pending approvals) —
+              those are organisation-wide and stay with your <a href="#admin">org admin</a>. You only ever see your own space.
+            </p>
+          </div>
+          <div class="shots">
+            <figure class="shot">
+              <img src="space-panel.png" alt="The space settings Page Sharing panel: an enablement banner above the space's shared pages and their subscribers" />
+              <figcaption>Space settings → Page Sharing — your space's shares.</figcaption>
+            </figure>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== ORG ADMIN ===================== -->
     <section id="admin">
       <div class="wrap">
         <div class="section-head">
-          <p class="eyebrow">For the Admin</p>
-          <h2>Control which sites you share with.</h2>
-          <p>You run Confluence and decide which partner sites are allowed to receive shared pages. The allow-list is the real access control — content is only ever pushed to sites you've approved.</p>
+          <p class="eyebrow">For the Org Admin</p>
+          <h2>Set the policy for the whole site.</h2>
+          <p>You run Confluence. You decide which <strong>spaces</strong> may share externally at all, and which partner <strong>sites</strong> are allowed to receive content — the two organisation-wide controls. The allow-list is the real access control: content is only ever pushed to sites you've approved.</p>
         </div>
         <div class="role">
           <div class="copy">
             <h3>Manage sharing</h3>
             <p class="role-where">Confluence <strong>Settings → Apps → Page Sharing Admin</strong> (visible to Confluence admins only).</p>
             <ol class="steps">
+              <li><strong>Spaces</strong> — enable or disable each space for external sharing. Enabling lets that space's admins share its pages; <strong>disabling a space stops all its shares</strong> (moving subscriber copies to trash) and revokes its links, behind a confirmation that counts what's affected. Default is off — but spaces that already had a shared page are kept enabled automatically.</li>
               <li><strong>Allowed instances</strong> — add a partner site's cloud ID (with an optional human label), or remove one. The cloud ID is what's enforced.</li>
               <li><strong>Pending</strong> — when a not-yet-approved site subscribes, its request lands here. <strong>Approve</strong> (which also allow-lists it) or <strong>Deny</strong>.</li>
-              <li><strong>Active</strong> — every shared page with its live subscribers (who shared it, when they subscribed, the last publish time). <strong>Stop sharing</strong> a page, or <strong>Disable</strong> an individual subscriber.</li>
-              <li><strong>Links</strong> — every subscription link you've minted, with how many times each has been used and a <strong>Revoke</strong> action. Links are reusable until revoked; revoking blocks new subscribers but leaves existing ones syncing.</li>
+              <li><strong>Active</strong> — every shared page across all spaces, with its live subscribers (who shared it, when they subscribed, the last publish time). <strong>Stop sharing</strong> a page, or <strong>Disable</strong> an individual subscriber.</li>
+              <li><strong>Links</strong> — every subscription link minted, with how many times each has been used and a <strong>Revoke</strong> action. Links are reusable until revoked; revoking blocks new subscribers but leaves existing ones syncing.</li>
             </ol>
             <p class="note">
               <strong>Stop sharing</strong> pushes a purge — the subscriber's read-only copy is moved to their trash. Ended
@@ -409,6 +444,10 @@ description: "Share a Confluence page across instances or spaces, read-only. Sub
             </p>
           </div>
           <div class="shots">
+            <figure class="shot">
+              <img src="admin-spaces.png" alt="The admin Spaces tab listing spaces with their sharing state and Enable/Disable controls" />
+              <figcaption>Spaces — enable or disable each space for sharing.</figcaption>
+            </figure>
             <figure class="shot">
               <img src="admin-active.png" alt="The admin Active tab showing a shared page and its subscribers" />
               <figcaption>Active — shared pages and their subscribers.</figcaption>
@@ -450,6 +489,33 @@ description: "Share a Confluence page across instances or spaces, read-only. Sub
             <div class="answer">
               They do — automatically. Every time you publish an edit to the source page, the full content is pushed to
               every approved subscriber and their copy updates.
+            </div>
+          </details>
+
+          <details>
+            <summary>I want my space's team to share pages without making them site admins</summary>
+            <div class="answer">
+              Have a Confluence (org) admin <strong>enable your space</strong> on <strong>Page Sharing Admin → Spaces</strong>.
+              After that, any <strong>administrator of that space</strong> can share its pages and manage them from
+              <strong>Space Settings → Page Sharing</strong> — no site-admin rights needed. Instance trust (the allow-list and
+              pending approvals) stays org-admin only.
+            </div>
+          </details>
+
+          <details>
+            <summary>I tried to share a page but it was refused</summary>
+            <div class="answer">
+              Two things gate sharing: you must be an <strong>administrator of the page's space</strong>, and that space must be
+              <strong>enabled for external sharing</strong> by an org admin (the space panel's banner tells you). If the space
+              isn't enabled, ask an org admin to enable it on <strong>Page Sharing Admin → Spaces</strong>.
+            </div>
+          </details>
+
+          <details>
+            <summary>I can't subscribe to a page — it says I need permission</summary>
+            <div class="answer">
+              Subscribing creates a real page in the space you subscribe from, so you need permission to <strong>create a page in
+              that space</strong>. Pick a space you can add pages to, or ask a space admin to grant it.
             </div>
           </details>
 
