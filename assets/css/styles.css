@@ -203,7 +203,7 @@ footer.site-footer { background: var(--ink); color: #C8D2E0; padding: 48px 0 30p
 .foot-social svg { width: 20px; height: 20px; }
 
 /* ---- Simple content pages (placeholder shells, legal, guides) ----------- */
-.page { padding: 56px 0 72px; }
+.page { padding-top: 56px; padding-bottom: 72px; }
 .page .lede { margin-bottom: 28px; }
 .draft-banner {
   display: inline-block; font-size: 13px; font-weight: 600;
