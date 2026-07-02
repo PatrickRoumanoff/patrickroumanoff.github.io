@@ -114,5 +114,21 @@
   </div>
 </footer>
 
+<!-- GoatCounter page analytics: cookie-free, no personal data stored — disclosed at /trust.
+     The script is not even fetched when the visitor has opted out on /trust or their browser
+     sends Global Privacy Control, so those visitors make no third-party request at all. -->
+<script>
+  (function () {
+    var optedOut = false;
+    try { optedOut = localStorage.getItem('cs-analytics-optout') === 't'; } catch (e) {}
+    if (optedOut || navigator.globalPrivacyControl) return;
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = 'https://gc.zgo.at/count.js';
+    s.setAttribute('data-goatcounter', 'https://cloudscript.goatcounter.com/count');
+    document.body.appendChild(s);
+  })();
+</script>
+
 </body>
 </html>
