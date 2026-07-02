@@ -75,6 +75,9 @@ img { max-width: 100%; display: block; }
 
 :focus-visible { outline: 2px solid var(--blue); outline-offset: 2px; border-radius: 4px; }
 
+/* Keep in-page anchor targets clear of the sticky header (65px tall) */
+[id] { scroll-margin-top: 78px; }
+
 /* ---- Buttons ------------------------------------------------------------ */
 .btn {
   display: inline-flex; align-items: center; gap: 8px;
