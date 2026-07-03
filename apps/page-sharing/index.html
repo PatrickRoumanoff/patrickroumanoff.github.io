@@ -301,6 +301,40 @@ description: "Share a Confluence page across instances or spaces, read-only. Sub
       </div>
     </section>
 
+    <!-- ===================== WHERE YOUR DATA GOES ===================== -->
+    <section id="data-flow">
+      <div class="wrap">
+        <div class="section-head">
+          <p class="eyebrow">Security &amp; data flow</p>
+          <h2>Where your data goes.</h2>
+          <p>
+            Page Sharing runs entirely on Atlassian's Forge platform. Your content only ever
+            moves between the two Confluence sites involved — the publisher's and the
+            subscriber's — over a single Atlassian-hosted endpoint. Nothing passes through a
+            third-party server.
+          </p>
+        </div>
+        <figure class="shot" style="max-width: 760px; margin: 0 auto;">
+          <img src="network-architecture.svg" alt="Data-flow diagram: the publisher generates a share link with a token and hands it to the subscriber on the frontend, out of band; page content then flows from the publisher's app to the subscriber's app over one Atlassian-hosted endpoint. On the publisher's side the app only reads the original page; on the subscriber's side it only writes the synced copy." />
+          <figcaption>The publisher hands over a share link on the frontend; content then flows one way, over a single Atlassian-hosted endpoint. The app only reads the original and only writes the copy.</figcaption>
+        </figure>
+        <div class="aside">
+          <strong>What this means for your data</strong>
+          <ul style="margin: 0.6rem 0 0; padding-left: 1.2rem;">
+            <li>Page content moves only between the publisher's and the subscriber's Confluence sites — there are no third-party servers in the path.</li>
+            <li>That traffic uses a single Atlassian-hosted app endpoint; the app makes no other outbound connections.</li>
+            <li>The share link (which carries a token) is generated on the publisher's side and handed to the subscriber on the frontend, out of band — it isn't sent over the app's own channel.</li>
+            <li>On the publisher's side the app only <strong>reads</strong> the shared page — it never changes your original. On the subscriber's side it only <strong>writes</strong> the synced copy.</li>
+            <li>The app acts only with the permissions granted when it is installed — it never signs in as another user.</li>
+            <li>The subscribed copy is created read-only, and the publisher's original always stays the source of truth.</li>
+            <li>Only plain page structure is sent — macros, embedded apps, attachments and scripts are dropped before content leaves the publisher's site.</li>
+            <li>Approvals and subscription links can be revoked at any time, which removes the subscriber's copy.</li>
+          </ul>
+          <p style="margin: 0.8rem 0 0;">See the <a href="privacy.html">privacy policy</a> for how data is handled.</p>
+        </div>
+      </div>
+    </section>
+
     <!-- ===================== PUBLISHER ===================== -->
     <section id="publisher">
       <div class="wrap">
