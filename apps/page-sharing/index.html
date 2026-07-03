@@ -358,7 +358,9 @@ description: "Share a Confluence page across instances or spaces, read-only. Sub
             </ol>
             <p class="note">
               Every synced page carries a <strong>“Read-only replica”</strong> lozenge in its byline. Click it to see which
-              external page it mirrors. Local edits are overwritten on the next sync.
+              external page it mirrors. Local edits are overwritten on the next sync. If a page with the same title already
+              exists in your space, the subscription shows a <strong>“title conflict”</strong> status instead of syncing —
+              rename or remove the clashing page and the sync recovers by itself on the next source update.
             </p>
           </div>
           <div class="shots">
@@ -516,6 +518,17 @@ description: "Share a Confluence page across instances or spaces, read-only. Sub
             <div class="answer">
               Subscribing creates a real page in the space you subscribe from, so you need permission to <strong>create a page in
               that space</strong>. Pick a space you can add pages to, or ask a space admin to grant it.
+            </div>
+          </details>
+
+          <details>
+            <summary>My subscription says “title conflict” — what now?</summary>
+            <div class="answer">
+              Confluence page titles are unique per space, and a page with the shared page's title already exists in the
+              space you subscribed from — so the synced copy can't be created (or a source rename can't be applied).
+              <strong>Rename or remove the clashing page</strong>, and the sync recovers automatically on the next source
+              update. Subscribing is refused up front when the conflict is already detectable, so you'll usually see this
+              only when the publisher renames their page onto a title you already use.
             </div>
           </details>
 
