@@ -346,7 +346,7 @@ description: "Share a Confluence page across instances or spaces, read-only. Sub
         <div class="role">
           <div class="copy">
             <h3>Share it</h3>
-            <p class="role-where">On the page, open the <code>•••</code> menu → <code>Apps</code> → <strong>⬆️ Share Page Externally</strong>.</p>
+            <p class="role-where">On the page, open the <code>•••</code> menu → <code>Apps</code> → <strong>Share Page Externally</strong>.</p>
             <ol class="steps">
               <li>Choose <strong>Approve &amp; generate link</strong>. This approves the current page for sharing and mints a <strong>reusable subscription link</strong> — hand it to as many partner sites as you like.</li>
               <li>Copy the link and send it to each partner's admin (it looks like <code>https://cloudscript.io/share#PS1.…</code>). The same link works for any number of sites.</li>
@@ -362,7 +362,7 @@ description: "Share a Confluence page across instances or spaces, read-only. Sub
           <div class="shots">
             <figure class="shot">
               <img src="publisher-menu.png" alt="The page ••• menu showing the Share Page Externally action" />
-              <figcaption>The ••• menu → “⬆️ Share Page Externally”.</figcaption>
+              <figcaption>The ••• menu → “Share Page Externally”.</figcaption>
             </figure>
             <figure class="shot">
               <img src="publisher-share.png" alt="The share dialog with the generated reusable subscription link" />
@@ -384,7 +384,7 @@ description: "Share a Confluence page across instances or spaces, read-only. Sub
         <div class="role">
           <div class="copy">
             <h3>Subscribe</h3>
-            <p class="role-where">Open the page you want as the <strong>parent</strong>, then its <code>•••</code> menu → <code>Apps</code> → <strong>⬇️ Subscribe to External Page</strong>.</p>
+            <p class="role-where">Open the page you want as the <strong>parent</strong>, then its <code>•••</code> menu → <code>Apps</code> → <strong>Subscribe to External Page</strong>.</p>
             <ol class="steps">
               <li>Paste the share link (or the <code>PS1.…</code> code) and choose <strong>Subscribe</strong>. The synced page is created <strong>in the current space, under the current page</strong> — no extra picker.</li>
               <li>A <strong>read-only</strong> copy appears and keeps itself in sync. If the publisher hasn't approved your site yet, it shows as <em>awaiting approval</em> until they do.</li>
@@ -400,7 +400,7 @@ description: "Share a Confluence page across instances or spaces, read-only. Sub
           <div class="shots">
             <figure class="shot">
               <img src="subscriber-menu.png" alt="The page ••• menu showing the Subscribe to External Page action" />
-              <figcaption>The ••• menu → “⬇️ Subscribe to External Page”.</figcaption>
+              <figcaption>The ••• menu → “Subscribe to External Page”.</figcaption>
             </figure>
             <figure class="shot">
               <img src="subscriber-modal.png" alt="The subscribe dialog where you paste the share link" />
@@ -438,11 +438,14 @@ description: "Share a Confluence page across instances or spaces, read-only. Sub
             <ol class="steps">
               <li>A banner shows whether the space is <strong>enabled for external sharing</strong>. If it isn't, ask a Confluence (org) admin to enable it on the <a href="#admin">Spaces</a> switchboard.</li>
               <li><strong>Shared from here</strong> — every page shared out of this space, with its live subscribers. <strong>Stop sharing</strong> a page, or <strong>Disable</strong> a single subscriber.</li>
-              <li><strong>Links</strong> — the subscription links minted for this space's pages, with their use counts and a <strong>Revoke</strong> action.</li>
+              <li><strong>Links</strong> — the active subscription links minted for this space's pages, with their use counts and a <strong>Revoke</strong> action.</li>
+              <li><strong>Subscribed here</strong> — external pages subscribed <em>into</em> this space (the read-only replicas that live here), with their sync status. Monitoring only: manage or unsubscribe from the <strong>Subscribed Pages</strong> page.</li>
+              <li><strong>Ended</strong> — the audit trail of subscriptions into this space that have ended, whether unsubscribed here or cancelled by the publisher.</li>
             </ol>
             <p class="note">
               The space panel deliberately <strong>omits</strong> instance trust (the allow-list and pending approvals) —
-              those are organisation-wide and stay with your <a href="#admin">org admin</a>. You only ever see your own space.
+              those are organisation-wide and stay with your <a href="#admin">org admin</a>. You only ever see your own space,
+              in both directions: what it shares out, and what it receives.
             </p>
           </div>
           <div class="shots">
@@ -469,10 +472,11 @@ description: "Share a Confluence page across instances or spaces, read-only. Sub
             <p class="role-where">Confluence <strong>Settings → Apps → Page Sharing Admin</strong> (visible to Confluence admins only).</p>
             <ol class="steps">
               <li><strong>Spaces</strong> — enable or disable each space for external sharing. Enabling lets that space's admins share its pages; <strong>disabling a space stops all its shares</strong> (moving subscriber copies to trash) and revokes its links, behind a confirmation that counts what's affected. Default is off — but spaces that already had a shared page are kept enabled automatically.</li>
-              <li><strong>Allowed instances</strong> — add a partner site's cloud ID (with an optional human label), or remove one. The cloud ID is what's enforced.</li>
+              <li><strong>Instances</strong> — add a partner site's cloud ID (with an optional human label), or remove one. The cloud ID is what's enforced.</li>
               <li><strong>Pending</strong> — when a not-yet-approved site subscribes, its request lands here. <strong>Approve</strong> (which also allow-lists it) or <strong>Deny</strong>.</li>
               <li><strong>Active</strong> — every shared page across all spaces, with its live subscribers (who shared it, when they subscribed, the last publish time). <strong>Stop sharing</strong> a page, or <strong>Disable</strong> an individual subscriber.</li>
-              <li><strong>Links</strong> — every subscription link minted, with how many times each has been used and a <strong>Revoke</strong> action. Links are reusable until revoked; revoking blocks new subscribers but leaves existing ones syncing.</li>
+              <li><strong>Links</strong> — every subscription link minted, <strong>including revoked ones</strong>, with how many times each has been used and a <strong>Revoke</strong> action. Links are reusable until revoked; revoking blocks new subscribers but leaves existing ones syncing.</li>
+              <li><strong>Subscribed</strong> — an org-wide, read-only review of every external page this site subscribes to from other instances, across all spaces.</li>
             </ol>
             <p class="note">
               <strong>Stop sharing</strong> pushes a purge — the subscriber's read-only copy is moved to their trash. Ended
@@ -489,8 +493,8 @@ description: "Share a Confluence page across instances or spaces, read-only. Sub
               <figcaption>Active — shared pages and their subscribers.</figcaption>
             </figure>
             <figure class="shot">
-              <img src="admin-allowlist.png" alt="The admin Allowed instances tab listing approved cloud IDs" />
-              <figcaption>Allowed instances — the cloud ID allow-list.</figcaption>
+              <img src="admin-allowlist.png" alt="The admin Instances tab listing approved cloud IDs" />
+              <figcaption>Instances — the cloud ID allow-list.</figcaption>
             </figure>
             <figure class="shot">
               <img src="admin-pending.png" alt="The admin Pending tab with approve and deny actions" />
@@ -523,8 +527,9 @@ description: "Share a Confluence page across instances or spaces, read-only. Sub
           <details open>
             <summary>I want my edits to show up on the subscriber's side</summary>
             <div class="answer">
-              They do — automatically. Every time you publish an edit to the source page, the full content is pushed to
-              every approved subscriber and their copy updates.
+              They do — automatically. Every time you publish an edit to the source page, the
+              page's supported content is pushed to every approved subscriber and their copy
+              updates. See below for what "supported content" covers.
             </div>
           </details>
 
@@ -629,10 +634,31 @@ description: "Share a Confluence page across instances or spaces, read-only. Sub
           </details>
 
           <details>
-            <summary>I want to know why a macro or image shows a placeholder <span class="limit">Limitation</span></summary>
+            <summary>I want to know why an image or macro is missing from the subscriber's copy <span class="limit">Limitation</span></summary>
             <div class="answer">
-              The full page content is copied as-is. Anything the subscriber's site can't resolve — cross-instance media, or
-              macros from apps it doesn't have — renders Confluence's standard placeholder instead.
+              By design, only standard Confluence content crosses the instance boundary: text,
+              headings, lists, quotes, code blocks, tables, dividers, emoji, status lozenges,
+              dates, and links. Images and attachments, macros and app content, @-mentions,
+              expands, panels, and task lists are <strong>removed from the copy</strong> before
+              it leaves your site — they don't appear as placeholders; they are simply absent.
+              This is a security measure: nothing embedded or executable is ever sent to the
+              partner site, and the receiving site independently applies the same filter to
+              everything it accepts. If a page relies heavily on images or macros, expect the
+              shared copy to carry the text and structure only.
+            </div>
+          </details>
+
+          <details>
+            <summary>I moved a shared page to another space and my subscribers stopped getting updates <span class="limit">Limitation</span></summary>
+            <div class="answer">
+              Sharing is a managed use case: your Confluence admin decides, space by space, where
+              external sharing is allowed, and the app enforces that decision on every push.
+              If a shared page is moved into a space that isn't enabled for external sharing,
+              updates stop leaving your site — deliberately, so that moving a page can never carry
+              content out of a space your admin hasn't opened up. Your subscribers keep their last
+              synced copy; nothing is deleted. Syncing resumes automatically on the next edit once
+              the page is back in an enabled space (move it back, or ask your admin to enable the
+              new space).
             </div>
           </details>
 
@@ -641,6 +667,18 @@ description: "Share a Confluence page across instances or spaces, read-only. Sub
             <div class="answer">
               Send them the link anyway. When they subscribe, their request lands as <strong>pending</strong> in your admin
               panel; once an admin approves it (which also allow-lists their site), their copy syncs.
+              A pending request <strong>expires after 14 days</strong> — if it lapses before anyone approves it, the
+              partner simply subscribes again. Each link can hold up to <strong>25 outstanding pending requests</strong>
+              at a time.
+            </div>
+          </details>
+
+          <details>
+            <summary>I want to report a problem or contact support</summary>
+            <div class="answer">
+              Email <a href="/support">support</a>. When you get in touch, include the version shown at the bottom of the
+              admin, space settings, or Subscribed Pages screen (for example <em>Page Sharing · v1.0.0-abc12</em>) — it
+              identifies the exact build you're on.
             </div>
           </details>
         </div>
