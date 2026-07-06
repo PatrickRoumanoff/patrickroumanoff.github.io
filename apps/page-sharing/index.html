@@ -326,10 +326,23 @@ description: "Share a Confluence page across instances or spaces, read-only. Sub
             <li>The share link (which carries a token) is generated on the publisher's side and handed to the subscriber on the frontend, out of band — it isn't sent over the app's own channel.</li>
             <li>On the publisher's side the app only <strong>reads</strong> the shared page — it never changes your original. On the subscriber's side it only <strong>writes</strong> the synced copy.</li>
             <li>The app acts only with the permissions granted when it is installed — it never signs in as another user.</li>
-            <li>The subscribed copy is created read-only, and the publisher's original always stays the source of truth.</li>
+            <li>The subscribed copy is a read-only replica: editing is restricted where the subscriber's Confluence plan supports page restrictions, and on any plan local edits are overwritten by the next sync — the publisher's original always stays the source of truth.</li>
             <li>Only plain page structure is sent — macros, embedded apps, attachments and scripts are dropped before content leaves the publisher's site.</li>
-            <li>Approvals and subscription links can be revoked at any time, which removes the subscriber's copy.</li>
+            <li>Approving a subscriber is reversible: disable a subscriber or stop sharing at any time, and their copy is moved to their site's trash. Revoking a subscription link blocks new subscriptions (existing subscribers are disabled individually).</li>
           </ul>
+          <p style="margin: 0.8rem 0 0;">
+            <strong>Data residency.</strong> If your site is pinned to a data residency location, everything
+            the app itself stores is in scope: its operational records (sharing approvals, the allow-list,
+            subscription and audit entries) live in Atlassian's Forge hosted storage for your site, which
+            Atlassian hosts in, and migrates with, your site's pinned location. The synced copy on a
+            subscribing site is an ordinary Confluence page in that site, so it follows that site's own
+            residency settings. Out of scope is the content of a page you choose to share: it travels to
+            each partner site you approve, wherever that site is hosted, because sending it there is the
+            purpose of sharing, and which sites receive it stays entirely under your control through the
+            allow-list and approvals. In short, everything the app stores follows the residency of the
+            site it is stored in, and shared content follows the subscriber's site, because the publisher
+            chose to send it there.
+          </p>
           <p style="margin: 0.8rem 0 0;">See the <a href="privacy.html">privacy policy</a> for how data is handled.</p>
         </div>
       </div>
