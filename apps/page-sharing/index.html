@@ -392,7 +392,10 @@ description: "Share a Confluence page across instances or spaces, read-only. Sub
             </ol>
             <p class="note">
               Every synced page carries a <strong>“Read-only replica”</strong> lozenge in its byline. Click it to see which
-              external page it mirrors. Local edits are overwritten on the next sync. If a page with the same title already
+              external page it mirrors. The app applies Confluence's own edit restrictions to each replica, so ordinary users
+              on your site can't edit it. Content restrictions aren't available on Confluence Free, and a site administrator
+              can always override them — but in every case the source page overwrites any local edit on the next sync, so the
+              replica can't drift from the source. If a page with the same title already
               exists in your space, the subscription shows a <strong>“title conflict”</strong> status instead of syncing —
               rename or remove the clashing page and the sync recovers by itself on the next source update.
             </p>
