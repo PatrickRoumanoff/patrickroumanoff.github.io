@@ -1,0 +1,76 @@
+---
+layout: default
+title: "Page Sharing for Confluence â End User Terms"
+description: "End User Terms for the Page Sharing for Confluence app: Provider-Specific Terms supplementing the Bonterms Standard End User Agreement (Version 1.0) adopted through the Atlassian Marketplace."
+---
+
+
+<div class="page wrap">
+  <div class="prose">
+    <h1>End User Terms â Page Sharing for Confluence</h1>
+    <p class="meta">
+      <strong>Provider-Specific Terms supplementing the Bonterms Standard End User Agreement (Version 1.0)</strong><br>
+      <strong>Effective date:</strong> 6 July 2026
+    </p>
+
+    <h2>1. How these terms work</h2>
+    <p>The Page Sharing for Confluence app is offered on the Atlassian Marketplace under the <a href="https://www.atlassian.com/licensing/marketplace/end-user-agreement-v1" rel="noopener">Bonterms Standard End User Agreement (Version 1.0)</a> (the "Standard Agreement"), the standard customisable end-user agreement that Atlassian makes available to Marketplace partners. This page sets out the Provider-Specific Terms contemplated by Section 1.1 of the Standard Agreement: it identifies the Provider, supplies the Attachments the Standard Agreement asks the Provider to identify (Security Measures, Support Policy, and Data Protection Addendum), overrides the default governing law, and adds a small number of Additional Terms specific to how this App works. In accordance with Section 1.2 of the Standard Agreement, the Standard Agreement and these Provider-Specific Terms together form the Agreement between the Provider and the Customer, entered into on the Customer's first Order for the App through the Marketplace. Where these Provider-Specific Terms conflict with the Standard Agreement, these terms prevail, as provided by Section 1.4 of the Standard Agreement.</p>
+
+    <h2>2. Definitions</h2>
+    <p>Capitalised terms used but not defined on this page have the meanings given in the Standard Agreement. The following definitions apply throughout the Agreement, including any Schedule to these Provider-Specific Terms:</p>
+    <p><strong>"Agreement"</strong> means the Standard Agreement together with these Provider-Specific Terms, including their Schedules, as provided by Section 1.2 of the Standard Agreement.</p>
+    <p><strong>"App"</strong> means the Page Sharing for Confluence app for Confluence Cloud, published on the Atlassian Marketplace by the Provider, together with its Documentation. The App is the "Product" and the "Cloud Service" for the purposes of the Standard Agreement.</p>
+    <p><strong>"Customer"</strong> has the meaning given in the Standard Agreement: the party placing the Order. Each Order creates a separate Agreement (Section 1.3 of the Standard Agreement), so where the App is installed on more than one Confluence Cloud site, each installing organisation is a separate Customer under its own Agreement.</p>
+    <p><strong>"End User"</strong> means an individual whom the Customer permits to use the App through the Customer's Confluence Cloud site. An End User is a "User" as defined in the Standard Agreement, and the Customer's responsibility for End Users is as set out in Section 2.3 of the Standard Agreement.</p>
+    <p><strong>"Provider"</strong> means Patrick Roumanoff trading as Cloudscript.io (ABN 72 287 293 373), an Australian sole trader ("CloudScript.io", "we", "us").</p>
+    <p><strong>"Producer Site"</strong> means a Customer's Confluence Cloud site on which the App is used to share pages with one or more Consumer Sites.</p>
+    <p><strong>"Consumer Site"</strong> means a Customer's Confluence Cloud site on which the App is used to subscribe to pages shared from a Producer Site, and on which the App maintains a synced, read-only copy of each subscribed page.</p>
+
+    <h2>3. Provider details and notices</h2>
+    <p>For the purposes of Section 19.3(b) of the Standard Agreement, the Provider's notice address is <a href="mailto:support@cloudscript.io">support@cloudscript.io</a>. Notices to the Provider under the Agreement must be sent to that address; the Provider will send notices to the Customer using the contact details associated with the Customer's Order or Atlassian account, and may also give operational notices through the App.</p>
+    
+
+    <h2>4. Governing law and courts</h2>
+    <p>For the purposes of Section 19.2 of the Standard Agreement, the "Governing Law" is the laws of New South Wales, Australia, and the "Courts" are the courts of New South Wales and the courts of the Commonwealth of Australia sitting in New South Wales. This replaces the Standard Agreement's default of California law and San Francisco courts. Notwithstanding Section 19.2(a) of the Standard Agreement, the parties' submission to the jurisdiction of the Courts is non-exclusive, and nothing in this Section prevents either party from bringing proceedings in any other court of competent jurisdiction. Nothing in this Section 4 or in the Agreement excludes, restricts, or modifies any right or remedy the Customer has under a law (including the Australian Consumer Law or a mandatory consumer-protection law of the Customer's place of residence) that applies despite the parties' choice of Governing Law and cannot lawfully be excluded.</p>
+    
+
+    <h2>5. Security Measures</h2>
+    <p>For the purposes of Section 3.2 of the Standard Agreement, the Provider's Security Measures are as follows. The App runs entirely on Atlassian's Forge platform, within Atlassian-hosted infrastructure, and operates no CloudScript.io server: the only external destination the App is permitted to contact is its own Atlassian-hosted Forge web-trigger host, which is how one Confluence site's installation communicates with another's, and the Forge platform enforces that the App cannot contact any destination it has not declared. Privileged actions are authorised server-side against the role they require, and those authorisation checks fail closed. Page content is reduced to a fixed allow-list of standard Confluence content types before it leaves a Producer Site and is independently re-validated against the same allow-list before it is written on a Consumer Site. Each subscription push is authenticated by a per-subscription secret compared in constant time, and instant (approval-free) subscription additionally requires a signed attestation of the subscribing site's platform-provided identifier, verified by the Producer Site before the claimed identity is trusted. These measures are described in more detail, alongside the App's data handling, in the <a href="/apps/page-sharing/privacy">Privacy Policy</a>.</p>
+    
+
+    <h2>6. Support Policy; no SLA</h2>
+    <p>For the purposes of Section 5.1 of the Standard Agreement, the Provider provides Support for the App on a reasonable-efforts basis by email through the channel described on the <a href="/support">Support</a> page. The Provider does not commit to response or resolution times, and does not guarantee that the App will be uninterrupted or error-free or that every issue can be resolved. For the purposes of Section 5.2 of the Standard Agreement, no Service Level Agreement is offered for the App.</p>
+
+    <h2>7. Data Protection Addendum</h2>
+    <p>For the purposes of Section 3.3 of the Standard Agreement, the parties will adhere to the Data Processing Addendum attached to these Provider-Specific Terms as Schedule 1. The Data Processing Addendum uses the definitions in Section 2 of these Provider-Specific Terms.</p>
+    <p><a href="/apps/page-sharing/dpa">Schedule 1 — Data Processing Addendum</a></p>
+    
+
+    <h2>8. Additional Terms</h2>
+    <p>The following Additional Terms are made under Section 1.1 of the Standard Agreement.</p>
+
+    <p><strong>(a) Cross-site sharing.</strong> The core function of the App is to copy the title and permitted content of pages the Customer selects on a Producer Site to the Consumer Sites the Customer designates, and to keep those copies in sync while sharing continues. Sharing content to a Consumer Site is a direction by the Customer to share Customer Data for the purposes of Section 3.1 of the Standard Agreement. The Customer operating a Producer Site is responsible for its decisions about which pages to share and which Consumer Sites to share them with, including where a designated Consumer Site is operated by a different organisation or located in a different country. Once content is written into a Consumer Site, it is held in that site under the receiving Customer's own Confluence arrangements and, as between the Provider and the receiving Customer, is treated as the receiving Customer's Customer Data under that Customer's Agreement. The Provider does not select, inspect, host, or retain shared content on any system of its own, and each Customer acknowledges that the Provider is not responsible for the acts or omissions of the organisation operating any other site with which the Customer shares or from which the Customer receives content.</p>
+    
+
+    <p><strong>(b) Usage Data.</strong> Narrowing Section 3.4 of the Standard Agreement in the Customer's favour: the App contains no analytics, advertising, or third-party tracking code, and the Provider does not collect telemetry about the Customer's use of the App on any Provider system. The operational records the App keeps (described in the <a href="/apps/page-sharing/privacy">Privacy Policy</a>) are stored in the Customer's own Confluence site and are not transmitted to the Provider. To the extent the Provider receives any Usage Data at all (for example, aggregate installation counts reported by the Atlassian Marketplace), Section 3.4 of the Standard Agreement applies to it.</p>
+
+    <p><strong>(c) Data export and deletion.</strong> Applying Section 12.4 of the Standard Agreement to the App's architecture: Customer Data processed by the App resides in the Customer's own Confluence Cloud site (as pages, including synced pages on a Consumer Site, and as the App's operational records in the site's Forge storage), and the Provider holds no separate copy from which to export or delete it. Export under Section 12.4(a) is available through Confluence's own export facilities. Deletion under Section 12.4(b) occurs by the Customer withdrawing sharing or unsubscribing (which moves synced pages to the site's trash, under the site's normal trash arrangements) and by uninstalling the App (upon which Atlassian removes the App's stored records in line with Atlassian's platform data-retention policy). The 60-day deletion obligation in Section 12.4(b) applies to the Provider only in respect of data the Provider actually holds on its own systems, which in practice is limited to support correspondence.</p>
+    
+
+    <p><strong>(d) Australian Consumer Law.</strong> Nothing in the Agreement excludes, restricts, or modifies any guarantee, condition, warranty, right, or remedy that applies to the Customer under the Competition and Consumer Act 2010 (Cth) or any equivalent state or territory legislation and that cannot lawfully be excluded, restricted, or modified. To the extent the Provider is permitted to limit its liability for failure to comply with such a non-excludable guarantee, the Provider's liability is limited, at the Provider's option, to supplying the services again or paying the cost of having the services supplied again. The disclaimers in Section 6.3, the exclusive remedies in Sections 6.2(d) and 15.7, and the limitations in Section 14 of the Standard Agreement apply subject to this paragraph.</p>
+    
+
+    <p><strong>(e) Privacy Policy.</strong> The Provider's handling of data in connection with the App is described in the <a href="/apps/page-sharing/privacy">Privacy Policy</a>, which the Provider maintains to reflect what the App actually accesses, stores, and transmits. The Privacy Policy is referenced for transparency and is not an Attachment to the Agreement.</p>
+    
+
+    <p><strong>(f) The Atlassian platform.</strong> The App runs on Atlassian Forge and inside Confluence Cloud, which are provided by Atlassian under the Customer's own agreements with Atlassian; Atlassian is a Third-Party Platform provider for the purposes of Section 8 of the Standard Agreement (except where Atlassian acts as the Marketplace provider for the Order under Section 1.3). The Customer's Confluence pages, including synced pages the App maintains on a Consumer Site, are held in the Customer's Confluence Cloud site under the Customer's agreement with Atlassian.</p>
+
+    <h2>9. Order of precedence</h2>
+    <p>As provided by Section 1.4 of the Standard Agreement, if there is a conflict between the documents forming the Agreement, the order of precedence is: any Amendment, then these Provider-Specific Terms (including their Schedules), then the Standard Agreement.</p>
+
+    <h2>10. Contact</h2>
+    <p>Questions about these terms can be directed to CloudScript.io at <a href="mailto:support@cloudscript.io">support@cloudscript.io</a> (see the <a href="/support">Support</a> page).</p>
+
+    <p class="back-link"><a href="/apps/page-sharing">&larr; Back to Page Sharing for Confluence</a></p>
+  </div>
+</div>
