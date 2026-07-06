@@ -5,6 +5,28 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>{% if page.title and page.title != "" %}{{ page.title }} — CloudScript.io{% else %}{{ site.title }}{% endif %}</title>
   {% if page.description %}<meta name="description" content="{{ page.description }}">{% else %}<meta name="description" content="{{ site.description }}">{% endif %}
+
+  {% comment %}
+    Social/link-preview tags. Unfurlers (Slack, LinkedIn, Confluence, etc.) that find an
+    explicit og:image use it instead of scraping the first <img> on the page. Set `image:`
+    in a page's front matter to choose which image represents that page; without it, no
+    og:image is emitted (unfurlers fall back to their own heuristics, as before).
+    Use a raster image (PNG/JPG, ideally ~1200x630) — most unfurlers don't render SVG.
+  {% endcomment %}
+  {% if page.title and page.title != "" %}{% assign og_title = page.title | append: " — CloudScript.io" %}{% else %}{% assign og_title = site.title %}{% endif %}
+  {% assign share_image = page.image | default: site.default_image %}
+  <link rel="canonical" href="{{ page.url | absolute_url }}">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="CloudScript.io">
+  <meta property="og:title" content="{{ og_title }}">
+  <meta property="og:description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
+  <meta property="og:url" content="{{ page.url | absolute_url }}">
+  {% if share_image %}<meta property="og:image" content="{{ share_image | absolute_url }}">{% endif %}
+  <meta name="twitter:card" content="{% if share_image %}summary_large_image{% else %}summary{% endif %}">
+  <meta name="twitter:title" content="{{ og_title }}">
+  <meta name="twitter:description" content="{% if page.description %}{{ page.description }}{% else %}{{ site.description }}{% endif %}">
+  {% if share_image %}<meta name="twitter:image" content="{{ share_image | absolute_url }}">{% endif %}
+
   <link rel="icon" href="/favicon.ico" sizes="any">
   <link rel="icon" type="image/svg+xml" href="/assets/img/favicon.svg">
   <link rel="stylesheet" href="/assets/css/styles.css">
