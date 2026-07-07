@@ -6,74 +6,222 @@
   A producer's share link looks like:  https://cloudscript.io/share#PS1.<code>
   The code rides in the URL fragment (#...), so it is NEVER sent to this server —
   it stays in the browser. This page just reads it client-side, shows subscribe
-  instructions, and lets the recipient copy the code.
+  instructions, and lets the recipient copy the code. No fetch/XHR, no query
+  params, no third-party scripts, no analytics, no trackers.
 -->
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1" />
-    <meta name="robots" content="noindex" />
-    <title>Subscribe to a shared Confluence page</title>
-    <style>
-      :root { color-scheme: light dark; }
-      body { font: 16px/1.6 -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif; margin: 0; padding: 2rem 1rem; background: #f7f8fa; color: #172b4d; }
-      .card { max-width: 640px; margin: 0 auto; background: #fff; border: 1px solid #dfe1e6; border-radius: 10px; padding: 2rem; }
-      h1 { font-size: 1.4rem; margin: 0 0 .25rem; }
-      .sub { color: #5e6c84; margin: 0 0 1.5rem; }
-      ol { padding-left: 1.2rem; } li { margin: .4rem 0; }
-      .code { display: flex; gap: .5rem; margin: 1rem 0; }
-      code { flex: 1; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; background: #f4f5f7; border: 1px solid #dfe1e6; border-radius: 6px; padding: .6rem .75rem; word-break: break-all; }
-      button { background: #0052cc; color: #fff; border: 0; border-radius: 6px; padding: 0 1rem; font-weight: 600; cursor: pointer; }
-      button:active { background: #0747a6; }
-      .err { color: #ae2a19; }
-      @media (prefers-color-scheme: dark) {
-        body { background: #1d2125; color: #c7d1db; }
-        .card { background: #22272b; border-color: #2c333a; }
-        code { background: #1d2125; border-color: #2c333a; color: #c7d1db; }
-        .sub { color: #8c9bab; }
-      }
-    </style>
-  </head>
-  <body>
-    <div class="card">
-      <h1>Subscribe to a shared Confluence page</h1>
-      <p class="sub">Someone shared a Confluence page with your site via the Page Sharing app.</p>
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="robots" content="noindex" />
+  <title>Subscribe to a shared Confluence page — cloudscript.io</title>
+  <style>
+    /* Self-hosted Inter (no Google Fonts / CDN), matching the rest of the site. */
+    @font-face{font-family:"Inter";font-style:normal;font-weight:400;font-display:swap;
+      src:url("/assets/fonts/inter/Inter-Regular.woff2") format("woff2")}
+    @font-face{font-family:"Inter";font-style:normal;font-weight:600;font-display:swap;
+      src:url("/assets/fonts/inter/Inter-SemiBold.woff2") format("woff2")}
+    @font-face{font-family:"Inter";font-style:normal;font-weight:700;font-display:swap;
+      src:url("/assets/fonts/inter/Inter-Bold.woff2") format("woff2")}
 
-      <div id="ok" hidden>
-        <p>To view it on your own Confluence site:</p>
-        <ol>
-          <li>Open the page you want the synced copy to live <strong>under</strong> (its space and the page become the target).</li>
-          <li>In that page's <strong>•••</strong> menu, choose <strong>Subscribe to a shared page</strong>.</li>
-          <li>Paste the code below and choose <strong>Subscribe</strong>.</li>
-          <li>A read-only page is created and kept in sync automatically. If the producer hasn't allow-listed your site yet, it shows as <em>awaiting approval</em> until they approve it.</li>
-        </ol>
-        <div class="code">
-          <code id="code"></code>
-          <button id="copy" type="button">Copy</button>
+    :root{
+      --ink:#13243B; --ink-soft:#3A4A60; --slate:#5C6B7E;
+      --blue:#2E6FE0; --blue-deep:#1B4FB0; --sky:#5AA0F0;
+      --cloud:#F4F7FB; --cloud-2:#EAF1FB; --chip-border:#D5E3FA;
+      --line:#E4EAF1; --white:#fff;
+      --r-sm:8px; --r-md:12px; --r-lg:16px;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0; background:var(--cloud); color:var(--ink-soft);
+      font:16px/1.6 "Inter",-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,sans-serif;
+    }
+    a{color:var(--blue); font-weight:600; text-decoration:none}
+    a:hover{color:var(--blue-deep)}
+    .wrap{max-width:720px; margin:0 auto; padding:0 20px}
+
+    /* header */
+    header.site{background:var(--white); border-bottom:1px solid var(--line)}
+    header.site .wrap{display:flex; align-items:center; justify-content:space-between; height:64px}
+    .wordmark{font-size:20px; font-weight:700; letter-spacing:-0.3px}
+    .wordmark .c{color:var(--ink)} .wordmark .s{color:var(--blue)} .wordmark .io{color:var(--slate)}
+    .app-tag{font-size:12px; font-weight:600; color:var(--blue-deep); background:var(--cloud-2);
+      border:1px solid var(--chip-border); padding:4px 10px; border-radius:999px}
+
+    /* hero */
+    .hero{padding:40px 0 8px}
+    .eyebrow{display:inline-block; font-size:12px; font-weight:700; letter-spacing:.4px;
+      text-transform:uppercase; color:var(--blue-deep); background:var(--cloud-2);
+      border:1px solid var(--chip-border); padding:5px 12px; border-radius:999px; margin-bottom:14px}
+    h1{color:var(--ink); font-size:28px; line-height:1.2; letter-spacing:-0.5px; margin:0 0 10px}
+    .lede{font-size:18px; color:var(--ink-soft); margin:0 0 26px}
+
+    /* card */
+    .card{background:var(--white); border:1px solid var(--line); border-radius:var(--r-lg);
+      padding:28px; margin:0 0 20px}
+    .card h2{color:var(--ink); font-size:18px; margin:0 0 6px}
+    .steps{padding-left:20px; margin:14px 0 0}
+    .steps li{margin:10px 0}
+    .code-row{display:flex; gap:10px; margin:14px 0 4px}
+    code.code{flex:1; font-family:ui-monospace,SFMono-Regular,Menlo,monospace; font-size:14px;
+      background:var(--cloud); border:1px solid var(--line); border-radius:var(--r-sm);
+      padding:12px 14px; word-break:break-all; color:var(--ink)}
+    .btn{display:inline-flex; align-items:center; gap:8px; font-weight:600; font-size:15px;
+      border:1px solid transparent; border-radius:var(--r-sm); padding:11px 18px; cursor:pointer}
+    .btn-primary{background:var(--blue); color:#fff} .btn-primary:hover{background:var(--blue-deep); color:#fff}
+    .btn-ghost{background:#fff; color:var(--ink); border-color:var(--line)}
+    .btn-ghost:hover{border-color:var(--sky); color:var(--blue)}
+    .btn-copy{background:var(--blue); color:#fff; white-space:nowrap}
+
+    /* install / handoff callouts */
+    .callout{border:1px solid var(--line); border-radius:var(--r-md); padding:18px 20px; margin:16px 0 0;
+      background:var(--white)}
+    .callout.install{background:linear-gradient(120deg,#fff 55%,var(--cloud) 100%)}
+    .callout h3{color:var(--ink); font-size:15px; margin:0 0 6px}
+    .callout p{margin:0 0 12px; font-size:15px; color:var(--ink-soft)}
+    .muted{color:var(--slate); font-size:14px}
+
+    /* trust strip */
+    .trust{background:var(--cloud-2); border:1px solid var(--chip-border); border-radius:var(--r-md);
+      padding:18px 20px; margin:0 0 20px; display:flex; gap:14px; align-items:flex-start}
+    .trust .lock{flex:0 0 auto; width:34px; height:34px; border-radius:8px; background:#fff;
+      border:1px solid var(--chip-border); display:flex; align-items:center; justify-content:center; color:var(--blue)}
+    .trust p{margin:0; font-size:14.5px; color:var(--ink-soft)}
+    .trust strong{color:var(--ink)}
+
+    /* footer */
+    footer.site{background:var(--ink); color:#C8D2E0; margin-top:14px; padding:30px 0}
+    footer.site .wrap{display:flex; gap:8px 22px; flex-wrap:wrap; align-items:center; font-size:14px}
+    footer.site a{color:#fff} footer.site .sep{color:#4a5a72}
+    footer.site .fine{color:#8ca0bd; width:100%; margin-top:8px; font-size:13px}
+
+    .hide{display:none !important}
+
+    @media (max-width:520px){ h1{font-size:24px} .code-row{flex-direction:column} }
+  </style>
+</head>
+<body>
+
+  <header class="site">
+    <div class="wrap">
+      <span class="wordmark"><span class="c">cloud</span><span class="s">script</span><span class="io">.io</span></span>
+      <span class="app-tag">Page Sharing</span>
+    </div>
+  </header>
+
+  <!-- ============ STATE A: arrived with a valid share link ============ -->
+  <main id="state-ok" class="hide">
+    <section class="hero">
+      <div class="wrap">
+        <span class="eyebrow">Page Sharing for Confluence</span>
+        <h1>A Confluence page has been shared with your site</h1>
+        <p class="lede">Someone using Page Sharing has shared a page with your Confluence site. Subscribe to add it as an always-current, <strong>read-only</strong> copy inside your own space.</p>
+      </div>
+    </section>
+
+    <div class="wrap">
+      <div class="card">
+        <h2>How to accept this shared page</h2>
+        <p class="muted">Two steps: install the Page Sharing app on your Confluence site, then subscribe with the code below.</p>
+
+        <div class="callout install">
+          <h3>1. Install the Page Sharing app</h3>
+          <p>Your site needs the Page Sharing app before it can receive the page. Installing it requires a Confluence site admin.</p>
+          <!-- TODO on Marketplace approval: repoint to Page Sharing's own listing URL (see launch roadmap go-live checklist) -->
+          <a class="btn btn-primary" href="https://marketplace.atlassian.com/vendors/1211952" target="_blank" rel="noopener">Get Page Sharing on the Marketplace →</a>
+          <p class="muted" style="margin-top:12px">Not an admin? Forward this page to whoever administers your Confluence site, and they can install it and set up the subscription.</p>
         </div>
-        <p class="sub">You'll need the Page Sharing app installed on your Confluence site.</p>
+
+        <div class="callout">
+          <h3>2. Accept the share</h3>
+          <p class="muted">Once the app is installed:</p>
+          <ol class="steps">
+            <li>Open the page you want the synced copy to live <strong>under</strong> (its space and that page become the target).</li>
+            <li>In that page's <strong>•••</strong> menu, choose <strong>Subscribe to a shared page</strong>.</li>
+            <li>Paste this code and choose <strong>Subscribe</strong>:</li>
+          </ol>
+          <div class="code-row">
+            <code class="code" id="code"></code>
+            <button class="btn btn-copy" id="copy" type="button">Copy code</button>
+          </div>
+          <p class="muted">A read-only copy is created and kept in sync automatically. If your site isn't allow-listed yet, it shows as <em>awaiting approval</em> until the sender approves it.</p>
+        </div>
       </div>
 
-      <p id="bad" class="err" hidden>This link doesn't contain a valid share code. Ask the sender to regenerate it.</p>
-    </div>
+      <div class="trust">
+        <span class="lock" aria-hidden="true">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <rect x="4" y="10" width="16" height="11" rx="2.5" fill="currentColor"/>
+            <path d="M7.5 10V7.5a4.5 4.5 0 0 1 9 0V10" stroke="currentColor" stroke-width="2" fill="none" stroke-linecap="round"/>
+            <circle cx="12" cy="15" r="1.6" fill="#fff"/>
+          </svg>
+        </span>
+        <p><strong>Shared content stays on Atlassian.</strong> Page Sharing runs entirely on Atlassian's Forge platform, so shared pages move only between the two Confluence sites involved, over a single Atlassian-hosted endpoint, and never pass through a third-party server. <a href="/apps/page-sharing#data-flow">See exactly how it handles your data →</a></p>
+      </div>
 
-    <script>
-      // The code is in the fragment so it never reaches our server.
+      <p class="muted">New to Page Sharing? <a href="/apps/page-sharing">See what it does →</a></p>
+    </div>
+  </main>
+
+  <!-- ============ STATE B: no / broken code (curious visitor or bad link) ============ -->
+  <main id="state-bad" class="hide">
+    <section class="hero">
+      <div class="wrap">
+        <span class="eyebrow">Page Sharing for Confluence</span>
+        <h1>Share Confluence pages between sites — read-only, always current</h1>
+        <p class="lede">Page Sharing delivers a page from one Confluence Cloud site into another as a native, read-only copy that updates whenever the source changes. Built entirely on Atlassian's infrastructure.</p>
+        <p style="display:flex; gap:12px; flex-wrap:wrap">
+          <!-- TODO on Marketplace approval: repoint to Page Sharing's own listing URL (see launch roadmap go-live checklist) -->
+          <a class="btn btn-primary" href="https://marketplace.atlassian.com/vendors/1211952" target="_blank" rel="noopener">View on the Marketplace →</a>
+          <a class="btn btn-ghost" href="/apps/page-sharing">How it works</a>
+        </p>
+      </div>
+    </section>
+    <div class="wrap">
+      <div class="callout">
+        <h3>Were you sent a link?</h3>
+        <p class="muted">If you followed a share link and landed here, it didn't contain a valid share code. Ask the sender to regenerate it and send it again.</p>
+      </div>
+    </div>
+  </main>
+
+  <footer class="site">
+    <div class="wrap">
+      <span class="wordmark" style="font-size:16px"><span class="c" style="color:#fff">cloud</span><span class="s" style="color:var(--sky)">script</span><span class="io" style="color:#8ca0bd">.io</span></span>
+      <a href="/apps/page-sharing">What is Page Sharing?</a>
+      <span class="sep">·</span>
+      <a href="/apps/page-sharing/privacy">Privacy</a>
+      <span class="sep">·</span>
+      <a href="/">cloudscript.io</a>
+      <span class="fine">A read-only page-sharing app for Confluence Cloud, by cloudscript.io.</span>
+    </div>
+  </footer>
+
+  <script>
+    // Read the share code from the URL fragment (client-side only; never sent to a server).
+    function readCode(){
       var raw = decodeURIComponent((location.hash || '').replace(/^#/, '')).trim();
-      var m = raw.match(/PS1\.[A-Za-z0-9_-]+/);
-      if (m) {
-        document.getElementById('code').textContent = m[0];
-        document.getElementById('ok').hidden = false;
-        document.getElementById('copy').addEventListener('click', function () {
-          navigator.clipboard.writeText(m[0]).then(function () {
-            var b = document.getElementById('copy');
-            b.textContent = 'Copied';
-            setTimeout(function () { b.textContent = 'Copy'; }, 1500);
-          });
+      var m = raw.match(/PS1\.[A-Za-z0-9_.\-]+/);
+      return m ? m[0] : null;
+    }
+
+    var real = readCode();
+    if (real){
+      // Valid code: show State A with the real code and wire the Copy button.
+      document.getElementById('code').textContent = real;
+      document.getElementById('state-ok').classList.remove('hide');
+      document.getElementById('copy').addEventListener('click', function(){
+        if (!navigator.clipboard) return;
+        navigator.clipboard.writeText(real).then(function(){
+          var b = document.getElementById('copy');
+          b.textContent = 'Copied';
+          setTimeout(function(){ b.textContent = 'Copy code'; }, 1500);
         });
-      } else {
-        document.getElementById('bad').hidden = false;
-      }
-    </script>
-  </body>
+      });
+    } else {
+      // No valid code: show State B (product intro).
+      document.getElementById('state-bad').classList.remove('hide');
+    }
+  </script>
+</body>
 </html>
