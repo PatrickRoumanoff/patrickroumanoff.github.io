@@ -4,10 +4,16 @@
   Host this at https://cloudscript.io/share
 
   A producer's share link looks like:  https://cloudscript.io/share#PS1.<code>
-  The code rides in the URL fragment (#...), so it is NEVER sent to this server —
-  it stays in the browser. This page just reads it client-side, shows subscribe
-  instructions, and lets the recipient copy the code. No fetch/XHR, no query
-  params, no third-party scripts, no analytics, no trackers.
+  and MAY carry an optional sender/title label:  https://cloudscript.io/share#PS1.<code>~t=<label>
+  where <label> is URL-encoded. The code (and label) ride in the URL fragment (#...), so they are
+  NEVER sent to this server — they stay in the browser. This page reads them client-side, shows
+  subscribe instructions, and lets the recipient copy the code. No fetch/XHR, no query params, no
+  third-party scripts, no analytics, no trackers. The label is rendered as PLAIN TEXT only
+  (textContent), never HTML, so a crafted link cannot inject markup or script.
+
+  NOTE: the optional ~t=<label> format is a coordination point with the plugin — the label only
+  appears once the plugin's link-generation emits it; until then the page is simply generic, which
+  is correct. See PROJECT_STATUS.md "label-format coordination".
 -->
 <html lang="en">
 <head>
@@ -28,7 +34,7 @@
       --ink:#13243B; --ink-soft:#3A4A60; --slate:#5C6B7E;
       --blue:#2E6FE0; --blue-deep:#1B4FB0; --sky:#5AA0F0;
       --cloud:#F4F7FB; --cloud-2:#EAF1FB; --chip-border:#D5E3FA;
-      --line:#E4EAF1; --white:#fff;
+      --line:#E4EAF1; --white:#fff; --ok:#1F845A; --ok-bg:#E3FCEF;
       --r-sm:8px; --r-md:12px; --r-lg:16px;
     }
     *{box-sizing:border-box}
@@ -54,12 +60,36 @@
       text-transform:uppercase; color:var(--blue-deep); background:var(--cloud-2);
       border:1px solid var(--chip-border); padding:5px 12px; border-radius:999px; margin-bottom:14px}
     h1{color:var(--ink); font-size:28px; line-height:1.2; letter-spacing:-0.5px; margin:0 0 10px}
-    .lede{font-size:18px; color:var(--ink-soft); margin:0 0 26px}
+    h1 .title-quote{color:var(--blue-deep)}
+    .lede{font-size:18px; color:var(--ink-soft); margin:0 0 22px}
+    .sender{font-size:14px; color:var(--slate); margin:0 0 18px}
+    .sender strong{color:var(--ink-soft)}
+
+    /* value block (payoff before mechanics) */
+    .value{display:grid; grid-template-columns:1fr 1fr 1fr; gap:12px; margin:0 0 24px}
+    .value .v{background:var(--white); border:1px solid var(--line); border-radius:var(--r-md); padding:16px}
+    .value .v .ic{width:30px; height:30px; border-radius:8px; background:var(--cloud-2); color:var(--blue);
+      display:flex; align-items:center; justify-content:center; margin-bottom:10px}
+    .value .v h4{color:var(--ink); font-size:14px; margin:0 0 4px}
+    .value .v p{margin:0; font-size:13.5px; color:var(--slate); line-height:1.5}
 
     /* card */
     .card{background:var(--white); border:1px solid var(--line); border-radius:var(--r-lg);
       padding:28px; margin:0 0 20px}
     .card h2{color:var(--ink); font-size:18px; margin:0 0 6px}
+
+    /* self-select fork */
+    .fork{display:flex; gap:8px; flex-wrap:wrap; align-items:center; margin:10px 0 18px;
+      padding:12px 14px; background:var(--cloud); border:1px solid var(--line); border-radius:var(--r-md)}
+    .fork .q{font-size:14px; color:var(--ink-soft); font-weight:600; margin-right:4px}
+    .seg{display:inline-flex; border:1px solid var(--chip-border); border-radius:999px; overflow:hidden}
+    .seg button{border:0; background:#fff; color:var(--ink-soft); font-weight:600; font-size:13px;
+      padding:7px 14px; cursor:pointer}
+    .seg button.on{background:var(--blue); color:#fff}
+
+    /* CSS-counter step numbering: a hidden (display:none) install step is skipped automatically */
+    .steps-card{counter-reset:step}
+    .step h3::before{counter-increment:step; content:counter(step) ". "; color:var(--blue-deep)}
     .steps{padding-left:20px; margin:14px 0 0}
     .steps li{margin:10px 0}
     .code-row{display:flex; gap:10px; margin:14px 0 4px}
@@ -72,6 +102,7 @@
     .btn-ghost{background:#fff; color:var(--ink); border-color:var(--line)}
     .btn-ghost:hover{border-color:var(--sky); color:var(--blue)}
     .btn-copy{background:var(--blue); color:#fff; white-space:nowrap}
+    .btn-sm{font-size:13.5px; padding:8px 13px}
 
     /* install / handoff callouts */
     .callout{border:1px solid var(--line); border-radius:var(--r-md); padding:18px 20px; margin:16px 0 0;
@@ -80,6 +111,27 @@
     .callout h3{color:var(--ink); font-size:15px; margin:0 0 6px}
     .callout p{margin:0 0 12px; font-size:15px; color:var(--ink-soft)}
     .muted{color:var(--slate); font-size:14px}
+
+    /* price chips */
+    .pricechips{display:flex; gap:8px; flex-wrap:wrap; margin:0 0 12px}
+    .chip{font-size:12.5px; font-weight:600; padding:4px 10px; border-radius:999px;
+      background:var(--cloud-2); color:var(--blue-deep); border:1px solid var(--chip-border)}
+    .chip.free{background:var(--ok-bg); color:var(--ok); border-color:#ABF5D1}
+
+    /* two co-equal, audience-labelled install paths (admin vs non-admin), so a non-admin
+       routes to "copy a request for your admin" instead of hitting a Marketplace dead end. */
+    .paths{display:grid; grid-template-columns:1fr 1fr; gap:12px; margin:16px 0 0}
+    .path{display:flex; flex-direction:column; border:1px solid var(--line); border-radius:var(--r-md); padding:16px; background:#fff}
+    .path-h{font-size:13px; font-weight:700; color:var(--ink); margin:0 0 10px}
+    .path .pricechips{margin:0 0 10px}
+    .path-btn{width:100%; justify-content:center; margin-top:auto}
+    @media (max-width:560px){ .paths{grid-template-columns:1fr} }
+
+    /* illustration of Confluence's ••• menu — inline SVG so the "Apps" flyout aligns exactly.
+       The app's actions are NESTED under "Apps" (production titles, no Forge "(Staging)" suffix). */
+    .shot{margin:10px 0 2px}
+    .shot svg{width:100%; max-width:560px; height:auto; display:block}
+    .shot .cap{font-size:12px; color:var(--slate); margin:10px 0 0}
 
     /* trust strip */
     .trust{background:var(--cloud-2); border:1px solid var(--chip-border); border-radius:var(--r-md);
@@ -96,8 +148,11 @@
     footer.site .fine{color:#8ca0bd; width:100%; margin-top:8px; font-size:13px}
 
     .hide{display:none !important}
+    .toast{position:fixed; left:50%; bottom:24px; transform:translateX(-50%); background:var(--ink); color:#fff;
+      padding:10px 16px; border-radius:8px; font-size:14px; opacity:0; transition:opacity .2s; pointer-events:none}
+    .toast.show{opacity:1}
 
-    @media (max-width:520px){ h1{font-size:24px} .code-row{flex-direction:column} }
+    @media (max-width:560px){ h1{font-size:24px} .code-row{flex-direction:column} .value{grid-template-columns:1fr} }
   </style>
 </head>
 <body>
@@ -114,37 +169,159 @@
     <section class="hero">
       <div class="wrap">
         <span class="eyebrow">Page Sharing for Confluence</span>
-        <h1>A Confluence page has been shared with your site</h1>
-        <p class="lede">Someone using Page Sharing has shared a page with your Confluence site. Subscribe to add it as an always-current, <strong>read-only</strong> copy inside your own space.</p>
+        <!-- hero adapts if the link carries an optional sender/title label (rendered as text) -->
+        <h1 id="hero-h1">A Confluence page has been shared with your site</h1>
+        <p class="sender hide" id="hero-sender"></p>
+        <p class="lede">Add it to your own Confluence as a live, <strong>read-only</strong> copy that updates itself whenever the original changes — no copy-pasting, no stale versions.</p>
       </div>
     </section>
 
     <div class="wrap">
-      <div class="card">
-        <h2>How to accept this shared page</h2>
-        <p class="muted">Two steps: install the Page Sharing app on your Confluence site, then subscribe with the code below.</p>
 
-        <div class="callout install">
-          <h3>1. Install the Page Sharing app</h3>
-          <p>Your site needs the Page Sharing app before it can receive the page. Installing it requires a Confluence site admin.</p>
-          <!-- TODO on Marketplace approval: repoint to Page Sharing's own listing URL (see launch roadmap go-live checklist) -->
-          <a class="btn btn-primary" href="https://marketplace.atlassian.com/vendors/1211952" target="_blank" rel="noopener">Get Page Sharing on the Marketplace →</a>
-          <p class="muted" style="margin-top:12px">Not an admin? Forward this page to whoever administers your Confluence site, and they can install it and set up the subscription.</p>
+      <!-- lead with the payoff, before any mechanics -->
+      <div class="value">
+        <div class="v">
+          <div class="ic" aria-hidden="true">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M12 7v5l3 2" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="2"/></svg>
+          </div>
+          <h4>Always current</h4>
+          <p>The copy updates automatically when the source page changes. You never read a stale version.</p>
+        </div>
+        <div class="v">
+          <div class="ic" aria-hidden="true">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><rect x="4" y="10" width="16" height="10" rx="2" stroke="currentColor" stroke-width="2"/><path d="M8 10V7a4 4 0 0 1 8 0v3" stroke="currentColor" stroke-width="2"/></svg>
+          </div>
+          <h4>Read-only, tamper-proof</h4>
+          <p>It's a locked replica, so you can trust it matches the source and nothing on your side altered it.</p>
+        </div>
+        <div class="v">
+          <div class="ic" aria-hidden="true">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none"><path d="M5 13l4 4L19 7" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
+          </div>
+          <h4>Set up once</h4>
+          <p>After the sender approves your site, this page and any future pages they share appear on their own.</p>
+        </div>
+      </div>
+
+      <div class="card steps-card">
+        <h2>How to add it to your Confluence</h2>
+
+        <!-- self-select fork (real control; the page can't detect this without egress) -->
+        <div class="fork">
+          <span class="q">Is Page Sharing already on your Confluence site?</span>
+          <span class="seg">
+            <button id="fork-new" class="on" type="button">Not yet / not sure</button>
+            <button id="fork-have" type="button">Already installed</button>
+          </span>
         </div>
 
-        <div class="callout">
-          <h3>2. Accept the share</h3>
-          <p class="muted">Once the app is installed:</p>
+        <!-- STEP: install (hidden when "already installed" is chosen; CSS counter renumbers the rest) -->
+        <div class="callout install step" id="step-install">
+          <h3>Install Page Sharing on your site</h3>
+          <p>The Confluence site where you want the shared page to appear needs Page Sharing installed, and only an admin of the destination site can do it. Pick the path that fits you:</p>
+
+          <!-- two co-equal, audience-labelled paths. A non-admin routes to the admin request
+               instead of clicking the Marketplace link and hitting a permission dead end. -->
+          <div class="paths">
+            <div class="path">
+              <div class="path-h">You're the site admin</div>
+              <!-- Price is duplicated from the Marketplace listing (source of truth); update here on any
+                   price change (see PROJECT_STATUS.md — /share is one of the surfaces showing the price). -->
+              <div class="pricechips">
+                <span class="chip">Paid app · from US$9/mo</span>
+                <span class="chip">Per user of your site</span>
+              </div>
+              <p class="muted" style="margin:0 0 12px">Includes Atlassian's standard 30-day trial. Exact pricing for your site size is shown on the Marketplace.</p>
+              <!-- TODO on Marketplace approval: repoint to Page Sharing's own listing URL (see launch roadmap go-live checklist) -->
+              <a class="btn btn-primary path-btn" href="https://marketplace.atlassian.com/vendors/1211952" target="_blank" rel="noopener">Get it on the Marketplace →</a>
+            </div>
+            <div class="path">
+              <div class="path-h">You're not the site admin</div>
+              <p class="muted" style="margin:0 0 12px">That's most people sent a share link. Send whoever administers the destination site everything they need to approve and install it (the Marketplace link, pricing, and our privacy and data-handling pages) in one message.</p>
+              <button class="btn btn-primary path-btn" id="copy-admin" type="button">Copy a request for your admin</button>
+            </div>
+          </div>
+        </div>
+
+        <!-- STEP: subscribe -->
+        <div class="callout step" id="step-subscribe">
+          <h3>Subscribe to the page</h3>
+
           <ol class="steps">
-            <li>Open the page you want the synced copy to live <strong>under</strong> (its space and that page become the target).</li>
-            <li>In that page's <strong>•••</strong> menu, choose <strong>Subscribe to a shared page</strong>.</li>
+            <li>Open the page you want the synced copy to live <strong>under</strong> (its space and that page become the destination).</li>
+            <li>In that page's <strong>•••</strong> (More actions) menu, open <strong>Apps</strong>, then choose <strong>⬇️ Subscribe to External Page</strong>:</li>
+          </ol>
+
+          <!-- illustration sits directly under the ••• menu step it describes. Inline SVG (also saved
+               standalone as share-menu-illustration.svg) — the app's actions are nested under "Apps",
+               verified against a live install; production titles, no "(Staging)". -->
+          <div class="shot">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 664 592" font-family="Inter, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif" role="img" aria-label="Confluence more-actions menu with the Apps submenu open, showing Subscribe to External Page">
+              <defs>
+                <filter id="cardsh" x="-30%" y="-25%" width="160%" height="155%">
+                  <feDropShadow dx="0" dy="8" stdDeviation="11" flood-color="#0b1f3a" flood-opacity="0.18"/>
+                </filter>
+              </defs>
+              <rect x="330" y="20" width="300" height="535" rx="10" fill="#ffffff" filter="url(#cardsh)"/>
+              <rect x="36" y="233" width="286" height="96" rx="10" fill="#ffffff" filter="url(#cardsh)"/>
+              <rect x="331" y="241" width="298" height="40" fill="#E9F2FF"/>
+              <rect x="37" y="281" width="284" height="40" fill="#E9F2FF"/>
+              <line x1="342" y1="154" x2="618" y2="154" stroke="#EBECF0" stroke-width="1"/>
+              <line x1="342" y1="287" x2="618" y2="287" stroke="#EBECF0" stroke-width="1"/>
+              <line x1="342" y1="500" x2="618" y2="500" stroke="#EBECF0" stroke-width="1"/>
+              <g font-size="15" fill="#172B4D">
+                <text x="380" y="48" dominant-baseline="middle">Star</text>
+                <text x="380" y="88" dominant-baseline="middle">Watch settings</text>
+                <text x="380" y="128" dominant-baseline="middle">Present</text>
+                <text x="380" y="181" dominant-baseline="middle">Version history</text>
+                <text x="380" y="221" dominant-baseline="middle">Advanced details</text>
+                <text x="380" y="261" dominant-baseline="middle" fill="#0C66E4" font-weight="600">Apps</text>
+                <text x="380" y="314" dominant-baseline="middle">Make a copy</text>
+                <text x="380" y="354" dominant-baseline="middle">Move</text>
+                <text x="380" y="394" dominant-baseline="middle">Convert</text>
+                <text x="380" y="434" dominant-baseline="middle">Export</text>
+                <text x="380" y="474" dominant-baseline="middle">Archive and delete</text>
+                <text x="380" y="527" dominant-baseline="middle">Report Abuse</text>
+              </g>
+              <g transform="translate(348,39) scale(0.75)" fill="none" stroke="#44546F" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5l2.6 5.3 5.9.9-4.3 4.1 1 5.8-5.2-2.8-5.2 2.8 1-5.8-4.3-4.1 5.9-.9z"/></g>
+              <g transform="translate(348,79) scale(0.75)" fill="none" stroke="#44546F" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M2 12s3.6-6.5 10-6.5S22 12 22 12s-3.6 6.5-10 6.5S2 12 2 12z"/><circle cx="12" cy="12" r="2.6"/></g>
+              <g transform="translate(348,119) scale(0.75)" fill="none" stroke="#44546F" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 3l14 7-6 2-2 6-6-15z"/></g>
+              <g transform="translate(348,172) scale(0.75)" fill="none" stroke="#44546F" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></g>
+              <g transform="translate(348,212) scale(0.75)" fill="#44546F"><circle cx="6" cy="12" r="1.7"/><circle cx="12" cy="12" r="1.7"/><circle cx="18" cy="12" r="1.7"/></g>
+              <g transform="translate(348,252) scale(0.75)" fill="none" stroke="#0C66E4" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="6" height="6" rx="1.5"/><rect x="14" y="4" width="6" height="6" rx="1.5"/><rect x="4" y="14" width="6" height="6" rx="1.5"/><path d="M17 14v6M14 17h6"/></g>
+              <g transform="translate(348,305) scale(0.75)" fill="none" stroke="#44546F" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V6a2 2 0 0 1 2-2h9"/></g>
+              <g transform="translate(348,345) scale(0.75)" fill="none" stroke="#44546F" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12h15M13 6l6 6-6 6"/></g>
+              <g transform="translate(348,385) scale(0.75)" fill="none" stroke="#44546F" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 9h13l-3-3M20 15H7l3 3"/></g>
+              <g transform="translate(348,425) scale(0.75)" fill="none" stroke="#44546F" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3v11M8 7l4-4 4 4"/><path d="M5 14v4a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-4"/></g>
+              <g transform="translate(348,465) scale(0.75)" fill="none" stroke="#44546F" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M5 7h14M10 7V5h4v2M6 7l1 12a2 2 0 0 0 2 2h6a2 2 0 0 0 2-2l1-12"/></g>
+              <g transform="translate(348,518) scale(0.75)" fill="none" stroke="#44546F" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 21V4M6 4h11l-2 4 2 4H6"/></g>
+              <g fill="none" stroke="#626F86" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M606 83l6 5-6 5"/><path d="M606 216l6 5-6 5"/><path d="M606 389l6 5-6 5"/><path d="M606 429l6 5-6 5"/><path d="M606 469l6 5-6 5"/>
+              </g>
+              <path d="M606 256l6 5-6 5" fill="none" stroke="#0C66E4" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+              <rect x="514" y="39" width="36" height="18" rx="4" fill="#F1F2F4"/><rect x="555" y="39" width="32" height="18" rx="4" fill="#F1F2F4"/><rect x="592" y="39" width="22" height="18" rx="4" fill="#F1F2F4"/>
+              <g font-size="11" font-weight="600" fill="#626F86" text-anchor="middle"><text x="532" y="48" dominant-baseline="middle">Ctrl</text><text x="571" y="48" dominant-baseline="middle">Opt</text><text x="603" y="48" dominant-baseline="middle">F</text></g>
+              <rect x="526" y="119" width="24" height="18" rx="4" fill="#F1F2F4"/><rect x="555" y="119" width="32" height="18" rx="4" fill="#F1F2F4"/><rect x="592" y="119" width="22" height="18" rx="4" fill="#F1F2F4"/>
+              <g font-size="11" font-weight="600" fill="#626F86" text-anchor="middle"><text x="538" y="128" dominant-baseline="middle">&#8984;</text><text x="571" y="128" dominant-baseline="middle">Opt</text><text x="603" y="128" dominant-baseline="middle">R</text></g>
+              <g transform="translate(52,252)"><rect width="18" height="18" rx="4" fill="#4C9AFF"/><path d="M9 4.5V13.5M5.5 8L9 4.5 12.5 8" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></g>
+              <g transform="translate(52,292)"><rect width="18" height="18" rx="4" fill="#4C9AFF"/><path d="M9 4.5V13.5M5.5 10L9 13.5 12.5 10" fill="none" stroke="#ffffff" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/></g>
+              <g font-size="15"><text x="82" y="261" dominant-baseline="middle" fill="#172B4D">Share Page Externally</text><text x="82" y="301" dominant-baseline="middle" fill="#0C66E4" font-weight="600">Subscribe to External Page</text></g>
+              <rect x="330" y="20" width="300" height="535" rx="10" fill="none" stroke="#DCDFE4"/>
+              <rect x="36" y="233" width="286" height="96" rx="10" fill="none" stroke="#DCDFE4"/>
+            </svg>
+            <p class="cap">Confluence's <strong>•••</strong> menu: the app's actions sit under <strong>Apps</strong> — open it, then choose ⬇️ <strong>Subscribe to External Page</strong>.</p>
+          </div>
+
+          <ol class="steps" start="3">
             <li>Paste this code and choose <strong>Subscribe</strong>:</li>
           </ol>
           <div class="code-row">
             <code class="code" id="code"></code>
             <button class="btn btn-copy" id="copy" type="button">Copy code</button>
           </div>
-          <p class="muted">A read-only copy is created and kept in sync automatically. If your site isn't allow-listed yet, it shows as <em>awaiting approval</em> until the sender approves it.</p>
+
+          <!-- frame approval as a one-time setup that pays forward -->
+          <p class="muted">A read-only copy is created and kept in sync automatically. The sender approves your site <strong>once</strong> — after that, this page and any future pages they share with you appear on their own.</p>
         </div>
       </div>
 
@@ -185,6 +362,17 @@
     </div>
   </main>
 
+  <!-- no-JavaScript fallback so a locked-down browser never sees a blank page -->
+  <noscript>
+    <div class="wrap" style="padding:32px 20px">
+      <div class="card">
+        <h2>Enable JavaScript to read your share code</h2>
+        <p class="muted">This page reads your share code in the browser (it's never sent to a server), which needs JavaScript. To subscribe: install Page Sharing on your Confluence site from the Atlassian Marketplace, then in a page's <strong>•••</strong> menu open <strong>Apps</strong> and choose <strong>Subscribe to External Page</strong>, and paste the <code>PS1.</code> code from the link you were sent.</p>
+        <p><a href="/apps/page-sharing">About Page Sharing →</a></p>
+      </div>
+    </div>
+  </noscript>
+
   <footer class="site">
     <div class="wrap">
       <span class="wordmark" style="font-size:16px"><span class="c" style="color:#fff">cloud</span><span class="s" style="color:var(--sky)">script</span><span class="io" style="color:#8ca0bd">.io</span></span>
@@ -197,29 +385,98 @@
     </div>
   </footer>
 
+  <div class="toast" id="toast">Copied</div>
+
   <script>
-    // Read the share code from the URL fragment (client-side only; never sent to a server).
-    function readCode(){
-      var raw = decodeURIComponent((location.hash || '').replace(/^#/, '')).trim();
-      var m = raw.match(/PS1\.[A-Za-z0-9_.\-]+/);
-      return m ? m[0] : null;
+    // ---- read the code (and optional label) from the fragment, client-side only; never sent anywhere ----
+    function frag(){ return decodeURIComponent((location.hash || '').replace(/^#/, '')).trim(); }
+    function readCode(){ var m = frag().match(/PS1\.[A-Za-z0-9_.\-]+/); return m ? m[0] : null; }
+
+    // Optional sender/title label. Fragment format:  #PS1.<code>~t=<label>  (label URL-encoded).
+    // Rendered as PLAIN TEXT only (never HTML). Control chars stripped; capped at 120 chars.
+    // This format is a coordination point with the plugin's link-generation (see PROJECT_STATUS.md).
+    function readLabel(){
+      var m = frag().match(/[~&?]t=([^&]+)/);
+      if (!m) return null;
+      var label = m[1].replace(/[\u0000-\u001F\u007F]/g, '').trim();
+      if (!label) return null;
+      return label.length > 120 ? label.slice(0, 120) : label;
     }
 
+    var toast = document.getElementById('toast');
+    function ping(msg){ toast.textContent = msg || 'Copied'; toast.classList.add('show'); setTimeout(function(){ toast.classList.remove('show'); }, 1400); }
+
+    // clipboard with a hidden-textarea fallback so copy never silently fails
+    function copyText(text, okMsg){
+      if (navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(text).then(function(){ ping(okMsg); }, fallback);
+      } else { fallback(); }
+      function fallback(){
+        var ta = document.createElement('textarea');
+        ta.value = text; ta.style.position='fixed'; ta.style.opacity='0';
+        document.body.appendChild(ta); ta.focus(); ta.select();
+        try { document.execCommand('copy'); ping(okMsg); } catch(e){ ping('Press Ctrl/Cmd+C to copy'); }
+        document.body.removeChild(ta);
+      }
+    }
+
+    // compose the admin request message. Deliberately omits the share code — it's a bearer capability
+    // the admin doesn't need (the admin installs; the subscriber keeps and uses the code).
+    function adminMessage(){
+      return [
+        "Hi — I've been sent a Confluence page to access through an app called Page Sharing (by cloudscript.io).",
+        "To open it, our Confluence site needs the app installed, which takes a site admin.",
+        "",
+        "It's a paid Atlassian Marketplace app, and it runs entirely on Atlassian's Forge platform — shared content never passes through a third-party server.",
+        "",
+        "Marketplace / pricing: https://marketplace.atlassian.com/vendors/1211952",
+        "Privacy policy: https://cloudscript.io/apps/page-sharing/privacy",
+        "How it handles data: https://cloudscript.io/apps/page-sharing#data-flow",
+        "",
+        "Could you install it, or let me know? As soon as it's installed I can use it to subscribe to the page shared with me via secure code. Thanks."
+      ].join("\n");
+    }
+
+    // self-select fork — hide/show the install step (CSS counter renumbers the subscribe step)
+    function setFork(hasApp){
+      document.getElementById('step-install').classList.toggle('hide', hasApp);
+      document.getElementById('fork-have').classList.toggle('on', hasApp);
+      document.getElementById('fork-new').classList.toggle('on', !hasApp);
+    }
+
+    // render the label into the hero if the link carries one — TEXT ONLY, never innerHTML (XSS-safe)
+    function applyLabel(label){
+      var h1 = document.getElementById('hero-h1'), s = document.getElementById('hero-sender');
+      if (label){
+        h1.textContent = 'You’ve been invited to subscribe to ';
+        var q = document.createElement('span');
+        q.className = 'title-quote';
+        q.textContent = '“' + label + '”';   // label inserted as a text node only
+        h1.appendChild(q);
+        s.textContent = 'Shared with your Confluence site via Page Sharing.';
+        s.classList.remove('hide');
+      } else {
+        // generic hero — leave the default h1 text untouched (byte-identical to no-label behaviour)
+        s.classList.add('hide');
+      }
+    }
+
+    // ---- render from the real fragment: valid code -> State A, else State B ----
     var real = readCode();
     if (real){
-      // Valid code: show State A with the real code and wire the Copy button.
       document.getElementById('code').textContent = real;
-      document.getElementById('state-ok').classList.remove('hide');
+      applyLabel(readLabel());
+      setFork(false); // default: install step shown
       document.getElementById('copy').addEventListener('click', function(){
-        if (!navigator.clipboard) return;
-        navigator.clipboard.writeText(real).then(function(){
-          var b = document.getElementById('copy');
-          b.textContent = 'Copied';
-          setTimeout(function(){ b.textContent = 'Copy code'; }, 1500);
-        });
+        copyText(document.getElementById('code').textContent, 'Code copied');
       });
+      document.getElementById('copy-admin').addEventListener('click', function(){
+        copyText(adminMessage(), 'Admin request copied');
+      });
+      document.getElementById('fork-new').addEventListener('click', function(){ setFork(false); });
+      document.getElementById('fork-have').addEventListener('click', function(){ setFork(true); });
+      document.getElementById('state-ok').classList.remove('hide');
     } else {
-      // No valid code: show State B (product intro).
       document.getElementById('state-bad').classList.remove('hide');
     }
   </script>
