@@ -176,6 +176,25 @@ section { padding: 64px 0; }
 /* Breathing room above the heading and below the grid (matches the grid row gap) */
 #apps { padding-top: 18px; padding-bottom: 18px; }
 
+/* ---- Marketplace trust badges (reusable 0–2 chip row) ------------------- */
+/* Same visual family as .tag / .badge-soon. Works on a landing card and in
+   .prose. Each chip links to /trust#badges. Adding a second chip needs no CSS
+   change — the row wraps. See the "Marketplace trust badges" section on /trust. */
+.trust-badges { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 14px; }
+.trust-badge {
+  display: inline-flex; align-items: center; gap: 6px;
+  font-size: 12px; font-weight: 600; line-height: 1.35;
+  color: var(--ink); background: var(--cloud-2);
+  border: 1px solid var(--chip-border); border-radius: 999px;
+  padding: 4px 11px;
+}
+.trust-badge:hover { border-color: var(--sky); }
+.trust-badge svg { flex: 0 0 auto; color: var(--blue); }
+/* Keep the chip ink-coloured where .prose otherwise paints links blue
+   (:not(.btn) lifts specificity above .prose a:not(.btn), regardless of order) */
+.prose a.trust-badge:not(.btn) { color: var(--ink); font-weight: 600; }
+.prose a.trust-badge:not(.btn):hover { color: var(--ink); border-color: var(--sky); }
+
 /* ---- Trust strip -------------------------------------------------------- */
 .trust { background: var(--cloud); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
 .trust-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
