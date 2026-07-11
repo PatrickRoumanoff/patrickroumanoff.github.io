@@ -1,13 +1,13 @@
 ---
 layout: default
-description: "CloudScript.io builds focused apps for the Atlassian Marketplace and keeps the documentation, terms and support for every one of them in a single, dependable place."
+description: "CloudScript.io builds practical, purpose-driven apps for Confluence Cloud. Each asks only for the access its job needs, each backed by clear documentation and a plain-English privacy policy."
 ---
 
 <div class="hero">
   <div class="wrap hero-inner">
     <span class="eyebrow">Apps for Confluence Cloud</span>
     <h1>Small, sharp tools that make <span class="accent">Confluence</span> do more.</h1>
-    <p class="lede">CloudScript.io builds focused apps for the Atlassian Marketplace — and keeps the documentation, terms and support for every one of them in a single, dependable place.</p>
+    <p class="lede">CloudScript.io builds practical, purpose-driven apps for Confluence Cloud. Each asks only for the access its job needs, each backed by clear documentation and a plain-English privacy policy.</p>
     <div class="cta-row">
       <a class="btn btn-primary" href="#apps">Browse the apps</a>
       <a class="btn btn-ghost" href="/support">Get support</a>
@@ -18,63 +18,79 @@ description: "CloudScript.io builds focused apps for the Atlassian Marketplace a
 <section id="apps" class="wrap">
   <div class="sec-head">
     <h2>Our apps</h2>
-    <p>Three apps live on the Atlassian Marketplace, with a fourth available July 2026.</p>
+    <p>We specialise in focused, well-made apps for Confluence Cloud.</p>
   </div>
-  <div class="grid">
 
-    <div class="card feature">
-      <a class="card-icon-link" href="/apps/mermaid" aria-label="CloudScript.io Mermaid">
-        <img class="card-icon" src="/assets/img/icons/mermaid.svg" alt="" width="48" height="48">
-      </a>
-      <h3><a href="/apps/mermaid">CloudScript.io Mermaid</a> <span class="tag">Flagship</span></h3>
+  {% comment %}
+    The app directory renders from the per-app registry in _data/apps/ (one
+    YAML file per app; site.data.apps is a filename-keyed hash). Adding an
+    app to this page = one data file + one icon at /assets/img/icons/<slug>.svg.
+    Rules: the featured slot takes the app with featured: true AND status:
+    live; `retiring` renders exactly like live here (that status only
+    surfaces on /trust); coming-soon tiles carry an inline chip, never a
+    Marketplace link, and link to an app page only where one exists
+    (has_page not false).
+  {% endcomment %}
+  {% assign homepage_apps = site.data.apps | where: "homepage_visible", true | sort: "order" %}
+  {% assign featured_app = homepage_apps | where: "featured", true | where: "status", "live" | first %}
+
+  {% if featured_app %}
+  <div class="feature-wide">
+    <img class="fw-icon" src="/assets/img/icons/{{ featured_app.slug }}.svg" alt="" width="56" height="56">
+    <div class="fw-body">
+      <h3>{{ featured_app.name | escape }} <span class="tag">Featured</span></h3>
+      {% if featured_app.badges and featured_app.badges.size > 0 %}
       <div class="trust-badges">
-        <a class="trust-badge" href="/trust#badges">
+        {% for badge in featured_app.badges %}{% if badge == "runs-on-atlassian" %}<a class="trust-badge" href="/trust#badges">
           <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 2 8l10 5 10-5-10-5Z"/><path d="M2 12l10 5 10-5"/><path d="M2 16l10 5 10-5"/></svg>Runs on Atlassian
-        </a>
+        </a>{% endif %}{% endfor %}
       </div>
-      <p>Author Mermaid diagrams directly in Confluence Cloud. Flowcharts, sequence diagrams and more, rendered cleanly inside your pages. A full user guide, kept current with the app.</p>
+      {% endif %}
+      <p>{{ featured_app.description | escape }}</p>
+    </div>
+    <div class="fw-cta">
+      <a class="btn btn-primary" href="/apps/{{ featured_app.slug }}">Learn more</a>
+      {% if featured_app.marketplace_url %}<a class="btn btn-ghost" href="{{ featured_app.marketplace_url }}" target="_blank" rel="noopener">View on Marketplace</a>{% endif %}
+    </div>
+  </div>
+  {% endif %}
+
+  <div class="subhead">Live on the Atlassian Marketplace</div>
+  <div class="grid-compact">
+    {% for app in homepage_apps %}
+      {% if app.status != "live" and app.status != "retiring" %}{% continue %}{% endif %}
+      {% if app.slug == featured_app.slug %}{% continue %}{% endif %}
+    <div class="card-c">
+      <div class="card-c-head">
+        <img class="c-icon" src="/assets/img/icons/{{ app.slug }}.svg" alt="" width="36" height="36">
+        <h3><a href="/apps/{{ app.slug }}">{{ app.name | escape }}</a></h3>
+      </div>
+      <p>{{ app.description | escape }}</p>
       <div class="card-foot">
-        <a class="link" href="/apps/mermaid">Learn more &rarr;</a>
-        <a class="link link-secondary" href="https://marketplace.atlassian.com/apps/1219878/cloudscript-io-mermaid" target="_blank" rel="noopener">View on Marketplace</a>
+        <a class="link" href="/apps/{{ app.slug }}">Learn more &rarr;</a>
+        {% if app.marketplace_url %}<a class="link link-secondary" href="{{ app.marketplace_url }}" target="_blank" rel="noopener">View on Marketplace</a>{% endif %}
       </div>
     </div>
+    {% endfor %}
+  </div>
 
-    <div class="card coming-soon">
-      <span class="badge-soon">Coming soon</span>
-      <a class="card-icon-link" href="/apps/page-sharing" aria-label="Page Sharing for Confluence">
-        <img class="card-icon" src="/assets/img/icons/page-sharing.svg" alt="" width="48" height="48">
-      </a>
-      <h3><a href="/apps/page-sharing">Page Sharing for Confluence</a></h3>
-      <p>Enables collaboration by sharing a Confluence page across instances or between spaces by link invitation. Subscribers always see the latest published version, and your original stays the source of truth.</p>
-      <div class="card-foot">
-        <a class="link" href="/apps/page-sharing">Learn more &rarr;</a>
+  <div class="subhead">Coming soon</div>
+  <div class="grid-compact">
+    {% for app in homepage_apps %}
+      {% if app.status != "coming-soon" %}{% continue %}{% endif %}
+    <div class="card-c soon">
+      <div class="card-c-head">
+        <img class="c-icon" src="/assets/img/icons/{{ app.slug }}.svg" alt="" width="36" height="36">
+        <h3>{% if app.has_page == false %}{{ app.name | escape }}{% else %}<a href="/apps/{{ app.slug }}">{{ app.name | escape }}</a>{% endif %} <span class="badge-soon-inline">Coming soon</span></h3>
       </div>
-    </div>
-
-    <div class="card">
-      <a class="card-icon-link" href="/apps/nikoniko" aria-label="NikoNiko Calendar">
-        <img class="card-icon" src="/assets/img/icons/nikoniko.svg" alt="" width="48" height="48">
-      </a>
-      <h3><a href="/apps/nikoniko">NikoNiko Calendar</a></h3>
-      <p>A lightweight team-mood calendar for Confluence spaces, for tracking how a team is feeling over time.</p>
+      <p>{{ app.description | escape }}</p>
+      {% unless app.has_page == false %}
       <div class="card-foot">
-        <a class="link" href="/apps/nikoniko">Learn more &rarr;</a>
-        <a class="link link-secondary" href="https://marketplace.atlassian.com/apps/1223001/cloudscript-io-nikoniko-calendar" target="_blank" rel="noopener">View on Marketplace</a>
+        <a class="link" href="/apps/{{ app.slug }}">Learn more &rarr;</a>
       </div>
+      {% endunless %}
     </div>
-
-    <div class="card">
-      <a class="card-icon-link" href="/apps/cloudscript-for-confluence" aria-label="CloudScript for Confluence">
-        <img class="card-icon" src="/assets/img/icons/cloudscript-for-confluence.svg" alt="" width="48" height="48">
-      </a>
-      <h3><a href="/apps/cloudscript-for-confluence">CloudScript for Confluence</a></h3>
-      <p>Run JavaScript against your Confluence Cloud instance to automate routine administrative tasks.</p>
-      <div class="card-foot">
-        <a class="link" href="/apps/cloudscript-for-confluence">Learn more &rarr;</a>
-        <a class="link link-secondary" href="https://marketplace.atlassian.com/apps/1213855/cloudscript-for-confluence" target="_blank" rel="noopener">View on Marketplace</a>
-      </div>
-    </div>
-
+    {% endfor %}
   </div>
 </section>
 
