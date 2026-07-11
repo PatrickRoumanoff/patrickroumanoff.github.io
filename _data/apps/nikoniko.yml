@@ -1,0 +1,11 @@
+name: NikoNiko Calendar
+slug: nikoniko
+order: 40
+status: retiring
+homepage_visible: true
+featured: false
+platform: Connect
+description: A lightweight team-mood calendar for Confluence spaces, for tracking how a team is feeling over time.
+marketplace_url: https://marketplace.atlassian.com/apps/1223001/cloudscript-io-nikoniko-calendar
+badges: []
+stores_personal_data: "Yes &mdash; a mood value (0&ndash;5) and a Confluence account identifier, held on Heroku"

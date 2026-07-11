@@ -1,0 +1,11 @@
+name: CloudScript for Confluence
+slug: cloudscript-for-confluence
+order: 50
+status: retiring
+homepage_visible: true
+featured: false
+platform: Connect
+description: Run JavaScript against your Confluence Cloud instance to automate routine administrative tasks.
+marketplace_url: https://marketplace.atlassian.com/apps/1213855/cloudscript-for-confluence
+badges: []
+stores_personal_data: "Runs administrator-authored scripts on Heroku"

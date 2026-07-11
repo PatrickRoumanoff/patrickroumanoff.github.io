@@ -1,0 +1,14 @@
+# Hidden until the description exists (Natasha, 2026-07-11): the TODO marker
+# below must be replaced with real copy before homepage_visible flips to true.
+name: MCP Renderer for Confluence
+slug: mcp-renderer
+order: 30
+status: coming-soon
+homepage_visible: false
+featured: false
+has_page: false
+platform: Forge
+description: TODO-ASK-NATASHA
+marketplace_url: null
+badges: []
+stores_personal_data: null
