@@ -247,6 +247,28 @@ section { padding: 64px 0; }
 }
 .card-c.soon { border-style: dashed; }
 
+/* "Suggest an app" band: copy + email link left, single-line form right */
+.suggest-band {
+  display: flex; align-items: center; gap: 24px; flex-wrap: wrap;
+  border: 1px dashed var(--chip-border); background: var(--cloud-2);
+  border-radius: var(--r-md); padding: 16px 22px; margin-top: 16px;
+}
+.suggest-band .sb-copy { flex: 1 1 340px; }
+.suggest-band h3 { font-size: 15px; margin: 0 0 3px; font-weight: 600; }
+.suggest-band p { font-size: 13.5px; color: var(--ink-soft); margin: 0; }
+.suggest-band a { font-weight: 600; color: var(--blue); }
+.suggest-band a:hover { color: var(--blue-deep); }
+.suggest-band .sb-form { flex: 1 1 340px; }
+.suggest-band form { display: flex; gap: 8px; align-items: center; }
+.suggest-band input[type="text"] {
+  flex: 1; min-width: 0; font-family: inherit; font-size: 13.5px;
+  color: var(--ink); background: #fff; border: 1px solid var(--chip-border);
+  border-radius: var(--r-sm); padding: 9px 12px;
+}
+.suggest-band input[type="text"]:focus { outline: 2px solid var(--blue); outline-offset: 1px; }
+.suggest-band .btn { padding: 8px 16px; font-size: 13.5px; white-space: nowrap; }
+.suggest-band .fine { font-size: 11.5px; color: var(--slate); margin: 5px 0 0; }
+
 /* ---- Trust strip -------------------------------------------------------- */
 .trust { background: var(--cloud); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
 .trust-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }

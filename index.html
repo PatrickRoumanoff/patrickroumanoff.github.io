@@ -92,6 +92,31 @@ description: "CloudScript.io builds practical, purpose-driven apps for Confluenc
     </div>
     {% endfor %}
   </div>
+
+  {% comment %}
+    Anonymous suggestion box. POSTs through FormSubmit (formsubmit.co), a
+    form relay disclosed at /trust#suggestions: no name/email fields by
+    design, honeypot instead of reCAPTCHA (no Google request), _next lands
+    on /suggest-thanks. contact@ is the deliberate second public address
+    (support@ remains the contact of record on legal/support pages).
+  {% endcomment %}
+  <div class="suggest-band" id="suggest">
+    <div class="sb-copy">
+      <h3>Have an app in mind?</h3>
+      <p>Love our apps? Looking for something similar? Tell us what to build next. Email us at <a href="mailto:contact@cloudscript.io">contact@cloudscript.io</a>, or drop a quick suggestion in the box!</p>
+    </div>
+    <div class="sb-form">
+      <form action="https://formsubmit.co/contact@cloudscript.io" method="POST">
+        <input type="text" name="_honey" style="display:none" tabindex="-1" autocomplete="off">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_subject" value="App suggestion — cloudscript.io">
+        <input type="hidden" name="_next" value="https://cloudscript.io/suggest-thanks">
+        <input type="text" name="suggestion" placeholder="I wish there was an app that…" aria-label="Your app suggestion">
+        <button class="btn btn-primary" type="submit">Send</button>
+      </form>
+      <p class="fine">Suggestions submitted here are anonymous, so they can't receive a reply.</p>
+    </div>
+  </div>
 </section>
 
 <div class="trust" id="docs">
