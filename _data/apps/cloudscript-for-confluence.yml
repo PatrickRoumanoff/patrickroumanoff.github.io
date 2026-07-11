@@ -9,3 +9,6 @@ description: Run JavaScript against your Confluence Cloud instance to automate r
 marketplace_url: https://marketplace.atlassian.com/apps/1213855/cloudscript-for-confluence
 badges: []
 stores_personal_data: "Runs administrator-authored scripts on Heroku"
+documents:
+  - label: On its Atlassian Marketplace listing
+    url: null

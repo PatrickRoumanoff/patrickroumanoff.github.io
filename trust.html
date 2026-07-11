@@ -70,30 +70,21 @@ description: "How CloudScript.io apps handle data, the security model they run o
           </tr>
         </thead>
         <tbody>
+          {%- comment -%}
+            Rows render from _data/apps/ (same registry as the homepage).
+            An app gets a row only when stores_personal_data is non-null;
+            that value and the documents list are human-reviewed legal
+            wording — edit the app's YAML, not this template.
+          {%- endcomment -%}
+          {%- assign trust_apps = site.data.apps | where_exp: "app", "app.stores_personal_data != nil" | sort: "order" -%}
+          {%- for app in trust_apps %}
           <tr>
-            <td>CloudScript.io Mermaid</td>
-            <td>Forge</td>
-            <td>No</td>
-            <td><a href="/apps/mermaid/privacy">Privacy</a> &middot; <a href="/apps/mermaid/terms">Terms</a></td>
+            <td>{{ app.name | escape }}</td>
+            <td>{{ app.platform | escape }}{% if app.status == "retiring" %} (retiring){% endif %}</td>
+            <td>{{ app.stores_personal_data }}</td>
+            <td>{% for doc in app.documents %}{% if doc.url %}<a href="{{ doc.url }}">{{ doc.label }}</a>{% else %}{{ doc.label }}{% endif %}{% unless forloop.last %} &middot; {% endunless %}{% endfor %}</td>
           </tr>
-          <tr>
-            <td>CloudScript Page Sharing</td>
-            <td>Forge</td>
-            <td>Only UserId</td>
-            <td><a href="/apps/page-sharing/privacy">Privacy</a> &middot; <a href="/apps/page-sharing/terms">Terms</a></td>
-          </tr>
-          <tr>
-            <td>NikoNiko Calendar</td>
-            <td>Connect (retiring)</td>
-            <td>Yes &mdash; a mood value (0&ndash;5) and a Confluence account identifier, held on Heroku</td>
-            <td>On its Atlassian Marketplace listing</td>
-          </tr>
-          <tr>
-            <td>CloudScript for Confluence</td>
-            <td>Connect (retiring)</td>
-            <td>Runs administrator-authored scripts on Heroku</td>
-            <td>On its Atlassian Marketplace listing</td>
-          </tr>
+          {%- endfor %}
         </tbody>
       </table>
     </div>
