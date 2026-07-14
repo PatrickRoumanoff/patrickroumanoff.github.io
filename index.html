@@ -74,10 +74,11 @@ description: "CloudScript.io builds practical, purpose-driven apps for Confluenc
     {% endfor %}
   </div>
 
+  {% assign coming_soon_apps = homepage_apps | where: "status", "coming-soon" %}
+  {% if coming_soon_apps.size > 0 %}
   <div class="subhead">Coming soon</div>
   <div class="grid-compact">
-    {% for app in homepage_apps %}
-      {% if app.status != "coming-soon" %}{% continue %}{% endif %}
+    {% for app in coming_soon_apps %}
     <div class="card-c soon">
       <div class="card-c-head">
         <img class="c-icon" src="/assets/img/icons/{{ app.slug }}.svg" alt="" width="36" height="36">
@@ -92,6 +93,7 @@ description: "CloudScript.io builds practical, purpose-driven apps for Confluenc
     </div>
     {% endfor %}
   </div>
+  {% endif %}
 
   {% comment %}
     Anonymous suggestion box. POSTs through FormSubmit (formsubmit.co), a
