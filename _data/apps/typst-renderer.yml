@@ -1,0 +1,12 @@
+name: Cloudscript Typst Renderer
+slug: typst-renderer
+order: 25
+status: coming-soon
+homepage_visible: true
+featured: false
+has_page: false
+platform: Forge
+description: Render Typst documents and mathematics right on your Confluence pages — live from source, entirely in the browser, storing nothing.
+marketplace_url: null
+badges: []
+stores_personal_data: null
