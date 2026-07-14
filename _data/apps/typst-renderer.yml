@@ -9,4 +9,9 @@ platform: Forge
 description: Render Typst documents and mathematics right on your Confluence pages — live from source, entirely in the browser, storing nothing.
 marketplace_url: null
 badges: []
-stores_personal_data: null
+stores_personal_data: "No"
+documents:
+  - label: Privacy
+    url: /apps/typst-renderer/privacy
+  - label: Terms
+    url: /apps/typst-renderer/terms

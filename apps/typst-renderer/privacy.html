@@ -1,0 +1,212 @@
+---
+layout: default
+title: "Cloudscript Typst Renderer - Privacy Policy"
+description: "Privacy policy for the Cloudscript Typst Renderer app for Confluence Cloud - what the app does and does not do with your data."
+---
+
+<div class="page wrap">
+  <div class="prose">
+
+    <h1>Cloudscript Typst Renderer Privacy Policy</h1>
+
+    <p class="meta">
+      <strong>Effective:</strong> on and from the date the Cloudscript Typst Renderer app is first listed on the Atlassian Marketplace.
+    </p>
+
+    <h2>Who we are</h2>
+    <p>
+      Cloudscript Typst Renderer is provided by <strong>Patrick Roumanoff
+      trading as Cloudscript</strong> (ABN 72 287 293 373) ("Cloudscript.io",
+      "we", "us"), an Australian sole trader. If you have questions about this
+      policy or the app's handling of data, contact us at
+      <a href="mailto:support@cloudscript.io">support@cloudscript.io</a>.
+    </p>
+    <p>
+      This policy explains what the app does and does not do with data when it
+      runs inside your Confluence Cloud site. It describes the behaviour of the
+      app as built: the wording reflects the permissions the app actually
+      requests, the way it renders your document, and the single export function
+      it runs.
+    </p>
+
+    <h2>Summary</h2>
+    <p>
+      Cloudscript Typst Renderer renders <a href="https://typst.app" rel="noopener">Typst</a>
+      source (a LaTeX-style typesetting and mathematics language) into typeset
+      output inline on a Confluence page. The app runs on Atlassian's Forge
+      platform, inside your own Atlassian environment, and compiles and renders
+      each document in the viewer's browser. It requests no Confluence
+      permissions, sends no content to Cloudscript.io or to any third party,
+      stores no content on any Cloudscript.io system, and uses no analytics,
+      cookies, or trackers. This is consistent with our Atlassian Marketplace
+      declaration for the app. (Cloudscript Typst Renderer is an independent
+      integration; it is not affiliated with or endorsed by Typst.)
+    </p>
+
+    <h2>What data Cloudscript Typst Renderer collects</h2>
+    <p>
+      The only input the app works with is the <strong>Typst source</strong> you
+      paste into the macro's own configuration. From that source the app produces
+      two further transient artefacts:
+    </p>
+    <ul>
+      <li>
+        <strong>Typst source</strong> &mdash; the document you type or paste. It may
+        contain whatever you choose to put in it, including personal data if you
+        choose to include it. It is saved as part of the macro's configuration on
+        the Confluence page (see "Where data is stored and processed" below).
+      </li>
+      <li>
+        <strong>Rendered SVG output</strong> &mdash; the typeset result, drawn in the
+        viewer's browser and not persisted by the app.
+      </li>
+      <li>
+        <strong>Export payload</strong> &mdash; at PDF or Word export, your Typst source
+        held in memory for the duration of a single export request and returned as
+        a captioned code block (see "The one export function" below).
+      </li>
+    </ul>
+    <p>
+      The app requests <strong>no</strong> Confluence permissions at all: its
+      manifest declares an empty set of scopes (<code>scopes: []</code>). It does
+      not request permission to read your pages, to modify pages, to administer
+      your site, or to read user account details, email addresses, or directory
+      information. It collects no account identifiers and no directory data.
+    </p>
+
+    <h2>Where data is stored and processed</h2>
+    <p>
+      The Typst source you paste is saved as part of the macro's configuration on
+      the Confluence page, which lives within your own Confluence Cloud site and is
+      hosted and controlled by Atlassian. The app operates <strong>no storage of its
+      own</strong> &mdash; it declares no Forge storage and no external database, and holds
+      no copy of your content on any Cloudscript.io system.
+    </p>
+    <p>
+      Processing happens inside Atlassian's Forge environment and in the viewer's
+      browser. When a page containing the macro is viewed, the Typst compiler and
+      the fonts it needs &mdash; which are shipped inside the app as static files rather
+      than fetched from anywhere at run time &mdash; are loaded into the macro's frame in
+      your browser, where the source you pasted is compiled and drawn on the spot.
+      Because compilation and rendering happen in your browser within Atlassian's
+      Forge sandbox, your document content is not transmitted to Cloudscript.io in
+      order to be typeset.
+    </p>
+
+    <h2>Egress destinations and sub-processors</h2>
+    <p>
+      The app declares <strong>no egress</strong>: its manifest pins no external
+      hostnames and declares no <code>remotes</code> or external fetch of any kind.
+      The Typst toolchain's default behaviour of fetching fonts from GitHub at run
+      time is explicitly disabled; the fonts and the compiler are self-hosted static
+      assets shipped inside the app. A full render therefore makes <strong>no network
+      request to any origin outside Atlassian</strong>.
+    </p>
+    <p>
+      The app introduces <strong>no sub-processors</strong>. Atlassian operates the
+      Forge platform on which the app executes and hosts the Confluence pages that
+      hold the macro configuration; that relationship is governed by your own
+      agreement with Atlassian, not by us. The bundled open-source components (the
+      Typst compiler and its default fonts) are static assets, not services, and
+      transmit nothing.
+    </p>
+
+    <h2>The one export function</h2>
+    <p>
+      The app includes a single small server-side function that runs inside
+      Atlassian's Forge environment and exists only to make page exports sensible.
+      Because the live document is drawn in the browser, exporting the page to PDF
+      or Word would otherwise capture nothing where the macro sits; to avoid that,
+      this function returns your Typst source as a captioned code block in the
+      exported document. The function is a stateless transform: it reads the source
+      from the export request, produces the code block, and finishes. It does not
+      store your content, does not transmit it to Cloudscript.io or any third party,
+      and <strong>does not log the content of your document</strong>. It holds
+      nothing after the export request completes.
+    </p>
+
+    <h2>Retention</h2>
+    <p>
+      The app retains nothing itself. The export function is stateless and holds
+      nothing after a request. The rendered SVG is not persisted. The only place
+      your Typst source persists is the Confluence macro configuration on the page,
+      inside your Confluence Cloud site &mdash; retained there for as long as the page and
+      macro exist, under Atlassian's control and your organisation's own handling of
+      that page.
+    </p>
+
+    <h2>Data residency</h2>
+    <p>
+      No Cloudscript.io-side residency question arises, because the app stores and
+      transmits nothing outside Atlassian: there is no Cloudscript.io system on which
+      any of your data resides. The Typst source lives with the Confluence page,
+      whose physical location is determined by Atlassian's hosting and data-residency
+      arrangements under your own agreement with Atlassian. For information about how
+      Atlassian handles data on Forge and within Confluence Cloud, including data
+      residency, refer to Atlassian's own privacy and trust documentation. Details of
+      the app's security posture, including the reason it requires the
+      <code>unsafe-eval</code> content-security directive, are described on our
+      <a href="/security">Security</a> and <a href="/trust">Trust</a> pages.
+    </p>
+
+    <h2>Uninstall, revocation and deletion</h2>
+    <p>
+      There is nothing for the app to delete on uninstall, because it holds nothing.
+      The macro configuration lives with the page in Confluence; its lifecycle is
+      Atlassian's, governed by your Atlassian agreement. If you remove the macro or
+      delete the page, the Typst source is removed with it as part of your Confluence
+      content. Cloudscript.io holds no separate copy to retain or delete.
+    </p>
+
+    <h2>Your rights</h2>
+    <p>
+      We draft this policy to the Australian Privacy Principles (APPs) content
+      standard. Because the app collects and stores no personal data on any
+      Cloudscript.io system, in practice the only personal data we might hold about
+      you is any support correspondence you choose to send us. If you believe we hold
+      personal data about you, or you wish to access or correct it, contact us at
+      <a href="mailto:support@cloudscript.io">support@cloudscript.io</a> and we will
+      respond within a reasonable period. Complaints about our handling of personal
+      data can be made to the same address; if you are not satisfied with our
+      response, you may complain to the Office of the Australian Information
+      Commissioner (oaic.gov.au), or to your local data protection authority if you
+      are outside Australia.
+    </p>
+    <p>
+      For personal data you have chosen to place in the text of a document, that text
+      is stored with the page in your Confluence site and is subject to your
+      organisation's own handling of that page. Requests to access, correct, or delete
+      such content should be directed to the organisation that operates the relevant
+      Confluence site.
+    </p>
+    <p>
+      For users in the European Economic Area and the United Kingdom: because the app
+      requests no permissions, operates no system in the path of your document content,
+      and writes nothing to any Cloudscript.io-operated system, Cloudscript.io is a
+      supplier of software rather than a processor of your personal data under the GDPR
+      or UK GDPR in respect of the app's operation. Your document content is processed
+      only within your own Atlassian environment and in your browser, so there is no
+      transfer of that content to Cloudscript.io. The only personal data we may hold is
+      any support correspondence you choose to send us, in respect of which you may
+      exercise the access, correction, and complaint rights described above.
+    </p>
+
+    <h2>Changes to this policy</h2>
+    <p>
+      If a future version of the app changes what it accesses, stores, or transmits
+      (for example, if a later release introduces a feature that requires sending data
+      to an external service), this policy will be updated to describe that behaviour
+      before that version is released, and the effective date above will change
+      accordingly.
+    </p>
+
+    <h2>Contact</h2>
+    <p>
+      Patrick Roumanoff trading as Cloudscript (ABN 72 287 293 373)<br>
+      Support: <a href="mailto:support@cloudscript.io">support@cloudscript.io</a>
+    </p>
+
+    <p class="back-link"><a href="/">&larr; Back to home</a></p>
+
+  </div>
+</div>
