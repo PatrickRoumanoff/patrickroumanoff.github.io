@@ -1,0 +1,71 @@
+---
+layout: default
+title: "Cloudscript Typst Renderer"
+description: "Cloudscript Typst Renderer - render Typst source and mathematics inline on a Confluence page. Description, user guide, limitations, terms and privacy."
+---
+
+<div class="page wrap">
+  <div class="prose">
+    <h1>Cloudscript Typst Renderer</h1>
+
+    <p class="lede">Cloudscript Typst Renderer renders <a href="https://typst.app" target="_blank" rel="noopener">Typst</a> source, and the mathematics Typst is known for, as crisp typeset output directly on a Confluence page. It is a Confluence Cloud app built on Atlassian Forge, and every document is compiled and drawn in your browser when the page is viewed.</p>
+
+    <p>Because the page holds the live document rather than a screenshot or an exported PDF, the rendered output stays in step with its source: edit the source in the macro and the page re-renders, so nothing goes stale the moment the underlying document changes. Typst is the modern typesetting language that occupies the ground LaTeX established, offering comparable publication-quality output with much less ceremony, and mathematics is its headline strength and the most common reason to reach for it. If your team already authors maths, research notes, specifications, or technical documentation in Typst, or maintains a LaTeX-screenshot workflow you would rather retire, this macro makes Confluence the place where that work is finally readable.</p>
+
+    <p class="cta-row">
+      <strong>Coming soon to the Atlassian Marketplace.</strong>
+    </p>
+
+    <h2>Adding a document</h2>
+    <p>Edit a Confluence page and insert the <strong>Typst</strong> macro, either by typing <code>/typst</code> in the editor or by choosing it from the macro browser (where it also answers to searches for "latex", "math", "equation", and "typesetting"). Open the macro's configuration panel, paste your Typst source into the editor, then save the macro and publish the page; the document is compiled and rendered when the page is viewed. To place several documents on one page, add a separate macro for each, since every macro holds and renders its own source independently.</p>
+
+    <h2>The configuration editor</h2>
+    <p>The configuration panel is a single monospace editor titled <strong>Typst source</strong>, into which you paste the source you have authored. It is a paste-and-publish surface rather than an authoring environment: there is no syntax highlighting, autocomplete, or live preview, because the macro's job is to publish a document you write in your own Typst tooling, not to replace that tooling. You therefore see the rendered result once you save, rather than as you type. A size meter shows how close the source is to the input limit as you work, and, starting from an empty editor, you can load a maths-heavy sample document so that a first render succeeds in seconds and gives you a working example to adapt.</p>
+
+    <h2>What renders</h2>
+    <p>The macro compiles full Typst documents, so headings, prose, lists, tables, and code blocks all render as they would in Typst itself, and mathematical notation renders with the correct fonts and layout that make Typst worth using for maths in the first place. Multi-page documents are supported and are shown as pages stacked vertically down the macro. The text in the rendered output remains selectable, so a reader can highlight it and use the browser's in-page find, and the output scales cleanly because it is drawn as vector graphics rather than a raster image. (The rendered SVG is selectable, but the Typst source stored in the macro's configuration is not indexed by Confluence's own page search &mdash; searching a Confluence space will not find the source of a Typst document by its content.)</p>
+
+    <h2>The maths sample</h2>
+    <p>An empty Typst macro offers a maths-heavy sample document you can load with one action, rather than leaving you staring at a blank editor. It is the fastest way to see the renderer's headline strength &mdash; mathematical notation set in New Computer Modern Math &mdash; and gives you a working document to copy from and adapt into your own source.</p>
+
+    <h2>Page size and layout</h2>
+    <p>Typst documents normally begin with a <code>#set page(...)</code> rule that fixes the page geometry, and when your source includes one it is respected exactly. When your source contains no page rule, the macro applies a sensible default in its place (<code>#set page(width: 16cm, height: auto, margin: 1.2em)</code>), which gives prose a readable measure inside a Confluence column and grows the page to fit its content rather than leaving a fixed-height frame. This default is only a fallback: your own <code>#set page</code> always takes precedence, so to control the width, height, or margins of the rendered output you simply include the page rule you want. Compile-error locations are reported against the source you actually pasted, so line numbers remain meaningful even though the default rule is applied behind the scenes.</p>
+
+    <h2>Fonts</h2>
+    <p>The app ships Typst's default font families and renders with them: Libertinus Serif for text, New Computer Modern Math for mathematics, and DejaVu Sans Mono for monospaced content. A document that relies on these families (which covers the great majority of Typst documents, and all of its default output) renders exactly as it does locally. Supplying your own fonts is not part of the current version, so a document that calls for a font outside the bundled set will not have that font available to it.</p>
+
+    <h2>When something needs attention</h2>
+    <p>Rather than leaving a blank frame, each edge case renders a specific, readable message:</p>
+    <ul>
+      <li><strong>Empty.</strong> A macro with no source saved invites you to add some (or load the maths sample).</li>
+      <li><strong>Compile error.</strong> Invalid Typst source shows the compiler's own message together with a humanised, 1-based line and column pointing at the source you actually pasted, so you can fix a paste without leaving the page.</li>
+      <li><strong>Unsupported feature.</strong> A cheap check runs before the compiler starts: source that uses a <code>@preview/</code> package import, an <code>image()</code> call, or <code>#include</code> is caught early and shown a message naming the specific feature and explaining that it is outside the current version, rather than a confusing compiler error about a missing file or package.</li>
+      <li><strong>Timeout.</strong> A compile that runs longer than 10 seconds is stopped and shown a friendly timeout message; the underlying worker is torn down and rebuilt for your next attempt.</li>
+      <li><strong>Over the size cap.</strong> Source over 64 KiB is stopped before it reaches the compiler at all, with a message explaining the limit. The cap is enforced in both the configuration editor and the live page, so a document that was valid when saved cannot later blow the limit and break the page.</li>
+      <li><strong>Internal error.</strong> Anything else that goes wrong falls back to a generic, readable error card rather than a blank macro.</li>
+    </ul>
+    <p>These messages carry the rendering engine's version in a small footer, which is worth quoting if you contact support. For anything the in-macro message does not resolve, see the <a href="/support">Support</a> page.</p>
+
+    <h2>What the app does not do</h2>
+    <p>The current version draws a deliberate boundary around self-contained documents rendered on the live page, and the limits below follow from that boundary and from the security posture described in the next section rather than from anything missing by accident. Stating them plainly is the point: the live page always shows the full render, and each limit produces a clear explanation in the macro rather than a silent failure.</p>
+    <p><strong>Page exports (PDF and Word) contain the Typst source, not the rendered output.</strong> Confluence's export pipeline cannot run the in-browser compiler, so a page exported to PDF or Word reproduces the macro's Typst source in a captioned code block ("Typst source &mdash; rendered on the live page") rather than the typeset result. If a macro has no source configured at all, the export shows that plainly too, rather than an empty code block. This is a documented characteristic worth knowing before you buy: the rendered document lives on the page, and an export carries its source (or says there wasn't one) rather than a blank space where the macro sat.</p>
+    <p><strong>Documents are self-contained.</strong> Typst package imports (<code>@preview/&hellip;</code>) and file access (<code>image()</code> and <code>#include</code>) are outside the current version, because each would require the network or file access that the store-nothing, zero-egress design deliberately avoids; a document that uses one of them shows an in-macro explanation naming the feature. In practice this means the macro renders documents whose content is entirely in the source you paste.</p>
+    <p><strong>It is a publisher, not an editor or an exporter.</strong> There is no live preview, no syntax-highlighting IDE, and no button to download the render as a PDF or PNG image, because Confluence pages are the surface the app is built for and Typst authors write in their own tooling. Source is capped at 64 KiB and compilation at 10 seconds, with a friendly message at each limit, which keeps a pathological paste from affecting the host page.</p>
+
+    <h2>Security and privacy</h2>
+    <p>The security model is the reason to trust the app with your documents, and it is a design choice rather than a policy promise. The Typst compiler runs as WebAssembly inside the macro's own sandboxed frame, so your documents are compiled in your browser and are never sent to Cloudscript.io or to any third party. The app requests no Confluence permissions, declares no external network destinations (the compiler and fonts ship inside the app and load from Atlassian's own infrastructure, so a render makes no request to any non-Atlassian origin), and stores nothing outside the macro on your page. One exception is worth stating precisely: when a page is exported to PDF or Word, a stateless, server-side Forge function reads the pasted source from the export payload for the sole purpose of writing it into the exported document (see "Page exports", above); it stores nothing and logs nothing beyond the shape of the payload if the source can't be found. There is one further technical note for a reviewing administrator: the macro's iframe declares the <code>unsafe-eval</code> content-security directive because instantiating the WebAssembly compiler requires it and Forge offers no narrower WASM-only directive; it applies only inside the macro's own sandboxed iframe and does not permit loading remote code, making network calls, or reaching the host page. The full detail is in the app's <a href="/apps/typst-renderer/privacy">Privacy Policy</a>, and our broader posture is described in the <a href="/security">Security Policy</a> and <a href="/trust">Trust Center</a>.</p>
+
+    <h2>About Typst</h2>
+    <p>Cloudscript Typst Renderer is an independent integration and is not affiliated with, or endorsed by, Typst. Learn more about the language at <a href="https://typst.app" target="_blank" rel="noopener">typst.app</a>. The app bundles the typst.ts / reflexo-typst WebAssembly toolchain and Typst's default fonts under their respective open-source licences.</p>
+
+    <h2>Legal</h2>
+    <p>Terms and privacy specific to this app:</p>
+    <ul>
+      <li><a href="/apps/typst-renderer/terms">Terms of Service</a></li>
+      <li><a href="/apps/typst-renderer/privacy">Privacy Policy</a></li>
+    </ul>
+
+    <p class="back-link"><a href="/">&larr; Back to home</a></p>
+
+  </div>
+</div>
