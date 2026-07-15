@@ -6,6 +6,11 @@ description: "Cloudscript Typst Renderer - render Typst source and mathematics i
 
 <div class="page wrap">
   <div class="prose">
+    <style>
+      .prose figure.shot { margin: 1.6rem 0; }
+      .prose figure.shot img { width: 100%; display: block; border: 1px solid #E4EAF1; border-radius: 12px; background: #FFFFFF; }
+      .prose figure.shot figcaption { font-size: 0.85rem; color: #5C6B7E; margin-top: 0.5rem; text-align: center; }
+    </style>
     <h1>Cloudscript Typst Renderer</h1>
 
     <p class="lede">Cloudscript Typst Renderer renders <a href="https://typst.app" target="_blank" rel="noopener">Typst</a> source, and the mathematics Typst is known for, as crisp typeset output directly on a Confluence page. It is a Confluence Cloud app built on Atlassian Forge, and every document is compiled and drawn in your browser when the page is viewed.</p>
@@ -16,14 +21,29 @@ description: "Cloudscript Typst Renderer - render Typst source and mathematics i
       <strong>Coming soon to the Atlassian Marketplace.</strong>
     </p>
 
+    <figure class="shot">
+      <img src="render-maths.png" alt="The bundled maths sample rendered on the page: the Cauchy-Schwarz inequality, a Gaussian integral, a matrix, and Maxwell's equations, followed by prose and a syntax-highlighted code block.">
+      <figcaption>The bundled maths sample, rendered live on the page &mdash; mathematics, prose, and code, set in Typst's own fonts.</figcaption>
+    </figure>
+
     <h2>Adding a document</h2>
     <p>Edit a Confluence page and insert the <strong>Typst</strong> macro, either by typing <code>/typst</code> in the editor or by choosing it from the macro browser (where it also answers to searches for "latex", "math", "equation", and "typesetting"). Open the macro's configuration panel, paste your Typst source into the editor, then save the macro and publish the page; the document is compiled and rendered when the page is viewed. To place several documents on one page, add a separate macro for each, since every macro holds and renders its own source independently.</p>
 
     <h2>The configuration editor</h2>
     <p>The configuration panel is a single monospace editor titled <strong>Typst source</strong>, into which you paste the source you have authored. It is a paste-and-publish surface rather than an authoring environment: there is no syntax highlighting, autocomplete, or live preview, because the macro's job is to publish a document you write in your own Typst tooling, not to replace that tooling. You therefore see the rendered result once you save, rather than as you type. A size meter shows how close the source is to the input limit as you work, and, starting from an empty editor, you can load a maths-heavy sample document so that a first render succeeds in seconds and gives you a working example to adapt.</p>
 
+    <figure class="shot">
+      <img src="config-editor.png" alt="The Typst source configuration editor with sample source pasted in, a size meter reading 866 bytes of 64 KiB, and Cancel and Save buttons.">
+      <figcaption>The configuration editor: paste your Typst source and save. The meter shows how close you are to the 64&#160;KiB limit.</figcaption>
+    </figure>
+
     <h2>What renders</h2>
     <p>The macro compiles full Typst documents, so headings, prose, lists, tables, and code blocks all render as they would in Typst itself, and mathematical notation renders with the correct fonts and layout that make Typst worth using for maths in the first place. Multi-page documents are supported and are shown as pages stacked vertically down the macro. The text in the rendered output remains selectable, so a reader can highlight it and use the browser's in-page find, and the output scales cleanly because it is drawn as vector graphics rather than a raster image. (The rendered SVG is selectable, but the Typst source stored in the macro's configuration is not indexed by Confluence's own page search &mdash; searching a Confluence space will not find the source of a Typst document by its content.)</p>
+
+    <figure class="shot">
+      <img src="render-document.png" alt="A multi-section document titled Project Aurora rendered on the page, with a heading, prose, a latency-budget table, and a numbered rollout-plan list.">
+      <figcaption>A full document renders on the page &mdash; headings, prose, a table, and stacked pages, from a single macro.</figcaption>
+    </figure>
 
     <h2>The maths sample</h2>
     <p>An empty Typst macro offers a maths-heavy sample document you can load with one action, rather than leaving you staring at a blank editor. It is the fastest way to see the renderer's headline strength &mdash; mathematical notation set in New Computer Modern Math &mdash; and gives you a working document to copy from and adapt into your own source.</p>
@@ -45,6 +65,11 @@ description: "Cloudscript Typst Renderer - render Typst source and mathematics i
       <li><strong>Internal error.</strong> Anything else that goes wrong falls back to a generic, readable error card rather than a blank macro.</li>
     </ul>
     <p>These messages carry the rendering engine's version in a small footer, which is worth quoting if you contact support. For anything the in-macro message does not resolve, see the <a href="/support">Support</a> page.</p>
+
+    <figure class="shot">
+      <img src="error-card.png" alt="A compile-error card reading 'Typst could not compile this document', an error at line 5 (unknown variable: openIssues), and the engine version typst.ts 0.7.0.">
+      <figcaption>When source is invalid, a readable card shows the compiler's message with a humanised line and column, plus the engine version.</figcaption>
+    </figure>
 
     <h2>What the app does not do</h2>
     <p>The current version draws a deliberate boundary around self-contained documents rendered on the live page, and the limits below follow from that boundary and from the security posture described in the next section rather than from anything missing by accident. Stating them plainly is the point: the live page always shows the full render, and each limit produces a clear explanation in the macro rather than a silent failure.</p>
