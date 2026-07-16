@@ -1,0 +1,163 @@
+---
+layout: default
+title: "Cloudscript Renderer for MCP Documentation - End User Terms"
+description: "End User Terms for the Cloudscript Renderer for MCP Documentation app: Provider-Specific Terms supplementing the Bonterms Standard End User Agreement (Version 1.0) adopted through the Atlassian Marketplace."
+---
+
+<!-- Legal review recorded: signed off by Natasha, 2026-07-16 (decisions ledger, _launch/app-facts.md). Banner cleared per that recorded review. -->
+
+<div class="page wrap">
+  <div class="prose">
+
+    <h1>End User Terms for Cloudscript Renderer for MCP Documentation</h1>
+    <p class="meta">
+      <strong>Provider-Specific Terms supplementing the Bonterms Standard End User Agreement (Version 1.0)</strong><br>
+      <strong>Effective:</strong> on and from the date the Cloudscript Renderer for MCP Documentation app is first listed on the Atlassian Marketplace.
+    </p>
+
+    <h2>1. How these terms work</h2>
+    <p>
+      The Cloudscript Renderer for MCP Documentation app is offered on the Atlassian
+      Marketplace under the <a href="https://www.atlassian.com/licensing/marketplace/end-user-agreement-v1" rel="noopener">Bonterms
+      Standard End User Agreement (Version 1.0)</a> (the "Standard Agreement"),
+      the standard customisable end-user agreement that Atlassian makes available
+      to Marketplace partners. This page sets out the Provider-Specific Terms
+      contemplated by Section 1.1 of the Standard Agreement: it identifies the
+      Provider, supplies the Attachments the Standard Agreement asks the Provider
+      to identify (Security Measures and Support Policy), overrides the default
+      governing law, and adds a small number of Additional Terms specific to how
+      this App works. In accordance with Section 1.2 of the Standard Agreement,
+      the Standard Agreement and these Provider-Specific Terms together form the
+      Agreement between the Provider and the Customer, entered into on the
+      Customer's first Order for the App through the Marketplace. Where these
+      Provider-Specific Terms conflict with the Standard Agreement, these terms
+      prevail, as provided by Section 1.4 of the Standard Agreement.
+    </p>
+
+    <h2>2. Definitions</h2>
+    <p>
+      Capitalised terms used but not defined on this page have the meanings given
+      in the Standard Agreement. The following definitions apply throughout the
+      Agreement:
+    </p>
+    <p><strong>"Agreement"</strong> means the Standard Agreement together with these Provider-Specific Terms, as provided by Section 1.2 of the Standard Agreement.</p>
+    <p><strong>"App"</strong> means the Cloudscript Renderer for MCP Documentation app for Confluence Cloud, published on the Atlassian Marketplace by the Provider, together with its Documentation. The App is the "Product" and the "Cloud Service" for the purposes of the Standard Agreement. The App's in-product macro is titled "MCP Server Documentation", which is a descriptive in-editor name and is distinct from the App's Marketplace listing name.</p>
+    <p><strong>"Customer"</strong> has the meaning given in the Standard Agreement: the party placing the Order. Each Order creates a separate Agreement (Section 1.3 of the Standard Agreement).</p>
+    <p><strong>"End User"</strong> means an individual whom the Customer permits to use the App through the Customer's Confluence Cloud site. An End User is a "User" as defined in the Standard Agreement.</p>
+    <p><strong>"Provider"</strong> means Patrick Roumanoff trading as Cloudscript (ABN 72 287 293 373), an Australian sole trader ("Cloudscript.io", "we", "us").</p>
+
+    <h2>3. Provider details and notices</h2>
+    <p>
+      For the purposes of Section 19.3(b) of the Standard Agreement, the Provider's
+      notice address is <a href="mailto:support@cloudscript.io">support@cloudscript.io</a>.
+      Notices to the Provider under the Agreement must be sent to that address; the
+      Provider will send notices to the Customer using the contact details associated
+      with the Customer's Order or Atlassian account, and may also give operational
+      notices through the App. Support is handled by email; this is a static website
+      with no backend and no server-side form handling.
+    </p>
+
+    <h2>4. Governing law and courts</h2>
+    <p>
+      For the purposes of Section 19.2 of the Standard Agreement, the "Governing Law"
+      is the laws of New South Wales, Australia, and the "Courts" are the courts of
+      New South Wales and the courts of the Commonwealth of Australia sitting in New
+      South Wales. This replaces the Standard Agreement's default of California law
+      and San Francisco courts. Notwithstanding Section 19.2(a) of the Standard
+      Agreement, the parties' submission to the jurisdiction of the Courts is
+      non-exclusive, and nothing in this Section prevents either party from bringing
+      proceedings in any other court of competent jurisdiction. Nothing in this
+      Section 4 or in the Agreement excludes, restricts, or modifies any right or
+      remedy the Customer has under a law (including the Australian Consumer Law or a
+      mandatory consumer-protection law of the Customer's place of residence) that
+      applies despite the parties' choice of Governing Law and cannot lawfully be
+      excluded.
+    </p>
+
+    <h2>5. Security Measures</h2>
+    <p>
+      For the purposes of Section 3.2 of the Standard Agreement, the Provider's
+      Security Measures are as follows. The App runs entirely on Atlassian's Forge
+      platform, within Atlassian-hosted infrastructure, and operates no
+      Cloudscript.io server, database, or storage of its own. The App requests no
+      Confluence permissions: its manifest declares an empty set of scopes
+      (<code>scopes: []</code>), so it cannot read your pages, your user or account
+      data, or your site administration. The App declares no external egress
+      destination of any kind, so detecting, parsing, and rendering the content you
+      paste makes no network request to any origin outside Atlassian, and the Forge
+      platform independently enforces that the App cannot contact any destination it
+      has not declared. Format detection, parsing, and rendering occur in the
+      viewer's browser within Atlassian's Forge sandbox. The App's single
+      server-side function (described in Additional Term 8(a)) runs within
+      Atlassian's Forge environment, is stateless, retains nothing after a request,
+      and does not log document content. These measures, alongside the App's data
+      handling, are described in more detail on the Provider's
+      <a href="/security">Security</a> and <a href="/trust">Trust</a> pages and in the
+      <a href="/apps/mcp-renderer/privacy">Privacy Policy</a>.
+    </p>
+
+    <h2>6. Support Policy</h2>
+    <p>
+      For the purposes of Section 5.1 of the Standard Agreement, the Provider provides
+      Support for the App on a reasonable-efforts basis by email through the channel
+      described on the <a href="/support">Support</a> page. The Provider does not
+      commit to response or resolution times, and does not guarantee that the App will
+      be uninterrupted or error-free or that every issue can be resolved. For the
+      purposes of Section 5.2 of the Standard Agreement, no Service Level Agreement is
+      offered for the App.
+    </p>
+
+    <h2>7. Data Protection Addendum</h2>
+    <p>
+      Given the App's architecture (an empty set of scopes, <code>scopes: []</code>,
+      no external egress, and no data written to or stored on any
+      Cloudscript.io-operated system), the Provider supplies software and does not
+      process personal data on your behalf in respect of the App's operation. The
+      Provider is therefore a <strong>software supplier</strong> and
+      <strong>not a processor</strong> of personal data for this App, and
+      <strong>no Data Processing Addendum applies or is required</strong>. The content
+      you paste is processed only within your own Atlassian environment and in your
+      browser; it is not received, stored, or processed by the Provider. If a future
+      version of the App changes this position (for example, by introducing a feature
+      that sends content to a system the Provider operates), these terms and the
+      Privacy Policy will be updated, and a Data Processing Addendum incorporated as
+      Schedule 1 under Section 3.3 of the Standard Agreement, before that version is
+      released.
+    </p>
+
+    <h2>8. Additional Terms</h2>
+    <p>The following Additional Terms are made under Section 1.1 of the Standard Agreement.</p>
+
+    <p><strong>(a) Function of the App and page exports.</strong> The App is a Confluence macro that renders the Model Context Protocol (MCP) Registry <code>server.json</code> document or <code>tools/list</code> result you paste as structured, readable documentation, displaying that output in the viewer's browser when the page is viewed. It auto-detects the pasted format, parses it into a format-neutral document model (headers, package and tool tables, environment-variable and argument tables), and renders it with capability cards, code-snippet views, and a table of contents. When a Confluence page is exported to PDF or Word, or its history is viewed, the same content is reproduced as native document content (headings, tables, and code blocks) by a single, stateless server-side transform that stores nothing and makes no network request; where the pasted source cannot be parsed, the transform reproduces the raw source in a code block rather than leaving a blank space where the macro appeared. This behaviour is a characteristic of the App as provided and is described in the App's Documentation. The App connects to no MCP server and performs no generative step: it renders only the content you paste.</p>
+
+    <p><strong>(b) Usage Data.</strong> Narrowing Section 3.4 of the Standard Agreement in the Customer's favour: the App contains no analytics, advertising, or third-party tracking code, sets no cookies of its own, and the Provider collects no telemetry about the Customer's use of the App on any Provider system. To the extent the Provider receives any Usage Data at all (for example, aggregate installation counts reported by the Atlassian Marketplace), Section 3.4 of the Standard Agreement applies to it.</p>
+
+    <p><strong>(c) Data export and deletion.</strong> Applying Section 12.4 of the Standard Agreement to the App's architecture: the only content the App works with is the source you paste, which is held in the macro's configuration stored within the body of your Confluence page, in the page's own storage format, within the Customer's own Confluence Cloud site. The Provider holds no separate copy from which to export or delete it. Export is available through Confluence's own export facilities. The pasted source is deleted when the Customer deletes the macro, or the page that contains it, through Confluence; uninstalling the App does not by itself delete that content, because the content remains part of the page rather than in any Provider-operated store, and reinstalling the App renders the same content again. The Provider holds nothing on its own systems to delete. The 60-day deletion obligation in Section 12.4(b) applies to the Provider only in respect of data the Provider actually holds on its own systems, which in practice is limited to support correspondence.</p>
+
+    <p><strong>(d) Australian Consumer Law.</strong> Nothing in the Agreement excludes, restricts, or modifies any guarantee, condition, warranty, right, or remedy that applies to the Customer under the Competition and Consumer Act 2010 (Cth) or any equivalent state or territory legislation and that cannot lawfully be excluded, restricted, or modified. To the extent the Provider is permitted to limit its liability for failure to comply with such a non-excludable guarantee, the Provider's liability is limited, at the Provider's option, to supplying the services again or paying the cost of having the services supplied again. The disclaimers and limitations of liability in the Standard Agreement apply subject to this paragraph.</p>
+
+    <p><strong>(e) Privacy Policy.</strong> The Provider's handling of data in connection with the App is described in the <a href="/apps/mcp-renderer/privacy">Privacy Policy</a>, which the Provider maintains to reflect what the App actually accesses, stores, and transmits. The Privacy Policy is referenced for transparency and is not an Attachment to the Agreement.</p>
+
+    <p><strong>(f) The Atlassian platform.</strong> The App runs on Atlassian Forge and inside Confluence Cloud, which are provided by Atlassian under the Customer's own agreements with Atlassian; Atlassian is a Third-Party Platform provider for the purposes of Section 8 of the Standard Agreement (except where Atlassian acts as the Marketplace provider for the Order under Section 1.3). The Customer's Confluence pages, including the macro configuration that holds the pasted source, are held in the Customer's Confluence Cloud site under the Customer's agreement with Atlassian.</p>
+
+    <p><strong>(g) Third-party and open-source components; Model Context Protocol.</strong> The App incorporates open-source software, each component of which is provided under its own licence, and nothing in these terms limits any rights you have, or obligations you owe, under those licences. The App's bundled runtime dependencies are <code>@forge/bridge</code>, published by Atlassian under the Apache License 2.0, and React and ReactDOM, published under the MIT License. The copyright notices and full licence text for these components are included with the App itself. Cloudscript Renderer for MCP Documentation is an <strong>independent tool</strong>; it is <strong>not affiliated with or endorsed by the Model Context Protocol project</strong>. Model Context Protocol® and MCP™ are marks of their respective owner, and the App uses them only to identify the format it renders. Information about the Model Context Protocol is available at <a href="https://modelcontextprotocol.io" rel="noopener">modelcontextprotocol.io</a>.</p>
+
+    <p><strong>(h) Restrictions on use.</strong> In addition to the restrictions in the Standard Agreement, and except as expressly permitted by the Agreement or by Atlassian's Marketplace terms, you must not: reverse engineer, decompile, or attempt to extract the source code of the App (except to the extent that restriction is prohibited by applicable law); resell, sublicense, rent, lease, or redistribute the App outside the Atlassian Marketplace; use the App to build a competing product or service; or remove or obscure any proprietary or attribution notice included with the App.</p>
+
+    <h2>9. Order of precedence</h2>
+    <p>
+      As provided by Section 1.4 of the Standard Agreement, if there is a conflict
+      between the documents forming the Agreement, the order of precedence is: any
+      Amendment, then these Provider-Specific Terms, then the Standard Agreement.
+    </p>
+
+    <h2>10. Contact</h2>
+    <p>
+      Patrick Roumanoff trading as Cloudscript (ABN 72 287 293 373)<br>
+      Support: <a href="mailto:support@cloudscript.io">support@cloudscript.io</a>
+    </p>
+
+    <p class="back-link"><a href="/">← Back to home</a></p>
+
+  </div>
+</div>
