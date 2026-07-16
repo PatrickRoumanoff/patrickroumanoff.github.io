@@ -1,14 +1,22 @@
-# Hidden until the description exists (Natasha, 2026-07-11): the TODO marker
-# below must be replaced with real copy before homepage_visible flips to true.
-name: MCP Renderer for Confluence
+# Replaces the 2026-07-11 stub (old working name + TODO description).
+# Name is the LF-approved Marketplace listing name (clearance granted
+# 16 Jul 2026; see Plugins/MCP/launch-docs/mcp-name-authorisation-email.md).
+# stores_personal_data and documents populated on Natasha's recorded
+# per-document legal sign-off of privacy.html and terms.html (both signed
+# off 2026-07-16 — decisions ledger, Plugins/MCP/_launch/app-facts.md).
+name: Cloudscript Renderer for MCP Documentation
 slug: mcp-renderer
 order: 30
 status: coming-soon
-homepage_visible: false
+homepage_visible: true
 featured: false
-has_page: false
 platform: Forge
-description: TODO-ASK-NATASHA
+description: Renders a pasted MCP Registry server.json or tools/list result as structured, readable Confluence documentation. Purpose-built for MCP, not a generic JSON viewer and not another MCP server product. The source stays canonical and re-renders on edit, so every server documents identically. There is no generative step to drop, reword or hallucinate a field, and the result survives PDF and Word export as native content. It runs with zero scopes, zero egress and no app-side storage.
 marketplace_url: null
 badges: []
-stores_personal_data: null
+stores_personal_data: "No"
+documents:
+  - label: Privacy
+    url: /apps/mcp-renderer/privacy
+  - label: Terms
+    url: /apps/mcp-renderer/terms
