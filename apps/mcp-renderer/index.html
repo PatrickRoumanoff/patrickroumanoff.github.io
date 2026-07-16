@@ -58,11 +58,11 @@ description: "Paste an MCP Registry server.json or tools/list result into a Conf
 
     <p>Links behave the same way throughout: where a repository, website, <code>$schema</code> or package-registry URL is displayed, it is inserted as a clickable link. Where the link is for a recognised host (GitHub, GitLab, npm, PyPI, NuGet, Docker Hub), it is displayed as a labelled button for ease of reading (for example, "View on GitHub"). Every link opens through Confluence's own host application in a new tab, and only well-formed <code>http</code> or <code>https</code> URLs ever become links at all. Each package with a recognised registry type also gets a dedicated "Install command" row in its table (<code>npx &lt;name&gt;</code> for npm, <code>pip install &lt;name&gt;</code> for PyPI, and so on), shown as copyable code text to make your documentation immediately useful.</p>
 
-    <p>When a rendered document carries three or more capability cards, a table of contents appears directly below the "Tools (n)" heading, listing every card by name; selecting an entry brings that card into view and focuses it. The same threshold triggers a summary panel above the cards, listing all tools by name. Tool annotations are colour coded for ease of reference, and tooltips describe the behaviour declared by each annotation.</p>
+    <p>When a rendered document carries three or more capability cards, a summary panel appears directly below the Tools heading, listing every card by name. Where supported by your browser, selecting an entry brings that card into view and focuses it.</p>
 
         <figure class="shot">
       <img src="guide-rendered-toc.png" alt="A rendered tools/list result with a table of contents listing 13 tool names as links, above a summary panel showing a legend of the four annotation colours plus a grey &quot;other&quot; row and the self-declared-hints caution line.">
-      <figcaption>Three or more capability cards add a table of contents and a summary panel with an annotation legend.</figcaption>
+      <figcaption>Three or more capability cards adds a summary panel with an annotation legend.</figcaption>
     </figure>
 
     <h2>Editing and re-rendering</h2>
