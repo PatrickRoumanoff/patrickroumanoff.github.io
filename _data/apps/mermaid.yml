@@ -10,7 +10,7 @@ slug: mermaid
 order: 10
 status: live
 homepage_visible: true
-featured: true
+featured: false
 platform: Forge
 description: Author Mermaid diagrams directly in Confluence Cloud. Flowcharts, sequence diagrams and more, rendered cleanly inside your pages. A full user guide, kept current with the app.
 marketplace_url: https://marketplace.atlassian.com/apps/1219878/cloudscript-io-mermaid

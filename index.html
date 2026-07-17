@@ -38,7 +38,7 @@ description: "CloudScript.io builds practical, purpose-driven apps for Confluenc
   <div class="feature-wide">
     <img class="fw-icon" src="/assets/img/icons/{{ featured_app.slug }}.svg" alt="" width="56" height="56">
     <div class="fw-body">
-      <h3>{{ featured_app.name | escape }} <span class="tag">Featured</span></h3>
+      <h3>{{ featured_app.name | escape }} <span class="tag">{{ featured_app.featured_label | default: "Featured" | escape }}</span></h3>
       {% if featured_app.badges and featured_app.badges.size > 0 %}
       <div class="trust-badges">
         {% for badge in featured_app.badges %}{% if badge == "runs-on-atlassian" %}<a class="trust-badge" href="/trust#badges">
