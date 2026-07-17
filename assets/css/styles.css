@@ -114,7 +114,10 @@ header.site-header {
   background: linear-gradient(180deg, var(--cloud) 0%, #fff 100%);
   border-bottom: 1px solid var(--line);
 }
-.hero-inner { padding: 76px 0 64px; max-width: 760px; }
+/* Set only vertical padding as longhands so the horizontal gutter from .wrap
+   (padding: 0 24px) survives — a `padding` shorthand here would zero it and the
+   hero would run flush to the screen edge on mobile. */
+.hero-inner { padding-top: 76px; padding-bottom: 64px; max-width: 760px; }
 .eyebrow {
   display: inline-block; font-size: 13px; font-weight: 600; letter-spacing: .04em;
   text-transform: uppercase; color: var(--blue-deep); background: var(--cloud-2);
@@ -348,7 +351,7 @@ footer.site-footer { background: var(--ink); color: #C8D2E0; padding: 48px 0 30p
   .grid { grid-template-columns: 1fr; }
   .trust-grid { grid-template-columns: 1fr; }
   section { padding: 48px 0; }
-  .hero-inner { padding: 54px 0 44px; }
+  .hero-inner { padding-top: 54px; padding-bottom: 44px; }
 
   /* Mobile nav: hamburger reveals the links, CSS-only */
   .nav-toggle-label {
