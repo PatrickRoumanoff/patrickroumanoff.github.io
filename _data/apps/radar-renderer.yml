@@ -1,0 +1,37 @@
+# CloudScript.io app registry entry — Tech Adoption Radar for Confluence.
+# Staged by launch-app draft (Mode A, coming-soon); placed into the live
+# repo by the website publish Claude Code handoff (cc-prompt-website.md),
+# 2026-07-21.
+#
+# order: 35 confirmed against the live _data/apps/ directory at placement
+# time (mermaid=10, page-sharing=20, typst-renderer=25, mcp-renderer=30,
+# nikoniko=40, cloudscript-for-confluence=50) — no conflicting slot.
+#
+# stores_personal_data and documents are populated (not left null/absent)
+# because Natasha recorded per-document legal sign-off of privacy.html and
+# terms.html, both 2026-07-21 — decisions ledger,
+# Plugins/Radar/_launch/app-facts.md. The data-protection characterisation
+# concluded software supplier / no DPA required (Natasha, 2026-07-21), so
+# there is no DPA row here.
+#
+# has_page: omitted deliberately — this app's guide (index.html) IS its
+# /apps/radar-renderer landing page: the same page serves as both the
+# product description and the user guide. This matches mcp-renderer's
+# precedent (has_page omitted), not typst-renderer's (has_page: false,
+# legal pages only).
+name: Tech Adoption Radar for Confluence
+slug: radar-renderer
+order: 35
+status: coming-soon
+homepage_visible: true
+featured: false
+platform: Forge
+description: Engineering teams that maintain a tech radar often keep it in a place their colleagues do not visit, a hosted build-your-own-radar site, a static build, or a screenshot pasted into a page and left to go stale. This macro renders a pasted CSV or JSON blip list as a quadrant tech radar directly in the Confluence page, so the radar sits next to the documentation it explains instead of behind an external link. It accepts both the Thoughtworks build-your-own-radar CSV convention and the Zalando radar.js JSON dialect, so a team already running either tool can paste an existing file rather than rebuild one. The blip list stays canonical text in the page body, edit a ring assignment and the same layout re-renders deterministically, with the change visible in Confluence's own page history. Export to PDF or Word keeps a structured table by quadrant and ring, and a client-side "Download as image" button covers a static copy when one is needed. The app runs with zero scopes and zero egress, and stores nothing outside Confluence's native page content.
+marketplace_url: null
+badges: []
+stores_personal_data: "No"
+documents:
+  - label: Privacy
+    url: /apps/radar-renderer/privacy
+  - label: Terms
+    url: /apps/radar-renderer/terms
