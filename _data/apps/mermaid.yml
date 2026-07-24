@@ -5,7 +5,7 @@
 # legal-adjacent: they render verbatim into the /trust table, so they are
 # part of each app's human legal-review surface. An app gets a /trust
 # row only once stores_personal_data is non-null.
-name: CloudScript.io Mermaid
+name: CloudScript Mermaid Diagrams for Confluence
 slug: mermaid
 order: 10
 status: live
@@ -13,7 +13,7 @@ homepage_visible: true
 featured: false
 platform: Forge
 description: Author Mermaid diagrams directly in Confluence Cloud. Flowcharts, sequence diagrams and more, rendered cleanly inside your pages. A full user guide, kept current with the app.
-marketplace_url: https://marketplace.atlassian.com/apps/1219878/cloudscript-io-mermaid
+marketplace_url: https://marketplace.atlassian.com/apps/1219878/cloudscript-mermaid-diagrams-for-confluence
 badges: [runs-on-atlassian]
 stores_personal_data: "No"
 documents:
