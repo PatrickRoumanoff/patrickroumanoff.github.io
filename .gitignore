@@ -16,3 +16,8 @@ CLAUDE.md
 design-reference/
 content-drafts/
 .claude/settings.local.json
+
+# macOS Finder and local tool leftovers
+.DS_Store
+.fuse_hidden*
+.playwright-mcp/
