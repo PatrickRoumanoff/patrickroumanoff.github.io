@@ -12,7 +12,11 @@ description: "Render a technology adoption radar from a pasted CSV or JSON blip 
       .prose figure.shot figcaption { font-size: 0.85rem; color: #5C6B7E; margin-top: 0.5rem; text-align: center; }
     </style>
     <h1>Tech Adoption Radar for Confluence</h1>
-    <!-- No trust badges: the Runs on Atlassian badge has not been assigned to this app and is not asserted anywhere (Gate 4 badge rule; decisions ledger). Add the badge block only when Atlassian assigns it. -->
+    <div class="trust-badges">
+      <a class="trust-badge" href="/trust#badges">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 2 8l10 5 10-5-10-5Z"/><path d="M2 12l10 5 10-5"/><path d="M2 16l10 5 10-5"/></svg>Runs on Atlassian
+      </a>
+    </div>
 
     <p class="lede">Tech Adoption Radar for Confluence is a Confluence Cloud app, built on Atlassian Forge, that renders a technology adoption radar (the four-quadrant, four-ring chart) from a CSV or JSON blip list pasted into a macro. The page holds the list as text and the chart is drawn in the reader's browser when the page is viewed, so an edit to the list is what the next viewer sees, and the change is visible in page history like any other page edit.</p>
 
@@ -20,7 +24,9 @@ description: "Render a technology adoption radar from a pasted CSV or JSON blip 
 
     <p>The blip list is stored in the macro on your own Confluence page and is never sent to Cloudscript.io or any third party; the app requests no Confluence permissions (<code>scopes: []</code>), declares no external network destinations, and keeps no store of its own. Because the chart is drawn in the browser on the live page, a page exported to PDF or Word cannot include it; the export carries a structured table of the blips instead, and an image of the chart is available from the page's Download SVG and Download PNG buttons. The macro renders the list pasted into it: it does not fetch or synchronise a blip list from a URL, a spreadsheet, or any other external source.</p>
 
-    <!-- CTA: Marketplace listing URL pending. No b5 listing exists as of 2026-07-20, so no canonical Marketplace URL can be cited yet. Insert the .cta-row primary button ("View on Marketplace", canonical listing URL) at integration, before publish. No live link is staged here to avoid a dead CTA. -->
+    <p class="cta-row">
+      <a class="btn btn-primary" href="https://marketplace.atlassian.com/apps/2543668212/tech-adoption-radar-for-confluence" target="_blank" rel="noopener">View on Marketplace</a>
+    </p>
 
     <figure class="shot">
       <img src="guide-hero.png" alt="The sample radar rendered on a page: four quadrant cards in blue, green, orange and purple, a movement key row, and a numbered legend grouped by quadrant and ring.">

@@ -3,8 +3,7 @@ slug: typst-renderer
 order: 25
 status: live
 homepage_visible: true
-featured: true
-featured_label: New
+featured: false
 platform: Forge
 description: Render Typst documents and mathematics right on your Confluence pages — live from source, entirely in the browser, storing nothing.
 marketplace_url: https://marketplace.atlassian.com/apps/1871294913/cloudscript-typst-renderer
