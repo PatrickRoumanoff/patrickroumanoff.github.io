@@ -252,10 +252,13 @@ section { padding: 64px 0; }
 .card-c h3 a:hover { color: var(--blue); }
 /* Descriptions clamp to two lines so tile heights stay uniform */
 .card-c p {
-  font-size: 14px; color: var(--ink-soft); margin: 0; flex: 1;
+  font-size: 14px; color: var(--ink-soft); margin: 0;
   display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden;
 }
-.card-c .card-foot { gap: 14px; }
+/* Spare height (grid-stretched rows) lands here via margin-top: auto, never on the
+   clamped paragraph: a line-clamp box stretched past its clamp leaks a clipped third
+   line into view. */
+.card-c .card-foot { gap: 14px; margin-top: auto; }
 .card-c a.link { font-size: 13.5px; font-weight: 600; color: var(--blue); }
 .card-c a.link.link-secondary { color: var(--slate); }
 .card-c a.link.link-secondary:hover { color: var(--blue); }
