@@ -220,9 +220,13 @@ section { padding: 64px 0; }
   display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden;
 }
 .feature-wide .trust-badges { margin-bottom: 10px; }
-/* Optional registry thumbnail (feature_image); fixed slot, hidden once the tile stacks */
+/* Optional registry thumbnail (feature_image); fixed slot, dropped below the
+   full-width breakpoint (see Responsive).
+   Sized to span the CTA column it sits beside — tall enough to read as part of the
+   tile's content rather than a stamp floating in whitespace, and just short of the
+   text column so the description still sets the tile height. */
 .feature-wide .fw-shot {
-  width: 170px; height: 106px; flex: 0 0 auto; object-fit: cover;
+  width: 220px; height: 160px; flex: 0 0 auto; object-fit: cover;
   border: 1px solid var(--line); border-radius: var(--r-md);
 }
 .fw-cta { display: flex; flex-direction: column; gap: 10px; flex: 0 0 auto; margin-left: 12px; }
@@ -357,6 +361,15 @@ footer.site-footer { background: var(--ink); color: #C8D2E0; padding: 48px 0 30p
 .back-link { display: inline-block; margin-top: 40px; }
 
 /* ---- Responsive --------------------------------------------------------- */
+/* The featured thumbnail costs the description column 242px (image + gap), and that
+   column only has room for it while #apps is at its full 1080px max-width. One pixel
+   narrower and the wrap starts shrinking, the description spills past its four-line
+   clamp and gets ellipsised — so the thumbnail is a full-width-desktop treatment only
+   and drops out the moment the container does. */
+@media (max-width: 1079.98px) {
+  .feature-wide .fw-shot { display: none; }
+}
+
 @media (max-width: 760px) {
   h1 { font-size: 34px; }
   .grid { grid-template-columns: 1fr; }
@@ -386,7 +399,6 @@ footer.site-footer { background: var(--ink); color: #C8D2E0; padding: 48px 0 30p
   /* Featured app card stacks; its CTA column becomes a wrapping row */
   .feature-wide { flex-direction: column; align-items: flex-start; gap: 16px; }
   .fw-cta { flex-direction: row; flex-wrap: wrap; margin-left: 0; }
-  .feature-wide .fw-shot { display: none; }
   /* Stacked and full-width here, so the description gets a looser clamp: still a
      guard against an over-long registry entry, but house-length copy shows in full */
   .feature-wide p { -webkit-line-clamp: 10; }
