@@ -250,6 +250,18 @@ section { padding: 64px 0; }
 .card-c-head .c-icon { width: 36px; height: 36px; border-radius: 9px; flex: 0 0 auto; }
 .card-c h3 { font-size: 16px; margin: 0; font-weight: 600; display: flex; align-items: center; gap: 8px; flex-wrap: wrap; }
 .card-c h3 a:hover { color: var(--blue); }
+/* Multi-column rows only: every head reserves two title lines, so titles top-align
+   and the description first lines sit level across a row even when a long title
+   (two lines) lands beside a short one (Natasha 2026-08-01: the space under a short
+   title is preferred to unaligned text). 662px is the 2-column threshold — 2x300px
+   tracks + 14px gap + the wrap's 24px gutters; below it cards stack and the
+   reservation would only add dead air. The h3 is a wrapping flex box, so without
+   align-content a lone title line would centre in the reserved height instead of
+   topping out. 2lh = two lines at the h3's own line-height; the em value is its
+   static equivalent for browsers without lh. */
+@media (min-width: 662px) {
+  .card-c h3 { min-height: 3.2em; min-height: 2lh; align-content: flex-start; }
+}
 /* Descriptions clamp to two lines so tile heights stay uniform */
 .card-c p {
   font-size: 14px; color: var(--ink-soft); margin: 0;
