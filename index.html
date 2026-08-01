@@ -29,7 +29,10 @@ description: "CloudScript.io builds practical, purpose-driven apps for Confluenc
     live; `retiring` renders exactly like live here (that status only
     surfaces on /trust); coming-soon tiles carry an inline chip, never a
     Marketplace link, and link to an app page only where one exists
-    (has_page not false).
+    (has_page not false). The featured slot also takes an OPTIONAL local
+    thumbnail: set both feature_image (a path under /assets/img/features/)
+    and feature_image_alt (descriptive alt text) and it renders between the
+    body and the CTA column; omit either and the tile renders as before.
   {% endcomment %}
   {% assign homepage_apps = site.data.apps | where: "homepage_visible", true | sort: "order" %}
   {% assign featured_app = homepage_apps | where: "featured", true | where: "status", "live" | first %}
@@ -48,6 +51,9 @@ description: "CloudScript.io builds practical, purpose-driven apps for Confluenc
       {% endif %}
       <p>{{ featured_app.description | escape }}</p>
     </div>
+    {% if featured_app.feature_image and featured_app.feature_image_alt %}
+    <img class="fw-shot" src="{{ featured_app.feature_image }}" alt="{{ featured_app.feature_image_alt | escape }}" width="170" height="106" loading="lazy">
+    {% endif %}
     <div class="fw-cta">
       <a class="btn btn-primary" href="/apps/{{ featured_app.slug }}">Learn more</a>
       {% if featured_app.marketplace_url %}<a class="btn btn-ghost" href="{{ featured_app.marketplace_url }}" target="_blank" rel="noopener">View on Marketplace</a>{% endif %}

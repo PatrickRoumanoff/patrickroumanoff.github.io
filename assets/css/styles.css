@@ -212,8 +212,19 @@ section { padding: 64px 0; }
 .feature-wide .fw-icon { width: 56px; height: 56px; border-radius: 13px; flex: 0 0 auto; }
 .feature-wide .fw-body { flex: 1; }
 .feature-wide h3 { font-size: 20px; margin: 0 0 6px; font-weight: 700; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
-.feature-wide p { font-size: 15px; color: var(--ink-soft); margin: 0; max-width: 640px; }
+/* Descriptions clamp to four lines so a long registry entry can't blow out the tile.
+   Four, not three: an optional feature_image narrows this column to ~484px, where a
+   two-to-three-sentence description runs to four lines. */
+.feature-wide p {
+  font-size: 15px; color: var(--ink-soft); margin: 0; max-width: 640px;
+  display: -webkit-box; -webkit-line-clamp: 4; -webkit-box-orient: vertical; overflow: hidden;
+}
 .feature-wide .trust-badges { margin-bottom: 10px; }
+/* Optional registry thumbnail (feature_image); fixed slot, hidden once the tile stacks */
+.feature-wide .fw-shot {
+  width: 170px; height: 106px; flex: 0 0 auto; object-fit: cover;
+  border: 1px solid var(--line); border-radius: var(--r-md);
+}
 .fw-cta { display: flex; flex-direction: column; gap: 10px; flex: 0 0 auto; margin-left: 12px; }
 .fw-cta .btn { justify-content: center; }
 
@@ -375,4 +386,8 @@ footer.site-footer { background: var(--ink); color: #C8D2E0; padding: 48px 0 30p
   /* Featured app card stacks; its CTA column becomes a wrapping row */
   .feature-wide { flex-direction: column; align-items: flex-start; gap: 16px; }
   .fw-cta { flex-direction: row; flex-wrap: wrap; margin-left: 0; }
+  .feature-wide .fw-shot { display: none; }
+  /* Stacked and full-width here, so the description gets a looser clamp: still a
+     guard against an over-long registry entry, but house-length copy shows in full */
+  .feature-wide p { -webkit-line-clamp: 10; }
 }
