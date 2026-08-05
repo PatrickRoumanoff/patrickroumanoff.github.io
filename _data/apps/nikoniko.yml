@@ -23,6 +23,10 @@
 # publish prompt's banner grep on the staged DPA page enforces that, and
 # the `documents` list below deliberately keeps the DPA row because the
 # publish waits for it.
+# 2026-08-05 (Natasha, post-publish): DPA row REMOVED from `documents` —
+# /trust shows Privacy · Terms only, and the DPA is reached from the
+# terms page (Schedule 1), matching the page-sharing pattern. The DPA
+# page itself stays published at /apps/nikoniko/dpa.
 #
 # Entity note (no field of its own, recorded so it is not rediscovered):
 # the vendor is Cloudscript Pty Ltd (ABN 14 700 662 362) as of 27 July 2026.
@@ -44,5 +48,3 @@ documents:
     url: /apps/nikoniko/privacy
   - label: Terms
     url: /apps/nikoniko/terms
-  - label: Data Processing Addendum
-    url: /apps/nikoniko/dpa
