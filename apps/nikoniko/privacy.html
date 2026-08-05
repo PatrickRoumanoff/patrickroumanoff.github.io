@@ -1,0 +1,311 @@
+---
+layout: default
+title: CloudScript.io NikoNiko Calendar - Privacy
+description: "Privacy policy for the CloudScript.io NikoNiko Calendar app for Confluence Cloud - what the app does and does not do with your data."
+---
+
+<div class="page wrap">
+  <div class="prose">
+
+<h1>CloudScript.io NikoNiko Calendar Privacy Policy</h1>
+
+<p><em>Effective 5 August 2026.</em></p>
+
+<h2>Who we are</h2>
+
+<p>
+  CloudScript.io NikoNiko Calendar is provided by Cloudscript Pty Ltd (ABN
+  14 700 662 362). If you have questions about this policy or the app's
+  handling of data, contact us at
+  <a href="mailto:support@cloudscript.io">support@cloudscript.io</a>.
+</p>
+<p>
+  This policy describes the app as built on Atlassian Forge: the wording
+  reflects the permissions it actually requests and the data it actually
+  stores. It does not describe the earlier version of the app, which ran
+  on the Atlassian Connect platform and is being retired.
+</p>
+
+<h2>Summary</h2>
+
+<p>
+  CloudScript.io NikoNiko Calendar places a macro on a Confluence page
+  that shows a calendar grid. Each person a page author lists in the
+  macro's configuration can record an entry, a value on a three- or
+  five-point scale, for a given day, by selecting their own cell; the
+  calendar shows the recorded entries to anyone who can view the page,
+  together with an optional row summarising the team's trend over time.
+  The app runs entirely on Atlassian's Forge platform, inside Atlassian's
+  own hosted environment. Its manifest declares no permission to contact
+  any destination outside Atlassian, so the app makes no request to any
+  Cloudscript server or third-party service, and it uses no analytics,
+  cookies or trackers of its own. It stores one record per person per day,
+  holding an Atlassian account identifier, a date, the scale value
+  entered and the time the entry was written, in Atlassian's own Forge
+  storage on your site.
+</p>
+
+<h2>What data CloudScript.io NikoNiko Calendar collects</h2>
+
+<p>
+  The app stores exactly four values per entry: the Atlassian
+  <strong>account identifier</strong> of the person the entry belongs to,
+  the <strong>date</strong> it applies to, the <strong>scale value</strong>
+  entered (a single character from <code>'0'</code> to <code>'5'</code>,
+  where <code>'0'</code> means no entry has been recorded for that day),
+  and the <strong>time the entry was last written</strong>. No note or
+  free-text comment, no display name, no email address, and no derived or
+  inferred field is stored.
+</p>
+<p>
+  The app requests three permissions, and nothing beyond them.
+  <code>read:content-details:confluence</code> lets the app search
+  Confluence users and resolve account identifiers to display names and
+  avatars, so the configuration panel can offer a people picker and the
+  calendar can label its rows with names rather than raw identifiers.
+  These lookups happen live, each time a screen is drawn, and the
+  resulting names and avatars are not stored anywhere. <code>storage:app</code>
+  holds the entry records described above. <code>report:personal-data</code>
+  is used solely for the account-closure reporting process described under
+  "Egress destinations and sub-processors" below. The app requests no
+  permission to read, write or delete Confluence page content, and no
+  permission to send data anywhere outside Atlassian.
+</p>
+
+<h2>Where data is stored and processed</h2>
+
+<p>
+  All entry records are held in Atlassian's Forge Custom Entity Store,
+  within the storage partition Atlassian allocates to this app on your
+  own Confluence site. Each installation's records sit in their own
+  partition; one customer's records are not readable by another
+  customer's installation. Cloudscript operates no database or backend of
+  its own for this app, and holds no separate copy of the records on any
+  system it runs.
+</p>
+<p>
+  Reading and writing entries happens inside a resolver function that
+  also runs on Forge, within Atlassian's hosted environment. The macro
+  itself runs in a sandboxed iframe on your Confluence site.
+</p>
+
+<h2>Egress destinations and sub-processors</h2>
+
+<p>
+  The app's manifest declares no <code>permissions.external</code> block
+  and no <code>remotes</code> entry of any kind. On Forge, an app can only
+  contact a destination it has declared in advance, so the app cannot
+  transmit anything to Cloudscript or to any third party.
+</p>
+<p>
+  The one call the app makes beyond its own storage goes to Atlassian
+  itself, not to an external destination. On a recurring seven-day cycle,
+  the app reports each account identifier it holds to Atlassian's
+  personal data reporting API, as required of Forge apps that store
+  account-linked data, so that Atlassian can tell the app when an account
+  has been closed (see "Uninstall, revocation and deletion" below). This
+  call uses a platform-internal transport rather than an outbound network
+  request, so it does not appear in the app's egress declarations, and it
+  sends nothing beyond the stored account identifier and the time its
+  entry was last written.
+</p>
+<p>
+  Atlassian is disclosed as a sub-processor for hosting and platform
+  services under the app's Data Processing Addendum, available at
+  <a href="https://cloudscript.io/apps/nikoniko/dpa">https://cloudscript.io/apps/nikoniko/dpa</a>,
+  which incorporates the Forge Data Processing Addendum's terms. No other
+  sub-processor is used, because no other destination exists for this
+  app's data to reach. Any transfer of entry data outside the European
+  Economic Area is governed by that same Forge Data Processing Addendum
+  and the Standard Contractual Clauses it incorporates, not by any
+  separate arrangement of ours.
+</p>
+<p>
+  We do not sell or share entry data, and we do not aggregate it across
+  customers, produce reports about individuals from it, or use it to
+  train any model. We use it only as the mechanism by which the app
+  works, on the instructions of the organisation operating your
+  Confluence site.
+</p>
+
+<h2>Retention</h2>
+
+<p>
+  No fixed retention period is coded into the app, and the app never
+  deletes entries on a schedule of its own. An entry persists until it is
+  overwritten by a later entry for the same person and date, until the
+  person who recorded it deletes it, until a site administrator deletes
+  it, until the app is uninstalled from the site, or until the account it
+  belongs to is closed, whichever happens first (each path is described
+  under "Uninstall, revocation and deletion" below).
+</p>
+
+<h2>Data residency</h2>
+
+<p>
+  The entry records this app stores exist only in Forge hosted storage
+  associated with your own Confluence site. Cloudscript operates no
+  infrastructure of its own for this app and declares no external network
+  egress, so the physical location of that storage is determined by your
+  organisation's own arrangements with Atlassian, not by anything
+  Cloudscript provides or can vary. For how Atlassian itself handles data
+  residency for Forge and Confluence Cloud, refer to Atlassian's own
+  documentation.
+</p>
+<h2>Uninstall, revocation and deletion</h2>
+
+<p>
+  Four distinct paths remove entry records from the app, and only four:
+  two in-app controls, and two platform events.
+</p>
+<p>
+  <strong>Deleting your own entries.</strong> A person who records entries
+  can permanently delete their own entry for a day, or their entire entry
+  history, through the calendar itself. Deletion removes the stored record
+  immediately; nothing is kept in its place, and there is no undo.
+</p>
+<p>
+  <strong>Administrator deletion.</strong> Confluence site administrators
+  have an administration screen for the app that lists the accounts for
+  which entries are stored. The listing is drawn from the app's own
+  storage rather than from the site's user directory, so it includes
+  accounts that have been deactivated or have left the organisation. From
+  that screen an administrator can permanently delete every entry for a
+  named account, or all entries older than a date the administrator
+  chooses. Each operation runs only on the administrator's confirmation,
+  and the app refuses these operations server-side for any caller who is
+  not a site administrator.
+</p>
+<p>
+  <strong>Uninstalling the app.</strong> The app declares no custom
+  uninstall or deletion hook of its own. On uninstall, the app's stored
+  entries are removed by Atlassian in line with the Forge hosted storage
+  data lifecycle, described in Atlassian's own documentation at
+  <a href="https://developer.atlassian.com/platform/forge/storage-reference/hosted-storage-data-lifecycle/">https://developer.atlassian.com/platform/forge/storage-reference/hosted-storage-data-lifecycle/</a>.
+  This policy does not assert a specific retention window for that
+  default, because the window is Atlassian's to set and may change with
+  the platform.
+</p>
+<p>
+  <strong>Account closure.</strong> This path is automatic and
+  code-driven. On the seven-day reporting cycle described above, where
+  Atlassian's personal data reporting API indicates that an account has
+  been closed, the app erases every entry it holds for that account
+  identifier within that cycle.
+</p>
+<p>
+  Removing the macro from a page, or removing a person from a macro's
+  configuration, stops the calendar from displaying that person's entries
+  but does not by itself delete the underlying records; the four paths
+  above are the only ways a record is removed.
+</p>
+
+<h2>Who can see an entry</h2>
+
+<p>
+  An entry recorded through the macro is visible to everyone who can view
+  the Confluence page the macro sits on, for as long as that page shows a
+  window covering the relevant date. The audience for a person's entry
+  history is set by the Confluence page permissions your organisation
+  applies to the page the macro is placed on, and by which people a page
+  author lists in the macro's configuration. Choosing where to place the
+  calendar, who to list on it, and who can see the page is your
+  organisation's own decision.
+</p>
+<p>
+  Where the app's optional team-trend row is enabled, it is derived at
+  render time from the same entries already displayed on the grid; the
+  app stores, fetches or transmits nothing further to produce it.
+</p>
+
+<h2>Access, correction and complaints</h2>
+
+<p>
+  If you contact us for support at
+  <a href="mailto:support@cloudscript.io">support@cloudscript.io</a>, we
+  receive the email address and any information you choose to include in
+  your message, and we act as controller of that correspondence: we use
+  it only to respond to and resolve your request. If you believe we hold
+  personal data about you in that correspondence, or wish to access or
+  correct it, contact us at the same address and we will respond within a
+  reasonable period. Complaints about our handling of personal data can
+  be made to the same address; if you are not satisfied with our
+  response, you may complain to the Office of the Australian Information
+  Commissioner (oaic.gov.au), or to your local data protection authority
+  if you are outside Australia.
+</p>
+<p>
+  This is separate from the entry records described above. Requests to
+  access, correct or delete an entry, or a complaint about how entries
+  are visible or used, should be directed to the organisation operating
+  the Confluence site on which the calendar appears, as described in
+  "Your rights" below.
+</p>
+
+<h2>Your rights</h2>
+
+<p>
+  The organisation operating your Confluence site controls what the
+  calendar records: it decides whether to use the app, which individuals
+  are listed on a calendar, who can see the resulting page, and what it
+  does with what the calendar shows. That organisation is the controller
+  of the entry records for the purposes of the GDPR, and the business (or
+  equivalent) for the purposes of the CCPA/CPRA and comparable regimes,
+  where those frameworks apply. Cloudscript acts as a processor (or
+  service provider) with respect to those records, under the terms of the
+  Data Processing Addendum referenced above.
+</p>
+<p>
+  Requests to access, correct, export or delete an entry, and any privacy
+  right you wish to exercise over it, should therefore be directed to the
+  organisation operating the relevant Confluence site, which controls
+  that content and is able to act on the request. An individual can also
+  act directly: you can overwrite any of your own entries at any time
+  through the calendar itself, and you can permanently delete your own
+  entry for a day, or your entire entry history, in the same place. The
+  organisation's site administrators can act on requests concerning any
+  person's entries, including a person who has left the organisation,
+  through the app's administration screen described under "Uninstall,
+  revocation and deletion" above.
+</p>
+<p>
+  Where Cloudscript receives such a request directly, we will refer it to
+  the operating organisation. Referral is not only our role under the
+  Data Processing Addendum; it is the extent of what we can do.
+  Cloudscript operates no system that holds the entries and has no
+  administrative access to any customer's Confluence site: the deletion
+  and correction tools described above run inside the customer's own
+  site, under the control of its users and site administrators. If we
+  were legally compelled to produce or delete entry records, we could
+  comply only to the extent of what we actually hold, and for entry
+  records that is nothing.
+</p>
+
+<h2>Security</h2>
+
+<p>
+  For how we secure the platform this app runs on, manage vulnerabilities
+  and respond to security incidents, see our
+  <a href="/security">Security</a> page, which applies across our apps.
+  If you believe you have found a security vulnerability in this app,
+  email <a href="mailto:support@cloudscript.io">support@cloudscript.io</a>.
+</p>
+
+<h2>Changes to this policy</h2>
+
+<p>
+  If a future version of the app changes what it accesses, stores or
+  transmits, this policy will be updated to describe that behaviour
+  before that version is released, and the effective date above will
+  change accordingly.
+</p>
+
+<h2>Contact</h2>
+
+<p>
+  Cloudscript Pty Ltd (ABN 14 700 662 362)<br>
+  Support: <a href="mailto:support@cloudscript.io">support@cloudscript.io</a>
+</p>
+
+  </div>
+</div>

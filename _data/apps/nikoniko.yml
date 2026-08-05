@@ -1,14 +1,48 @@
+# STAGED by `launch-app draft` (re-run), 1 August 2026. NOT YET PUBLISHED.
+#
+# This is the LIVE variant of an existing registry entry, not a new
+# coming-soon stub: NikoNiko Calendar has been on the Marketplace for years
+# and is migrating Connect -> Forge by Connect key adoption, so the listing,
+# its installs and its URL all carry over. The entry is UPDATED in place.
+#
+# Three fields change at cutover, and two of them are currently false:
+#   platform             Connect -> Forge
+#   stores_personal_data the live value says the data is "held on Heroku",
+#                        which stops being true the moment the Forge version
+#                        takes over the key
+#   documents            the app now has its own privacy, terms and DPA
+#                        pages, so the Marketplace-listing pointer is
+#                        replaced by real links
+#
+# PUBLISH GATE. Both tokens RESOLVED in the finalise sitting, 1 Aug 2026:
+#   description             follows the picked b5 summary (Natasha's pick)
+#   stores_personal_data    written on the privacy policy's recorded
+#                           sign-off (Natasha, 1 Aug 2026)
+# NOTE the file is still not publishable until the DPA's banner clears
+# (registered professional review + Patrick's clause-7.3 pathway) — the
+# publish prompt's banner grep on the staged DPA page enforces that, and
+# the `documents` list below deliberately keeps the DPA row because the
+# publish waits for it.
+#
+# Entity note (no field of its own, recorded so it is not rediscovered):
+# the vendor is Cloudscript Pty Ltd (ABN 14 700 662 362) as of 27 July 2026.
+# The transfer is never mentioned in customer-facing copy.
+
 name: NikoNiko Calendar
 slug: nikoniko
 order: 40
 status: live
 homepage_visible: true
 featured: false
-platform: Connect
-description: A lightweight team engagement tracker for Confluence spaces, showing at a glance how a team is tracking over a sprint.
+platform: Forge
+description: "Puts the niko-niko team practice on a Confluence page: one entry a day per person builds a shared grid, with three themes, a 3- or 5-option scale, a team trend row, and storage that stays on Forge."
 marketplace_url: https://marketplace.atlassian.com/apps/1223001/cloudscript-io-nikoniko-calendar
 badges: []
-stores_personal_data: "Yes &mdash; a self-reported daily score (0&ndash;5) and a Confluence account identifier, held on Heroku"
+stores_personal_data: "Yes &mdash; a Confluence account identifier, an entry date, the scale value entered (0&ndash;5) and an entry timestamp, held in Atlassian's Forge storage"
 documents:
-  - label: On its Atlassian Marketplace listing
-    url: null
+  - label: Privacy
+    url: /apps/nikoniko/privacy
+  - label: Terms
+    url: /apps/nikoniko/terms
+  - label: Data Processing Addendum
+    url: /apps/nikoniko/dpa
