@@ -9,7 +9,7 @@ description: "Privacy policy for the CloudScript.io NikoNiko Calendar app for Co
 
 <h1>CloudScript.io NikoNiko Calendar Privacy Policy</h1>
 
-<p><em>Effective 5 August 2026.</em></p>
+<p><em>Effective 7 August 2026.</em></p>
 
 <h2>Who we are</h2>
 
@@ -39,32 +39,55 @@ description: "Privacy policy for the CloudScript.io NikoNiko Calendar app for Co
   own hosted environment. Its manifest declares no permission to contact
   any destination outside Atlassian, so the app makes no request to any
   Cloudscript server or third-party service, and it uses no analytics,
-  cookies or trackers of its own. It stores one record per person per day,
-  holding an Atlassian account identifier, a date, the scale value
-  entered and the time the entry was written, in Atlassian's own Forge
+  cookies or trackers of its own. It stores one record per person per
+  calendar per day, holding an Atlassian account identifier, a date, the
+  scale value entered, the time the entry was written and a reference to
+  the calendar the entry was recorded on, in Atlassian's own Forge
   storage on your site.
 </p>
 
 <h2>What data CloudScript.io NikoNiko Calendar collects</h2>
 
 <p>
-  The app stores exactly four values per entry: the Atlassian
+  The app stores exactly five values per entry: the Atlassian
   <strong>account identifier</strong> of the person the entry belongs to,
   the <strong>date</strong> it applies to, the <strong>scale value</strong>
   entered (a single character from <code>'0'</code> to <code>'5'</code>,
   where <code>'0'</code> means no entry has been recorded for that day),
-  and the <strong>time the entry was last written</strong>. No note or
-  free-text comment, no display name, no email address, and no derived or
-  inferred field is stored.
+  the <strong>time the entry was last written</strong>, and a
+  <strong>reference to the calendar it was recorded on</strong> (the page
+  and macro instance, derived by the app itself and never shown to any
+  viewer). The calendar reference records that an account participates in
+  a particular calendar on a particular page — a fact the page's own
+  content already expresses through the macro's people list — and exists
+  so that an entry is only ever shown on the calendar it was recorded on.
+  No note or free-text comment, no display name, no email address, and no
+  derived or inferred field is stored.
 </p>
 <p>
-  The app requests three permissions, and nothing beyond them.
+  A calendar's optional <strong>label</strong> (the question the calendar
+  asks) is not stored by the app at all: it is a macro parameter held in
+  the Confluence page's own content, controlled and edited like any other
+  page content. Because changing a label is a page edit, the previous
+  wording is recoverable from the page's version history, although
+  Confluence's version-history view does not display it; the history is
+  auditable by your organisation rather than tamper-proof, and no surface
+  of the app can connect a stored entry to the label that was in force
+  when the entry was written.
+</p>
+<p>
+  The app requests four permissions, and nothing beyond them.
   <code>read:content-details:confluence</code> lets the app search
   Confluence users and resolve account identifiers to display names and
   avatars, so the configuration panel can offer a people picker and the
-  calendar can label its rows with names rather than raw identifiers.
-  These lookups happen live, each time a screen is drawn, and the
-  resulting names and avatars are not stored anywhere. <code>storage:app</code>
+  calendar can label its rows with names rather than raw identifiers, and
+  also carries the check that confirms a caller of the app's
+  administration screen is a site administrator. These lookups happen
+  live, each time a screen is drawn, and the resulting names and avatars
+  are not stored anywhere. <code>read:content.permission:confluence</code>
+  lets the app ask Confluence, before it serves or records an entry,
+  whether the person invoking the calendar can view the page it sits on;
+  it reads permission metadata only. <code>storage:app</code>
   holds the entry records described above. <code>report:personal-data</code>
   is used solely for the account-closure reporting process described under
   "Egress destinations and sub-processors" below. The app requests no
@@ -133,11 +156,11 @@ description: "Privacy policy for the CloudScript.io NikoNiko Calendar app for Co
 <p>
   No fixed retention period is coded into the app, and the app never
   deletes entries on a schedule of its own. An entry persists until it is
-  overwritten by a later entry for the same person and date, until the
-  person who recorded it deletes it, until a site administrator deletes
-  it, until the app is uninstalled from the site, or until the account it
-  belongs to is closed, whichever happens first (each path is described
-  under "Uninstall, revocation and deletion" below).
+  overwritten by a later entry for the same person, calendar and date,
+  until the person who recorded it deletes it, until a site administrator
+  deletes it, until the app is uninstalled from the site, or until the
+  account it belongs to is closed, whichever happens first (each path is
+  described under "Uninstall, revocation and deletion" below).
 </p>
 
 <h2>Data residency</h2>
@@ -155,14 +178,24 @@ description: "Privacy policy for the CloudScript.io NikoNiko Calendar app for Co
 <h2>Uninstall, revocation and deletion</h2>
 
 <p>
-  Four distinct paths remove entry records from the app, and only four:
-  two in-app controls, and two platform events.
+  Five distinct paths remove entry records from the app, and only five:
+  three in-app controls, and two platform events.
 </p>
 <p>
-  <strong>Deleting your own entries.</strong> A person who records entries
-  can permanently delete their own entry for a day, or their entire entry
-  history, through the calendar itself. Deletion removes the stored record
-  immediately; nothing is kept in its place, and there is no undo.
+  <strong>Deleting your own entry for a day.</strong> A person who records
+  entries can permanently delete their own entry for a day through the
+  calendar itself. This removes the stored record for that date on that
+  calendar only; entries the same person holds on other calendars are
+  untouched. Deletion is immediate; nothing is kept in its place, and
+  there is no undo.
+</p>
+<p>
+  <strong>Deleting your entire history.</strong> From the same place, a
+  person can permanently delete their entire entry history — every entry
+  of theirs, on every calendar on the site, including calendars on pages
+  they can no longer view. This path deliberately requires no page
+  permission: losing access to a page does not lock a person out of
+  deleting what they recorded there.
 </p>
 <p>
   <strong>Administrator deletion.</strong> Confluence site administrators
@@ -171,10 +204,12 @@ description: "Privacy policy for the CloudScript.io NikoNiko Calendar app for Co
   storage rather than from the site's user directory, so it includes
   accounts that have been deactivated or have left the organisation. From
   that screen an administrator can permanently delete every entry for a
-  named account, or all entries older than a date the administrator
-  chooses. Each operation runs only on the administrator's confirmation,
-  and the app refuses these operations server-side for any caller who is
-  not a site administrator.
+  named account, or run a site-wide deletion of entries older than a date
+  the administrator chooses, which reports its progress and completion as
+  it runs. Each operation runs only on the administrator's confirmation,
+  operates across every calendar (deletion is never limited to one
+  calendar), and the app refuses these operations server-side for any
+  caller who is not a site administrator.
 </p>
 <p>
   <strong>Uninstalling the app.</strong> The app declares no custom
@@ -196,21 +231,27 @@ description: "Privacy policy for the CloudScript.io NikoNiko Calendar app for Co
 <p>
   Removing the macro from a page, or removing a person from a macro's
   configuration, stops the calendar from displaying that person's entries
-  but does not by itself delete the underlying records; the four paths
-  above are the only ways a record is removed.
+  but does not by itself delete the underlying records; likewise, copying
+  a page copies the calendar but none of its entries, and deleting a page
+  does not delete the entries recorded on it. The five paths above are
+  the only ways a record is removed.
 </p>
 
 <h2>Who can see an entry</h2>
 
 <p>
   An entry recorded through the macro is visible to everyone who can view
-  the Confluence page the macro sits on, for as long as that page shows a
-  window covering the relevant date. The audience for a person's entry
-  history is set by the Confluence page permissions your organisation
-  applies to the page the macro is placed on, and by which people a page
-  author lists in the macro's configuration. Choosing where to place the
-  calendar, who to list on it, and who can see the page is your
-  organisation's own decision.
+  the Confluence page it was recorded on, for as long as that page shows
+  a window covering the relevant date — and only there: an entry never
+  appears on a calendar it was not recorded on, and a copied page starts
+  with an empty calendar. The app verifies the viewer's permission on the
+  page server-side before serving entries, and refuses when it cannot
+  confirm it. The audience for a person's entry history is set by the
+  Confluence page permissions your organisation applies to the page the
+  macro is placed on, and by which people a page author lists in the
+  macro's configuration. Choosing where to place the calendar, who to
+  list on it, and who can see the page is your organisation's own
+  decision.
 </p>
 <p>
   Where the app's optional team-trend row is enabled, it is derived at

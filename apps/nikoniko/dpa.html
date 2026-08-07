@@ -8,7 +8,7 @@ title: CloudScript.io NikoNiko Calendar — Data Processing Addendum
 
 <h1>Schedule 1 — Data Processing Addendum</h1>
 
-<p><em>Effective 5 August 2026.</em></p>
+<p><em>Effective 7 August 2026.</em></p>
 
 <h2>1. Parties, structure and precedence</h2>
 
@@ -83,9 +83,13 @@ title: CloudScript.io NikoNiko Calendar — Data Processing Addendum
 
 <p>
   <strong>Categories of personal data.</strong> Atlassian account identifier;
-  entry date; the scale value entered; timestamp of entry. Display names and
-  avatars are retrieved from Confluence at render time and are not stored by the
-  App. The App stores no free-text content.
+  entry date; the scale value entered; timestamp of entry; a reference to the
+  calendar (the page and macro instance) the entry was recorded on. Display
+  names and avatars are retrieved from Confluence at render time and are not
+  stored by the App. The App stores no free-text content; a calendar's
+  optional label is a macro parameter within the customer's own Confluence
+  page content, processed by Confluence as page content and not held in the
+  App's storage.
 </p>
 
 <p>
@@ -179,7 +183,7 @@ title: CloudScript.io NikoNiko Calendar — Data Processing Addendum
     installation's entries are not addressable from another.
   </li>
   <li>
-    <strong>Data minimisation.</strong> An entry holds only the four items listed
+    <strong>Data minimisation.</strong> An entry holds only the five items listed
     in clause 3. No free-text content, display name, email address or derived
     field is stored.
   </li>
@@ -189,10 +193,12 @@ title: CloudScript.io NikoNiko Calendar — Data Processing Addendum
     request an app has not declared in advance.
   </li>
   <li>
-    <strong>Least privilege.</strong> The App requests three permission scopes:
-    read access to Confluence content details, application storage, and the
-    personal-data reporting scope Atlassian requires for its account-closure and
-    reporting flow.
+    <strong>Least privilege.</strong> The App requests four permission scopes:
+    read access to Confluence content details, read access to content
+    permission metadata (used to verify a caller's permission on a page before
+    entries are served or recorded), application storage, and the
+    personal-data reporting scope Atlassian requires for its account-closure
+    and reporting flow.
   </li>
   <li>
     <strong>Encryption in transit and at rest</strong>, as provided by the Forge
@@ -237,10 +243,13 @@ title: CloudScript.io NikoNiko Calendar — Data Processing Addendum
 <p>
   7.3 Where the data subject is a user of the customer's site, the App provides
   self-service means. A user may correct any of their own entries at any time by
-  overwriting them through the calendar, and may permanently delete their own
-  entry for a given day, or their entire entry history. Deletion removes the
-  stored record itself, immediately and irreversibly; no copy is retained, and
-  no marker is stored in its place.
+  overwriting them through the calendar, may permanently delete their own
+  entry for a given day on the calendar it was recorded on, and may permanently
+  delete their entire entry history, which operates across every calendar on
+  the site and deliberately requires no page permission, so that a user who has
+  lost access to a page is not thereby prevented from erasing entries recorded
+  there. Deletion removes the stored record itself, immediately and
+  irreversibly; no copy is retained, and no marker is stored in its place.
 </p>
 
 <p>
@@ -252,9 +261,12 @@ title: CloudScript.io NikoNiko Calendar — Data Processing Addendum
   than from the site's user directory, so deactivated and departed accounts
   remain visible and actionable, and it discloses only which accounts have
   stored entries. From that screen an administrator may permanently delete every
-  entry for a named account, and may permanently delete all entries older than a
-  date the administrator chooses. Each operation runs only on the
-  administrator's confirmation and takes effect immediately. The App never
+  entry for a named account, and may run a site-wide deletion of entries older
+  than a date the administrator chooses, which proceeds as a resumable
+  operation reporting its progress and completion. Each operation runs only on
+  the administrator's confirmation; per-account deletion takes effect
+  immediately. Administrative deletion operates across every calendar and is
+  never limited to one. The App never
   deletes Customer Data on a schedule of its own: every deletion is a
   self-service deletion under clause 7.3, an operation confirmed by the
   customer's administrator under this clause, or the account-closure erasure

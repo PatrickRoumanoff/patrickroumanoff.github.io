@@ -8,7 +8,7 @@ title: CloudScript.io NikoNiko Calendar — Terms
 
 <h1>CloudScript.io NikoNiko Calendar Terms of Use</h1>
 
-<p><em>Effective 5 August 2026.</em></p>
+<p><em>Effective 7 August 2026.</em></p>
 
 <h2>About these terms</h2>
 
@@ -41,9 +41,11 @@ title: CloudScript.io NikoNiko Calendar — Terms
   CloudScript.io NikoNiko Calendar is a macro for Confluence Cloud. Placed on a
   page, it renders a calendar grid for a list of people the page's editor
   configures, over a date range the configuration sets. Each person can record
-  one value per day for themselves, chosen from a scale of either three or five
-  options, and the grid shows those values for the configured people across the
-  range. The macro can also show a team trend row, derived at render time from
+  one value per day for themselves on each calendar, chosen from a scale of
+  either three or five options, and the grid shows those values for the
+  configured people across the range. A calendar's entries belong to that
+  calendar alone, several labelled calendars can share one page, and an
+  optional label names the question a calendar asks. The macro can also show a team trend row, derived at render time from
   the values already displayed in the grid, which is on by default and can be
   turned off in the configuration.
 </p>
@@ -56,9 +58,11 @@ title: CloudScript.io NikoNiko Calendar — Terms
 </p>
 
 <p>
-  The app records four items per entry: the Atlassian account identifier of the
-  person the entry belongs to, the date, the value entered, and the time the
-  entry was written. It stores no free-text content of any kind. Display names
+  The app records five items per entry: the Atlassian account identifier of the
+  person the entry belongs to, the date, the value entered, the time the
+  entry was written, and a reference to the calendar it was recorded on. It
+  stores no free-text content of any kind (a calendar's optional label is part
+  of your page content, not the app's storage). Display names
   and avatars are read from Confluence each time the macro renders and are not
   stored by the app. The app makes no network request to any host outside
   Atlassian's platform. What the app stores, where it is stored, and how long it
@@ -141,11 +145,12 @@ title: CloudScript.io NikoNiko Calendar — Terms
   platform, and it operates no server, database, or other infrastructure of our
   own. Its Forge manifest declares no external permissions of any kind, so the app
   makes no outbound network request, and the platform blocks any request it has
-  not declared in advance. The app requests three permission scopes: read access
+  not declared in advance. The app requests four permission scopes: read access
   to Confluence content details (used to search the user directory and to resolve
-  display names and avatars at render time), application storage, and the
-  personal-data reporting scope that Atlassian requires for its own account-closure
-  and reporting flow.
+  display names and avatars at render time), read access to content permission
+  metadata (used to verify a caller's permission on a page before entries are
+  served or recorded), application storage, and the personal-data reporting
+  scope that Atlassian requires for its own account-closure and reporting flow.
 </p>
 
 <p>
