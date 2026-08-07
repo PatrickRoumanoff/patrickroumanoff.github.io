@@ -1,36 +1,18 @@
-# STAGED by `launch-app draft` (re-run), 1 August 2026. NOT YET PUBLISHED.
+# SYNCED to the live repo state 7 Aug 2026 (Cowork), replacing the stale
+# 1 Aug staged variant whose only deltas against live were REGRESSIVE (it
+# still carried the DPA `documents` row Natasha removed on 5 Aug, commit
+# 05f01c5 — the update-publish run correctly refused to place it).
 #
-# This is the LIVE variant of an existing registry entry, not a new
-# coming-soon stub: NikoNiko Calendar has been on the Marketplace for years
-# and is migrating Connect -> Forge by Connect key adoption, so the listing,
-# its installs and its URL all carry over. The entry is UPDATED in place.
-#
-# Three fields change at cutover, and two of them are currently false:
-#   platform             Connect -> Forge
-#   stores_personal_data the live value says the data is "held on Heroku",
-#                        which stops being true the moment the Forge version
-#                        takes over the key
-#   documents            the app now has its own privacy, terms and DPA
-#                        pages, so the Marketplace-listing pointer is
-#                        replaced by real links
-#
-# PUBLISH GATE. Both tokens RESOLVED in the finalise sitting, 1 Aug 2026:
-#   description             follows the picked b5 summary (Natasha's pick)
-#   stores_personal_data    written on the privacy policy's recorded
-#                           sign-off (Natasha, 1 Aug 2026)
-# NOTE the file is still not publishable until the DPA's banner clears
-# (registered professional review + Patrick's clause-7.3 pathway) — the
-# publish prompt's banner grep on the staged DPA page enforces that, and
-# the `documents` list below deliberately keeps the DPA row because the
-# publish waits for it.
-# 2026-08-05 (Natasha, post-publish): DPA row REMOVED from `documents` —
-# /trust shows Privacy · Terms only, and the DPA is reached from the
-# terms page (Schedule 1), matching the page-sharing pattern. The DPA
-# page itself stays published at /apps/nikoniko/dpa.
-#
-# Entity note (no field of its own, recorded so it is not rediscovered):
-# the vendor is Cloudscript Pty Ltd (ABN 14 700 662 362) as of 27 July 2026.
-# The transfer is never mentioned in customer-facing copy.
+# TWO CONTENT CHANGES vs live, both PENDING NATASHA'S APPROVAL (7 Aug):
+#   stores_personal_data  gains the fifth stored item (the calendar
+#                         reference) — aligns the Trust Center disclosure
+#                         with the live app and the 7 Aug privacy policy
+#   description           follows the 6 Aug picked b5 summary (the registry
+#                         description mirrors the picked summary by
+#                         convention; the 1 Aug pick it mirrored is
+#                         superseded)
+# If either is declined, revert that field to the live value before any
+# placement.
 
 name: NikoNiko Calendar
 slug: nikoniko
@@ -39,10 +21,10 @@ status: live
 homepage_visible: true
 featured: false
 platform: Forge
-description: "Puts the niko-niko team practice on a Confluence page: one entry a day per person builds a shared grid, with three themes, a 3- or 5-option scale, a team trend row, and storage that stays on Forge."
+description: "Puts the niko-niko team practice on a Confluence page: one entry a day per person builds a shared grid, several labelled calendars can share one page to track separate questions, and entries stay in storage on Forge."
 marketplace_url: https://marketplace.atlassian.com/apps/1223001/cloudscript-io-nikoniko-calendar
 badges: []
-stores_personal_data: "Yes &mdash; a Confluence account identifier, an entry date, the scale value entered (0&ndash;5) and an entry timestamp, held in Atlassian's Forge storage"
+stores_personal_data: "Yes &mdash; a Confluence account identifier, an entry date, the scale value entered (0&ndash;5), an entry timestamp and a reference to the calendar the entry was recorded on, held in Atlassian's Forge storage"
 documents:
   - label: Privacy
     url: /apps/nikoniko/privacy
