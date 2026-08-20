@@ -1,0 +1,34 @@
+# CloudScript.io app registry entry — MSG/EML Email Viewer for Confluence.
+#
+# order: 45 continues the established 5-point spacing after the highest slot
+# in use (mermaid=10, page-sharing=20, typst-renderer=25, mcp-renderer=30,
+# radar-renderer=35, nikoniko=40); no conflicting slot.
+#
+# marketplace_url: null while status is coming-soon; set it when the listing
+# is published.
+#
+# badges: [] — a trust badge is listed only once observed as assigned on the
+# live listing, never pre-emptively and never carried over from another app.
+#
+# has_page: omitted deliberately. This app's guide IS its /apps/email-viewer
+# landing page, so the same page serves as both product description and user
+# guide. Matches the radar-renderer and mcp-renderer precedent (field
+# omitted), not typst-renderer's (has_page: false, legal pages only).
+name: MSG/EML Email Viewer for Confluence
+slug: email-viewer
+order: 45
+status: coming-soon
+homepage_visible: true
+featured: false
+platform: Forge
+description: "For teams keeping emails as the record on a Confluence page (approvals, client instructions, incident correspondence), this macro renders the attached .msg or .eml original in place as a faithful email card: subject, sender, recipients, date, body, inline images and attachments. No vendor sits in the path: the email is read from your own Confluence, parsed in your browser, and written to no store outside it."
+marketplace_url: null
+badges: []
+stores_personal_data: "No"
+documents:
+  - label: Privacy
+    url: /apps/email-viewer/privacy
+  - label: Terms
+    url: /apps/email-viewer/terms
+  - label: DPA
+    url: /apps/email-viewer/dpa

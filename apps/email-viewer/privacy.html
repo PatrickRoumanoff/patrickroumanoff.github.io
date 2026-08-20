@@ -1,0 +1,289 @@
+---
+layout: default
+title: MSG/EML Email Viewer for Confluence — Privacy
+---
+
+<div class="page wrap">
+  <div class="prose">
+
+<h1>MSG/EML Email Viewer for Confluence Privacy Policy</h1>
+
+<p><em>Effective 19 August 2026</em></p>
+
+<h2>Who we are</h2>
+
+<p>
+  MSG/EML Email Viewer for Confluence is provided by Cloudscript Pty Ltd
+  (ABN 14 700 662 362) ("Cloudscript", "we", "us"). If you have questions
+  about this policy, contact us at
+  <a href="mailto:support@cloudscript.io">support@cloudscript.io</a>.
+</p>
+
+<h2>What data MSG/EML Email Viewer for Confluence collects</h2>
+
+<p>
+  The macro reads the <code>.msg</code> or <code>.eml</code> file attached to the
+  Confluence page it is placed on so it can render it as a readable email:
+  subject, sender, recipients, date, body, inline images and a list of any
+  further attachments (including any nested or embedded email, which is
+  listed but not opened inline). This content is read fresh from your own
+  Confluence instance on every render; see "Where data is stored and
+  processed" below for what happens to it after that.
+</p>
+
+<p>
+  When an author selects an attachment for the macro, or uploads a new
+  email file directly through it, the macro saves a small attachment
+  reference alongside the rest of the page's content: the Confluence
+  attachment ID, the attachment's file name, and a display label the
+  author chooses. This reference contains no email content itself.
+</p>
+
+<p>
+  If an author uses the macro's upload feature, the whole email file they
+  upload is saved as an ordinary Confluence page attachment, under the
+  same access rules and lifecycle as any other file attached to that page.
+  Nothing is uploaded until the author saves the page.
+</p>
+
+<p>
+  The macro also reads your Confluence licence status (active, trial or
+  inactive) at the moment it renders. This is a read-only check performed
+  fresh on each render and is not stored anywhere.
+</p>
+
+<p>
+  Anyone with view access to the page can see the rendered email,
+  including a guest or anonymous viewer where your Confluence site allows
+  them. This is the same permission model as any other content on the
+  page; the app does not add or bypass any access control of its own.
+</p>
+
+<p>
+  To do this, the app requests two Forge permissions:
+  <code>read:attachment:confluence</code>, to list and read the bytes of
+  the attached email file, and <code>write:confluence-file</code>, to save
+  an uploaded email file as a Confluence attachment.
+</p>
+
+<p>
+  Separately from anything the app itself does, Cloudscript holds
+  Marketplace transaction records that Atlassian discloses to it as the
+  seller of this app: the purchasing organisation's details and the contact
+  details Atlassian records against that purchase. These records reach
+  Cloudscript through Atlassian's own Marketplace reporting to vendors, not
+  through the app, which neither reads nor transmits them, and Cloudscript
+  uses them to administer licences and to answer support requests. They are
+  personal information Cloudscript holds in its own right as a business, so
+  the sections of this policy dealing with data Cloudscript itself holds
+  govern them, under "Access, correction and complaints" and "Your rights"
+  below, rather than the sections describing the app's own data path.
+</p>
+
+<h2>Where data is stored and processed</h2>
+
+<p>
+  MSG/EML Email Viewer for Confluence operates no data store of its own.
+  Its manifest declares no Forge <code>storage:app</code> entitlement, and
+  a review of the app's source code found no call to any Forge storage
+  API.
+</p>
+
+<p>
+  The attachment reference described above (attachment ID, file name,
+  display label) is saved through Confluence's own macro-configuration
+  save path and held as part of your Confluence page's own content,
+  inside your own Confluence instance, not in any store the app operates.
+</p>
+
+<p>
+  Email content is never saved anywhere. On each render, the attached
+  file's bytes are read from your Confluence instance's own attachment
+  storage over Atlassian's own platform APIs, and parsed inside a
+  sandboxed process running in your browser; the rendered result is
+  displayed and then discarded. No email content is written to
+  Confluence's macro configuration or to any other store.
+</p>
+
+<p>
+  If an author uploads an email file through the macro, the whole file is
+  written to your Confluence instance's own attachment storage by
+  Confluence's own attachment API, the same storage every other page
+  attachment uses.
+</p>
+
+<p>
+  One exception to the client-side pattern: exporting a page containing
+  the macro to a static format other than PDF (for example, Word) invokes
+  a single Atlassian-hosted Forge function, which reads the attachment
+  reference's file name and display label to build a placeholder card in
+  the export. That function does not receive the email body, sender or
+  recipient details, or the attachment's bytes, and does not store
+  anything. PDF exports do not use this function; a PDF export captures
+  the same client-side render shown on the live page.
+</p>
+
+<h2>Egress destinations and sub-processors</h2>
+
+<p>
+  The app's manifest declares no <code>remotes</code> or
+  <code>external.fetch</code> block of any kind, and a review of the app's
+  source code found no call to <code>fetch</code>,
+  <code>XMLHttpRequest</code>, or any other network request outside
+  Atlassian's own Confluence and Forge APIs. Every request the macro
+  makes, to list attachments, read an attachment's bytes, or save an
+  uploaded attachment, goes through Atlassian's own in-platform request
+  path, not to any host Cloudscript operates or any other third party.
+</p>
+
+<p>
+  Cloudscript engages no sub-processor for this app. There is no hosting
+  provider, analytics tool, logging service or support platform in the
+  app's data path, because Cloudscript operates no infrastructure that the
+  app uses. Atlassian is not Cloudscript's sub-processor: you hold your
+  own direct contract with Atlassian for your Confluence site, chose
+  Atlassian before you chose this app, and would continue to hold the same
+  data in the same place if this app were uninstalled. The published
+  <a href="/apps/email-viewer/dpa">Data Processing Addendum</a>
+  explains this empty list in full.
+</p>
+
+<p>
+  Cloudscript does not disclose any personal information the app handles to
+  any recipient, in Australia or overseas, because it operates no store of
+  its own and makes no network request outside Atlassian's platform.
+</p>
+
+<h2>Retention</h2>
+
+<p>
+  MSG/EML Email Viewer for Confluence operates no data store of its own
+  and applies no retention period of its own to anything. The attachment
+  reference (attachment ID, file name, display label) is part of your
+  Confluence page's own content and follows that page's lifecycle,
+  including Confluence's own retention, trash and permanent-deletion
+  behaviour, none of which the app controls or varies.
+</p>
+
+<p>
+  Email content is never retained by the app in any form; see "Where data
+  is stored and processed" above.
+</p>
+
+<h2>Data residency</h2>
+
+<p>
+  MSG/EML Email Viewer for Confluence does not store End-User Data
+  outside your own Confluence instance, so there is no Cloudscript-operated
+  location, region or residency setting for it to offer. The attachment
+  reference and any email file uploaded through the macro reside only
+  inside your own Confluence page, within your own Confluence instance,
+  and follow whatever data-residency arrangement you already have with
+  Atlassian for that instance. Cloudscript does not implement, support or
+  vary any data-residency option for this app.
+</p>
+
+<p>
+  The residency position recorded for this app on the Atlassian Marketplace is
+  accordingly that residency is not applicable, because the app does not store
+  End-User Data. Atlassian's vendor console offers no residency setting for this
+  app, so there is nothing for Cloudscript to configure on your behalf.
+</p>
+
+<h2>Uninstall, revocation and deletion</h2>
+
+<p>
+  MSG/EML Email Viewer for Confluence holds nothing of its own to delete
+  on uninstall: it declares no Forge storage module and operates no
+  store. Content your users created while the app was installed remains
+  in your Confluence instance, under your control, regardless of whether
+  the app stays installed. That includes the macro's attachment
+  reference, which is part of your page content, and any email file
+  uploaded through the macro, which is an ordinary Confluence page
+  attachment. Both follow Confluence's own attachment and page lifecycle,
+  not any lifecycle the app imposes.
+</p>
+
+<h2>Access, correction and complaints</h2>
+
+<p>
+  MSG/EML Email Viewer for Confluence holds no email content or attachment
+  reference of its own outside your Confluence instance (see "Where data
+  is stored and processed" above), so in practice any personal data
+  Cloudscript could hold in connection with this app is limited to
+  support correspondence you send us directly. If you believe we hold
+  personal data about you in that correspondence, or you wish to access or
+  correct it, contact us at
+  <a href="mailto:support@cloudscript.io">support@cloudscript.io</a> and we
+  will respond within a reasonable period. Complaints about how we handle
+  personal data can be made to the same address; if you are not satisfied
+  with our response, you may complain to the Office of the Australian
+  Information Commissioner (oaic.gov.au), or to your local data protection
+  authority if you are outside Australia.
+</p>
+
+<p>
+  Personal data that appears within an email rendered by the macro (sender
+  and recipient names and addresses, and any personal data in the body or
+  attachments) is held only inside your own Confluence instance, under
+  your own Confluence instance's access controls. Any request to access,
+  correct or delete that content, or any complaint about it, should be
+  directed to the organisation that operates your Confluence site, since
+  it controls that content and we hold no copy of it to act on.
+</p>
+
+<p>
+  If a data breach involving personal information we hold (for example,
+  your support correspondence with us) is likely to result in serious
+  harm, we will notify affected individuals and the Office of the
+  Australian Information Commissioner in accordance with the Notifiable
+  Data Breaches scheme under the Privacy Act 1988 (Cth). Because this app
+  itself holds no email content or attachment reference outside your
+  Confluence instance, an eligible data breach affecting this app's own
+  operation would ordinarily be limited to that support correspondence.
+</p>
+
+<h2>Your rights</h2>
+
+<p>
+  Cloudscript is neither a controller nor a processor of email content
+  under the GDPR, and neither a business nor a service provider under the
+  CCPA, for the reasons explained in the app's
+  <a href="/apps/email-viewer/dpa">Data Processing Addendum</a>, which forms
+  Schedule 1 to the app's
+  <a href="/apps/email-viewer/terms">End User Terms</a>.
+  We publish that Addendum for enterprise procurement purposes; publishing
+  it does not make Cloudscript a processor or change the
+  characterisation stated here.
+</p>
+
+<p>
+  A rights request about the personal data within an email the app
+  renders, whether made by a data subject in the EEA or UK under the
+  GDPR, by a California consumer under the CCPA, or under any other
+  privacy law, should be directed to the organisation that operates your
+  Confluence site, since that organisation controls the content and
+  Cloudscript holds no copy of it to act on. Depending on your
+  arrangements with Atlassian, some requests may also need to be directed
+  to Atlassian.
+</p>
+
+<p>
+  Cloudscript answers requests about the personal data it holds in its
+  own right as a business: your correspondence with our support team, and
+  any Marketplace transaction record Atlassian discloses to us as the
+  seller. Contact
+  <a href="mailto:support@cloudscript.io">support@cloudscript.io</a> for
+  those requests; see "Access, correction and complaints" above for how
+  we handle them.
+</p>
+
+<h2>Contact</h2>
+
+<p>
+  Cloudscript Pty Ltd (ABN 14 700 662 362)<br>
+  Support: <a href="mailto:support@cloudscript.io">support@cloudscript.io</a>
+</p>
+
+  </div>
+</div>
