@@ -72,7 +72,17 @@ description: "CloudScript.io builds practical, purpose-driven apps for the Atlas
   {% assign products = "Confluence,Jira" | split: "," %}
   {% for product in products %}
     {% assign section_apps = homepage_apps | where: "product", product %}
-    {% assign section_live = section_apps | where_exp: "a", "a.status == 'live' or a.status == 'retiring'" %}
+    {% comment %}
+      Two `where` filters concatenated and re-sorted, NOT `where_exp`: GitHub
+      Pages runs Jekyll 3.10, whose where_exp expression parser takes a single
+      comparison and then demands end-of-string, so an `or` raises a Liquid
+      syntax error at build time (Jekyll 4.x, which we build with locally,
+      added boolean chaining and accepts it -- so a local build will NOT catch
+      this). The re-sort keeps registry `order` across both statuses.
+    {% endcomment %}
+    {% assign section_live_now = section_apps | where: "status", "live" %}
+    {% assign section_retiring = section_apps | where: "status", "retiring" %}
+    {% assign section_live = section_live_now | concat: section_retiring | sort: "order" %}
     {% assign section_soon = section_apps | where: "status", "coming-soon" %}
     {% assign section_count = section_live.size | plus: section_soon.size %}
     {% if featured_app and featured_app.product == product and featured_app.status == "live" %}{% assign section_count = section_count | minus: 1 %}{% endif %}
