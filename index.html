@@ -1,13 +1,13 @@
 ---
 layout: default
-description: "CloudScript.io builds practical, purpose-driven apps for Confluence Cloud. Each asks only for the access its job needs, each backed by clear documentation and a plain-English privacy policy."
+description: "CloudScript.io builds practical, purpose-driven apps for the Atlassian ecosystem. Each asks only for the access its job needs, each backed by clear documentation and a plain-English privacy policy."
 ---
 
 <div class="hero">
   <div class="wrap hero-inner">
-    <span class="eyebrow">Apps for Confluence Cloud</span>
-    <h1>Small, sharp tools that make <span class="accent">Confluence</span> do more.</h1>
-    <p class="lede">CloudScript.io builds practical, purpose-driven apps for Confluence Cloud. Each asks only for the access its job needs, each backed by clear documentation and a plain-English privacy policy.</p>
+    <span class="eyebrow">Apps for the Atlassian ecosystem</span>
+    <h1>Small, sharp tools that make <span class="accent">Atlassian</span> do more.</h1>
+    <p class="lede">CloudScript.io builds practical, purpose-driven apps for the Atlassian ecosystem. Each asks only for the access its job needs, each backed by clear documentation and a plain-English privacy policy.</p>
     <div class="cta-row">
       <a class="btn btn-primary" href="#apps">Browse the apps</a>
       <a class="btn btn-ghost" href="/support">Get support</a>
@@ -18,7 +18,7 @@ description: "CloudScript.io builds practical, purpose-driven apps for Confluenc
 <section id="apps" class="wrap">
   <div class="sec-head">
     <h2>Our apps</h2>
-    <p>We specialise in focused, well-made apps for Confluence Cloud.</p>
+    <p>Focused, well-made apps for the Atlassian ecosystem, beginning with Confluence Cloud.</p>
   </div>
 
   {% comment %}
@@ -41,7 +41,7 @@ description: "CloudScript.io builds practical, purpose-driven apps for Confluenc
   <div class="feature-wide">
     <img class="fw-icon" src="/assets/img/icons/{{ featured_app.slug }}.svg" alt="" width="56" height="56">
     <div class="fw-body">
-      <h3>{{ featured_app.name | escape }} <span class="tag">{{ featured_app.featured_label | default: "Featured" | escape }}</span></h3>
+      <h3>{{ featured_app.name | escape }}{% if featured_app.product %} <span class="chip-product">{{ featured_app.product | escape }}</span>{% endif %} <span class="tag">{{ featured_app.featured_label | default: "Featured" | escape }}</span></h3>
       {% if featured_app.badges and featured_app.badges.size > 0 %}
       <div class="trust-badges">
         {% for badge in featured_app.badges %}{% if badge == "runs-on-atlassian" %}<a class="trust-badge" href="/trust#badges">
@@ -69,9 +69,16 @@ description: "CloudScript.io builds practical, purpose-driven apps for Confluenc
     <div class="card-c">
       <div class="card-c-head">
         <img class="c-icon" src="/assets/img/icons/{{ app.slug }}.svg" alt="" width="36" height="36">
-        <h3><a href="/apps/{{ app.slug }}">{{ app.name | escape }}</a></h3>
+        <h3><a href="/apps/{{ app.slug }}">{{ app.name | escape }}</a>{% if app.product %} <span class="chip-product">{{ app.product | escape }}</span>{% endif %}</h3>
       </div>
       <p>{{ app.description | escape }}</p>
+      {% if app.badges and app.badges.size > 0 %}
+      <div class="trust-badges">
+        {% for badge in app.badges %}{% if badge == "runs-on-atlassian" %}<a class="trust-badge" href="/trust#badges">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 2 8l10 5 10-5-10-5Z"/><path d="M2 12l10 5 10-5"/><path d="M2 16l10 5 10-5"/></svg>Runs on Atlassian
+        </a>{% endif %}{% endfor %}
+      </div>
+      {% endif %}
       <div class="card-foot">
         <a class="link" href="/apps/{{ app.slug }}">Learn more &rarr;</a>
         {% if app.marketplace_url %}<a class="link link-secondary" href="{{ app.marketplace_url }}" target="_blank" rel="noopener">View on Marketplace</a>{% endif %}
@@ -88,7 +95,7 @@ description: "CloudScript.io builds practical, purpose-driven apps for Confluenc
     <div class="card-c soon">
       <div class="card-c-head">
         <img class="c-icon" src="/assets/img/icons/{{ app.slug }}.svg" alt="" width="36" height="36">
-        <h3>{% if app.has_page == false %}{{ app.name | escape }}{% else %}<a href="/apps/{{ app.slug }}">{{ app.name | escape }}</a>{% endif %} <span class="badge-soon-inline">Coming soon</span></h3>
+        <h3>{% if app.has_page == false %}{{ app.name | escape }}{% else %}<a href="/apps/{{ app.slug }}">{{ app.name | escape }}</a>{% endif %}{% if app.product %} <span class="chip-product">{{ app.product | escape }}</span>{% endif %} <span class="badge-soon-inline">Coming soon</span></h3>
       </div>
       <p>{{ app.description | escape }}</p>
       {% unless app.has_page == false %}
@@ -152,5 +159,6 @@ description: "CloudScript.io builds practical, purpose-driven apps for Confluenc
         </div>
       </div>
     </div>
+    <p class="about-line">Building for Atlassian since 2007. <a href="/about">Read about us &rarr;</a></p>
   </section>
 </div>

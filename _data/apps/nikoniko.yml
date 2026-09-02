@@ -21,6 +21,7 @@ status: live
 homepage_visible: true
 featured: false
 platform: Forge
+product: Confluence
 description: "Puts the niko-niko team practice on a Confluence page: one entry a day per person builds a shared grid, several labelled calendars can share one page to track separate questions, and entries stay in storage on Forge."
 marketplace_url: https://marketplace.atlassian.com/apps/1223001/cloudscript-io-nikoniko-calendar
 badges: []

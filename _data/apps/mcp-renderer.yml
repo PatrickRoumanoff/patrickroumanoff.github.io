@@ -11,6 +11,7 @@ status: live
 homepage_visible: true
 featured: false
 platform: Forge
+product: Confluence
 description: Renders a pasted MCP Registry server.json or tools/list result as structured, readable Confluence documentation. Purpose-built for MCP, not a generic JSON viewer and not another MCP server product. The source stays canonical and re-renders on edit, so every server documents identically. There is no generative step to drop, reword or hallucinate a field, and the result survives PDF and Word export as native content. It runs with zero scopes, zero egress and no app-side storage.
 marketplace_url: https://marketplace.atlassian.com/apps/2358641825/cloudscript-renderer-for-mcp-documentation
 badges: [runs-on-atlassian]
