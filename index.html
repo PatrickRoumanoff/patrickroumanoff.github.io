@@ -26,13 +26,21 @@ description: "CloudScript.io builds practical, purpose-driven apps for the Atlas
     YAML file per app; site.data.apps is a filename-keyed hash). Adding an
     app to this page = one data file + one icon at /assets/img/icons/<slug>.svg.
     Rules: the featured slot takes the app with featured: true AND status:
-    live; `retiring` renders exactly like live here (that status only
-    surfaces on /trust); coming-soon tiles carry an inline chip, never a
-    Marketplace link, and link to an app page only where one exists
-    (has_page not false). The featured slot also takes an OPTIONAL local
-    thumbnail: set both feature_image (a path under /assets/img/features/)
-    and feature_image_alt (descriptive alt text) and it renders between the
-    body and the CTA column; omit either and the tile renders as before.
+    live. Below it the directory is grouped into product sections rendered in
+    a fixed order (Confluence, then Jira) from each app's `product` field. The
+    featured app is excluded from the grid, and a section with no apps left to
+    show is not rendered at all. Within a section, live apps come before
+    coming-soon ones, each in registry `order`; `retiring` renders exactly like
+    live here (that status only surfaces on /trust). Coming-soon tiles sit in
+    their own product's section carrying an inline chip, never a Marketplace
+    link, and link to an app page only where one exists (has_page not false).
+    Cards carry no product chip -- the section heading names the product -- and
+    no Runs on Atlassian badge: that badge shows on the featured tile here and
+    under the heading on each app's own page. The featured slot also takes an
+    OPTIONAL local thumbnail: set both feature_image (a path under
+    /assets/img/features/) and feature_image_alt (descriptive alt text) and it
+    renders between the body and the CTA column; omit either and the tile
+    renders as before.
   {% endcomment %}
   {% assign homepage_apps = site.data.apps | where: "homepage_visible", true | sort: "order" %}
   {% assign featured_app = homepage_apps | where: "featured", true | where: "status", "live" | first %}
@@ -41,7 +49,7 @@ description: "CloudScript.io builds practical, purpose-driven apps for the Atlas
   <div class="feature-wide">
     <img class="fw-icon" src="/assets/img/icons/{{ featured_app.slug }}.svg" alt="" width="56" height="56">
     <div class="fw-body">
-      <h3>{{ featured_app.name | escape }}{% if featured_app.product %} <span class="chip-product">{{ featured_app.product | escape }}</span>{% endif %} <span class="tag">{{ featured_app.featured_label | default: "Featured" | escape }}</span></h3>
+      <h3>{{ featured_app.name | escape }} <span class="tag">{{ featured_app.featured_label | default: "Featured" | escape }}</span></h3>
       {% if featured_app.badges and featured_app.badges.size > 0 %}
       <div class="trust-badges">
         {% for badge in featured_app.badges %}{% if badge == "runs-on-atlassian" %}<a class="trust-badge" href="/trust#badges">
@@ -61,41 +69,35 @@ description: "CloudScript.io builds practical, purpose-driven apps for the Atlas
   </div>
   {% endif %}
 
-  <div class="subhead">Live on the Atlassian Marketplace</div>
+  {% assign products = "Confluence,Jira" | split: "," %}
+  {% for product in products %}
+    {% assign section_apps = homepage_apps | where: "product", product %}
+    {% assign section_live = section_apps | where_exp: "a", "a.status == 'live' or a.status == 'retiring'" %}
+    {% assign section_soon = section_apps | where: "status", "coming-soon" %}
+    {% assign section_count = section_live.size | plus: section_soon.size %}
+    {% if featured_app and featured_app.product == product and featured_app.status == "live" %}{% assign section_count = section_count | minus: 1 %}{% endif %}
+    {% if section_count > 0 %}
+  <div class="subhead">{{ product | escape }} Cloud apps</div>
   <div class="grid-compact">
-    {% for app in homepage_apps %}
-      {% if app.status != "live" and app.status != "retiring" %}{% continue %}{% endif %}
-      {% if app.slug == featured_app.slug %}{% continue %}{% endif %}
+      {% for app in section_live %}
+        {% if app.slug == featured_app.slug %}{% continue %}{% endif %}
     <div class="card-c">
       <div class="card-c-head">
         <img class="c-icon" src="/assets/img/icons/{{ app.slug }}.svg" alt="" width="36" height="36">
-        <h3><a href="/apps/{{ app.slug }}">{{ app.name | escape }}</a>{% if app.product %} <span class="chip-product">{{ app.product | escape }}</span>{% endif %}</h3>
+        <h3><a href="/apps/{{ app.slug }}">{{ app.name | escape }}</a></h3>
       </div>
       <p>{{ app.description | escape }}</p>
-      {% if app.badges and app.badges.size > 0 %}
-      <div class="trust-badges">
-        {% for badge in app.badges %}{% if badge == "runs-on-atlassian" %}<a class="trust-badge" href="/trust#badges">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3 2 8l10 5 10-5-10-5Z"/><path d="M2 12l10 5 10-5"/><path d="M2 16l10 5 10-5"/></svg>Runs on Atlassian
-        </a>{% endif %}{% endfor %}
-      </div>
-      {% endif %}
       <div class="card-foot">
         <a class="link" href="/apps/{{ app.slug }}">Learn more &rarr;</a>
         {% if app.marketplace_url %}<a class="link link-secondary" href="{{ app.marketplace_url }}" target="_blank" rel="noopener">View on Marketplace</a>{% endif %}
       </div>
     </div>
-    {% endfor %}
-  </div>
-
-  {% assign coming_soon_apps = homepage_apps | where: "status", "coming-soon" %}
-  {% if coming_soon_apps.size > 0 %}
-  <div class="subhead">Coming soon</div>
-  <div class="grid-compact">
-    {% for app in coming_soon_apps %}
+      {% endfor %}
+      {% for app in section_soon %}
     <div class="card-c soon">
       <div class="card-c-head">
         <img class="c-icon" src="/assets/img/icons/{{ app.slug }}.svg" alt="" width="36" height="36">
-        <h3>{% if app.has_page == false %}{{ app.name | escape }}{% else %}<a href="/apps/{{ app.slug }}">{{ app.name | escape }}</a>{% endif %}{% if app.product %} <span class="chip-product">{{ app.product | escape }}</span>{% endif %} <span class="badge-soon-inline">Coming soon</span></h3>
+        <h3>{% if app.has_page == false %}{{ app.name | escape }}{% else %}<a href="/apps/{{ app.slug }}">{{ app.name | escape }}</a>{% endif %} <span class="badge-soon-inline">Coming soon</span></h3>
       </div>
       <p>{{ app.description | escape }}</p>
       {% unless app.has_page == false %}
@@ -104,9 +106,10 @@ description: "CloudScript.io builds practical, purpose-driven apps for the Atlas
       </div>
       {% endunless %}
     </div>
-    {% endfor %}
+      {% endfor %}
   </div>
-  {% endif %}
+    {% endif %}
+  {% endfor %}
 
   {% comment %}
     Anonymous suggestion box. POSTs through FormSubmit (formsubmit.co), a

@@ -24,7 +24,7 @@ homepage_visible: true
 featured: false
 platform: Forge
 product: Confluence
-description: "For teams keeping emails as the record on a Confluence page (approvals, client instructions, incident correspondence), this macro renders the attached .msg or .eml original in place as a faithful email card: subject, sender, recipients, date, body, inline images and attachments. No vendor sits in the path: the email is read from your own Confluence, parsed in your browser, and written to no store outside it."
+description: "Renders a .msg or .eml file attached to a Confluence page as a faithful email card: subject, sender, recipients, date, body, inline images and attachments. Read from your own Confluence and parsed in your browser."
 marketplace_url: https://marketplace.atlassian.com/apps/2052211522/msg-eml-email-viewer-for-confluence
 badges: [runs-on-atlassian]
 stores_personal_data: "No"

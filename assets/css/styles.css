@@ -279,14 +279,6 @@ section { padding: 64px 0; }
   border: 1px solid var(--chip-border); border-radius: 999px; padding: 2px 9px; white-space: nowrap;
 }
 .card-c.soon { border-style: dashed; }
-/* Product chip (Confluence / Jira). Same pill family as .tag and
-   .badge-soon-inline but deliberately the quietest of the three — slate on
-   white — so it reads as a label, not a status, and never competes with
-   "Featured" or "Coming soon" sitting beside it in the same h3. */
-.chip-product {
-  font-size: 11px; font-weight: 600; color: var(--slate); background: #fff;
-  border: 1px solid var(--line); border-radius: 999px; padding: 2px 9px; white-space: nowrap;
-}
 
 /* "Suggest an app" band: copy + email link left, single-line form right */
 .suggest-band {
