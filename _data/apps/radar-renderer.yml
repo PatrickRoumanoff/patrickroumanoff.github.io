@@ -28,7 +28,7 @@ featured: true
 featured_label: New
 platform: Forge
 product: Confluence
-description: Paste a CSV or JSON blip list and get a quadrant tech radar rendered directly in your Confluence page, next to the documentation it explains. Works with Thoughtworks BYOR and Zalando radar.js formats. Zero scopes, zero egress.
+description: "Build a quadrant tech radar in your Confluence page: enter blips in a table, paste from a spreadsheet, or upload a CSV or radar.js JSON list. Works with Thoughtworks BYOR and Zalando radar.js formats. Zero scopes, zero egress."
 feature_image: /assets/img/features/radar-renderer.png
 feature_image_alt: A four-quadrant tech radar rendered in a Confluence page, its blips grouped by ring from Adopt to Hold.
 marketplace_url: https://marketplace.atlassian.com/apps/2543668212/tech-adoption-radar-for-confluence
